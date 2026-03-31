@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Studio 4★ Mamie Megève – Évasion au Mont Blanc</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN + config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neige: '#FDFBF7',
+            ardoise: '#4A4A4A',
+            sapin: '#2D4638',
+            miel: '#D4A373',
+            bois: '#8B5E3C',
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            lora: ['Lora', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+          },
+          boxShadow: {
+            soft: '0 18px 50px -20px rgba(0,0,0,.25)',
+            ring: '0 0 0 6px rgba(45,70,56,.18)'
+          },
+          container: { center: true, padding: { DEFAULT: '1rem', sm: '1.25rem', lg: '2rem' } }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth }
+    section { scroll-margin-top: 96px }
+
+    /* Helpers */
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; border-radius: 9999px; transition: filter .2s, transform .2s }
+    .btn:active { transform: translateY(1px) }
+    .btn-ghost { border: 1px solid #fff; color: #fff }
+    .btn-ghost:hover { background: rgba(255,255,255,.12) }
+    .btn-sapin { background: #2D4638; color: #fff; box-shadow: 0 0 0 6px rgba(45,70,56,.18) }
+    .btn-sapin:hover { filter: brightness(1.1) }
+
+    .card { border-radius: 18px; background: #fff; border: 1px solid rgba(0,0,0,.06); box-shadow: 0 18px 50px -20px rgba(0,0,0,.25) }
+    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .7rem; border-radius: 9999px; background: rgba(255,255,255,.85); backdrop-filter: saturate(120%) blur(4px); color: #111; border: 1px solid rgba(0,0,0,.06) }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease }
+    .reveal.inview { opacity: 1; transform: none }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none } }
+
+    /* Equipment Icons Animation */
+    .equipment-icon { transition: transform .2s ease; background: #fff; border: 1px solid rgba(0, 0, 0, 0.05); }
+    .equipment-icon:hover { transform: translateY(-4px); background: #fdfbf7; }
+
+    /* Carousel */
+    #photos-track::-webkit-scrollbar { display: none }
+    #photos-track { scrollbar-width: none }
+    .slide-container { min-width: 100%; display: flex; gap: 16px; padding: 0 8px; box-sizing: border-box; scroll-snap-align: start }
+    .slide { flex: 1; max-width: calc(50% - 8px); height: 350px; object-fit: cover; border-radius: 14px; box-shadow: 0 12px 30px -14px rgba(0,0,0,.35) }
+    
+    @media (max-width: 768px) {
+      .slide { max-width: 100%; }
+    }
+    
+    .edge-fade { position: absolute; inset-block: 0; width: 48px; pointer-events: none }
+  </style>
+</head>
+
+<body class="bg-neige text-ardoise">
+
+<!-- HEADER -->
+<header class="fixed inset-x-0 top-0 z-50 bg-sapin/90 backdrop-blur border-b border-white/10">
+  <nav class="container h-24 flex items-center justify-between text-white">
+    <a href="#" class="flex items-center gap-3">
+      <div class="h-12 w-12 bg-white/20 rounded-lg flex items-center justify-center font-cinzel text-xl font-bold">M</div>
+      <div class="flex flex-col">
+        <span class="font-lora text-lg tracking-widest uppercase">Mamie Megève</span>
+        <span class="text-[10px] uppercase tracking-[0.2em] opacity-70">Studio de Prestige</span>
+      </div>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 font-lora">
+      <li><a href="#apropos" class="hover:text-miel transition-colors">Le Studio</a></li>
+      <li><a href="#photos" class="hover:text-miel transition-colors">Photos</a></li>
+      <li><a href="#equipements" class="hover:text-miel transition-colors">Confort</a></li>
+      <li><a href="#localisation" class="hover:text-miel transition-colors">Accès</a></li>
+      <li><a href="#activites" class="hover:text-miel transition-colors">Activités</a></li>
+      <li><a href="#tarifs" class="hover:text-miel transition-colors">Réservation</a></li>
+    </ul>
+
+    <div class="hidden md:flex items-center gap-3">
+      <a href="#tarifs" class="btn btn-ghost hover:border-miel hover:text-miel">Réserver</a>
+    </div>
+
+    <button id="menuBtn" class="md:hidden p-2 rounded hover:bg-white/10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="text-2xl leading-none text-white">☰</span>
+    </button>
+  </nav>
+
+  <!-- MENU MOBILE -->
+  <div id="mobileMenu" class="md:hidden hidden bg-sapin shadow-xl">
+    <ul class="container py-6 text-white space-y-4 font-lora">
+      <li><a href="#apropos" class="block py-2">Le Studio</a></li>
+      <li><a href="#photos" class="block py-2">Photos</a></li>
+      <li><a href="#equipements" class="block py-2">Confort</a></li>
+      <li><a href="#localisation" class="block py-2">Accès</a></li>
+      <li><a href="#activites" class="block py-2">Activités</a></li>
+      <li><a href="#tarifs" class="block py-2 text-miel font-semibold underline underline-offset-4">Réserver maintenant</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="relative h-screen min-h-[600px] flex items-center">
+    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+
+    <!-- wave transition -->
+    <svg class="absolute -bottom-1 left-0 w-full rotate-180" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#FDFBF7" d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,120L0,120Z"/>
+    </svg>
+
+    <div class="container relative z-10 text-white max-w-2xl ml-0 md:ml-12">
+      <div class="mb-4 inline-block px-4 py-1 rounded-full bg-miel/20 backdrop-blur-md border border-miel/30 text-miel font-lora text-sm tracking-widest uppercase reveal">
+        Expérience 4 Étoiles
+      </div>
+      <h1 class="font-cinzel text-5xl md:text-7xl drop-shadow-lg reveal leading-tight">
+        L'Art de Vivre <br/><span class="text-miel">à Megève</span>
+      </h1>
+      <p class="mt-6 font-playfair text-xl md:text-2xl opacity-90 reveal max-w-lg leading-relaxed">
+        Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois et du domaine du Mont-Blanc.
+      </p>
+      <div class="mt-10 flex gap-4 reveal">
+        <a href="#tarifs" class="btn btn-sapin px-8 text-lg">Voir les disponibilités</a>
+        <a href="#photos" class="btn btn-ghost px-8 text-lg">Visite virtuelle</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- À propos -->
+  <section id="apropos" class="container py-24">
+    <div class="grid gap-16 md:grid-cols-2 md:items-center">
+      <div class="relative reveal">
+        <img src="image/immeuble.jpg" alt="Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover rounded-2xl shadow-soft">
+        <div class="absolute -bottom-8 -right-8 h-48 w-48 bg-sapin rounded-2xl hidden lg:flex items-center justify-center p-8 text-center text-white font-cinzel text-lg border-8 border-neige">
+          25m²<br/>de pur confort
+        </div>
+      </div>
+      <div class="space-y-6 reveal">
+        <h2 class="font-cinzel text-4xl text-ardoise">Un Refuge Alpin Insolite</h2>
+        <p class="font-playfair text-lg md:text-xl text-ardoise/80 leading-relaxed">
+          Bienvenue dans notre studio privatif situé dans les hauteurs du village de Megève, au sein du célèbre hôtel 4 étoiles <strong>Mamie Megève</strong>. 
+          Alliant charme vintage et confort moderne, cet espace de 25m² a été pensé pour les amoureux de la montagne en quête d'authenticité.
+        </p>
+        <p class="font-playfair text-lg md:text-xl text-ardoise/80 leading-relaxed">
+          Profitez d'un balcon privé pour vos petits-déjeuners face aux sommets et d'un accès privilégié aux <strong>Portes du domaine du Mont Blanc</strong>. 
+          Situé dans le quartier calme des Princes, vous bénéficiez du calme absolu tout en restant à proximité immédiate de l'effervescence du village.
+        </p>
+        <div class="pt-4 flex flex-wrap gap-8">
+          <div><span class="block text-2xl font-bold text-sapin">3 pers.</span><span class="text-sm uppercase tracking-wider opacity-60">Capacité</span></div>
+          <div><span class="block text-2xl font-bold text-sapin">25m²</span><span class="text-sm uppercase tracking-wider opacity-60">Superficie</span></div>
+          <div><span class="block text-2xl font-bold text-sapin">Privatif</span><span class="text-sm uppercase tracking-wider opacity-60">Parking</span></div>
+        </div>
+        <div class="pt-4 border-t border-ardoise/10">
+          <p class="font-lora text-sapin font-semibold italic">Configuration des couchages :</p>
+          <p class="font-playfair text-ardoise/70">1 lit escamotable double et 1 lit superposé 1 place</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photos -->
+  <section id="photos" class="bg-ardoise/5 py-24">
+    <div class="container">
+      <div class="text-center mb-12 reveal">
+        <h2 class="font-cinzel text-4xl mb-4">Le Studio en images</h2>
+        <p class="font-playfair text-xl text-ardoise/60">Découvrez l'ambiance chaleureuse de votre futur séjour</p>
+      </div>
+
+      <div class="relative card p-4 reveal bg-white">
+        <!-- Track -->
+        <div id="photos-track" class="flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory rounded-[14px]">
+          <div class="slide-container">
+            <img src="image/studio1.jpg" alt="Intérieur Studio 1" class="slide" loading="lazy">
+            <img src="image/studio2.jpg" alt="Intérieur Studio 2" class="slide" loading="lazy">
+          </div>
+          <div class="slide-container">
+            <img src="image/studio3.jpg" alt="Intérieur Studio 3" class="slide" loading="lazy">
+            <img src="image/studio4.jpg" alt="Intérieur Studio 4" class="slide" loading="lazy">
+          </div>
+          <div class="slide-container">
+            <img src="image/studio5.jpg" alt="Intérieur Studio 5" class="slide" loading="lazy">
+            <img src="image/studio6.jpg" alt="Intérieur Studio 6" class="slide" loading="lazy">
+          </div>
+          <div class="slide-container">
+            <img src="image/studio7.jpg" alt="Intérieur Studio 7" class="slide" loading="lazy">
+            <img src="image/stidio.jpg" alt="Intérieur Studio 8" class="slide" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <button id="photos-prev" type="button" aria-label="Précédent"
+          class="absolute left-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 shadow-xl border border-black/5 hover:bg-white transition-all text-2xl">
+          ‹
+        </button>
+        <button id="photos-next" type="button" aria-label="Suivant"
+          class="absolute right-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 shadow-xl border border-black/5 hover:bg-white transition-all text-2xl">
+          ›
+        </button>
+
+        <!-- Dots -->
+        <div id="photos-dots" class="mt-6 flex items-center justify-center gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Équipements -->
+  <section id="equipements" class="py-24 bg-sapin text-white overflow-hidden">
+    <div class="container relative">
+      <div class="absolute -top-10 -right-10 h-64 w-64 bg-white/5 rounded-full blur-3xl"></div>
+      
+      <h2 class="font-cinzel text-4xl text-center mb-16 reveal">Prestations & Confort</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 reveal">
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🎿</span>
+          <span class="font-lora text-lg">Local à skis & vestiaire</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🚗</span>
+          <span class="font-lora text-lg">Place de parking privée</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">👶</span>
+          <span class="font-lora text-lg">Lits bébé gratuits</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">⛰️</span>
+          <span class="font-lora text-lg">Balcon privé</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🛏️</span>
+          <span class="font-lora text-lg">Literie de qualité supérieure</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">📺</span>
+          <span class="font-lora text-lg">TV LCD & Numérique</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🧹</span>
+          <span class="font-lora text-lg">Ménage quotidien</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🚿</span>
+          <span class="font-lora text-lg">Salle de bain privée</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localisation -->
+  <section id="localisation" class="container py-24">
+    <div class="text-center mb-16 reveal">
+      <h2 class="font-cinzel text-4xl mb-4">Emplacement Privilégié</h2>
+      <p class="font-playfair text-xl text-ardoise/60">Quartier des Princes, Megève</p>
+    </div>
+    
+    <div class="grid gap-12 md:grid-cols-2 md:items-center">
+      <div class="card overflow-hidden reveal h-[450px]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.637!2d6.618!3d45.857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478950!2sMamie%20Megève!5e0!3m2!1sfr!2sfr!4v1700000000000"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="space-y-8 reveal">
+        <div class="flex gap-6">
+          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">🎿</div>
+          <div>
+            <h3 class="font-lora text-xl font-bold mb-1">Accès Pistes</h3>
+            <p class="text-ardoise/70">
+              Station Mont d'Arbois à 1 min à pied.<br/>
+              Station de ski de Megève à 2 min à pied.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">🚠</div>
+          <div>
+            <h3 class="font-lora text-xl font-bold mb-1">Remontées Mécaniques</h3>
+            <p class="text-ardoise/70">
+              Télécabine du Chamois à 13 min à pied.<br/>
+              Télécabine du Mont d’Arbois à 16 min à pied.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">📍</div>
+          <div>
+            <h3 class="font-lora text-xl font-bold mb-1">Village & Place Centrale</h3>
+            <p class="text-ardoise/70">À seulement 13 minutes à pied de l'effervescence du centre de Megève.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activités -->
+  <section id="activites" class="py-24 bg-neige">
+    <div class="container">
+      <h2 class="font-cinzel text-4xl text-center mb-16 reveal">Megève en toutes Saisons</h2>
+
+      <div class="grid gap-16">
+        <div class="grid gap-12 md:grid-cols-2 md:items-center">
+          <div class="relative reveal group">
+            <img src="image/montagne.jpg" alt="Le domaine skiable" class="w-full h-[400px] object-cover rounded-2xl shadow-soft">
+            <div class="absolute inset-0 bg-sapin/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+          </div>
+          <div class="space-y-6 reveal">
+            <h3 class="font-cinzel text-2xl text-sapin uppercase tracking-widest">Hiver : Glisse & Féerie</h3>
+            <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
+              Avec ses 400km de pistes, le domaine Évasion Mont-Blanc est un paradis pour tous les skieurs. De la piste noire aux sentiers en forêt, les panoramas sur le Mont Blanc sont omniprésents. Le soir, laissez-vous porter par la magie des calèches et des illuminations du village.
+            </p>
+            <ul class="space-y-2 text-ardoise/70 font-lora">
+              <li>• Ski alpin & Snowboard</li>
+              <li>• Balades en calèche traditionnelles</li>
+              <li>• Patinoire de plein air</li>
+              <li>• Gastronomie étoilée</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid gap-12 md:grid-cols-2 md:items-center md:[&>*:first-child]:order-2">
+          <div class="relative reveal group">
+            <img src="image/ville.jpg" alt="Randonnée en été" class="w-full h-[400px] object-cover rounded-2xl shadow-soft">
+            <div class="absolute inset-0 bg-miel/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+          </div>
+          <div class="space-y-6 reveal">
+            <h3 class="font-cinzel text-2xl text-miel uppercase tracking-widest">Été : Nature & Art de Vivre</h3>
+            <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
+              Quand la neige fond, Megève dévoile ses plateaux alpins verdoyants. C'est le moment idéal pour les randonnées vers les lacs d'altitude, le VTT électrique ou une partie de golf face au Mont d'Arbois. Le village vit au rythme des festivals de jazz et des marchés locaux.
+            </p>
+            <ul class="space-y-2 text-ardoise/70 font-lora">
+              <li>• Randonnée Pédestre & VTT</li>
+              <li>• Golf du Mont d'Arbois</li>
+              <li>• Escalade & Canyoning</li>
+              <li>• Festivals culturels internationaux</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs & Disponibilités -->
+  <section id="tarifs" class="py-24 bg-ardoise text-white">
+    <div class="container text-center">
+      <h2 class="font-cinzel text-4xl mb-6 reveal">Votre Séjour d'Exception</h2>
+      <p class="font-playfair text-xl opacity-60 mb-16 reveal">Réservez en direct pour les meilleurs tarifs</p>
+      
+      <div class="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+        <div class="card p-10 reveal bg-sapin border-none shadow-2xl">
+          <div class="flex flex-col items-center gap-6">
+            <div class="h-16 w-16 rounded-full bg-white/10 flex items-center justify-center text-3xl">🗓️</div>
+            <h3 class="font-lora text-2xl font-semibold">Toute l'année</h3>
+            <p class="font-playfair text-lg opacity-80 leading-relaxed">
+              Le studio est ouvert hiver comme été pour vous faire profiter des charmes de Megève.
+            </p>
+          </div>
+        </div>
+        <div class="card p-10 reveal bg-white text-ardoise border-none shadow-2xl">
+          <div class="flex flex-col items-center gap-6">
+            <div class="h-16 w-16 rounded-full bg-miel/10 flex items-center justify-center text-3xl">💶</div>
+            <h3 class="font-lora text-2xl font-semibold">Tarif Flexible</h3>
+            <p class="font-playfair text-5xl text-sapin font-bold">À partir de <span class="text-6xl">115€</span></p>
+            <p class="text-sm italic opacity-60 font-lora">Tarif par nuit selon saison • Taxe de séjour non incluse</p>
+            <a href="mailto:contact@booking-megeve.fr" class="btn btn-sapin w-full py-4 text-xl mt-4">Contacter l'Hébergeur</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section hôte -->
+  <section class="container py-24 text-center">
+    <h2 class="font-cinzel text-4xl mb-8 reveal">Votre Hôte</h2>
+    <div class="relative inline-block reveal mb-8">
+      <div class="absolute inset-0 bg-miel blur-2xl opacity-20 rounded-full"></div>
+      <img src="https://ui-avatars.com/api/?name=Stéphane+L&background=2D4638&color=fff&size=200" alt="Avatar Hôte" class="relative mx-auto h-40 w-40 rounded-full object-cover shadow-soft border-4 border-white" />
+    </div>
+    <p class="max-w-2xl mx-auto font-playfair text-xl md:text-2xl italic text-ardoise/80 leading-relaxed reveal">
+      "Passionné par notre région, j'ai à cœur de vous offrir un séjour inoubliable à Megève. Le studio a été aménagé avec soin pour offrir tout le confort nécessaire après une journée sur les pistes ou en montagne."
+    </p>
+    <div class="mt-8 font-lora text-lg font-bold reveal">— Stéphane L.</div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-sapin text-white border-t border-white/5">
+  <div class="container py-20 grid gap-12 md:grid-cols-3 text-center md:text-left">
+    <div class="reveal">
+      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">LÉGAL</h3>
+      <ul class="space-y-4 font-lora text-white/60">
+        <li><a href="#" class="hover:text-white transition">Mentions légales</a></li>
+        <li><a href="#" class="hover:text-white transition">Politique de confidentialité</a></li>
+        <li><a href="#" class="hover:text-white transition">Règlement intérieur</a></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">CRÉDITS</h3>
+      <p class="font-lora text-white/60 leading-relaxed">
+        Site développé par Julian Grégoire<br/>
+        Design par Léana Zorzetto<br/>
+        © 2024 Megève Studio Mamie
+      </p>
+    </div>
+    <div class="reveal">
+      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">CONTACT</h3>
+      <p class="font-lora text-white/60 leading-relaxed">
+        Hôtel Mamie Megève<br/>
+        Route du Crêt, 74120 Megève<br/>
+        Email : contact@megeve-studio.fr
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- JS -->
+<script>
+  // Menu mobile
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn?.addEventListener('click', () => {
+    const open = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Close mobile menu on click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Header ombre au scroll
+  const header = document.querySelector('header');
+  const onScroll = () => {
+    if (window.scrollY > 20) {
+      header.classList.add('shadow-2xl', 'bg-sapin/95');
+      header.classList.remove('h-24');
+      header.classList.add('h-20');
+    } else {
+      header.classList.remove('shadow-2xl', 'bg-sapin/95');
+      header.classList.add('h-24');
+      header.classList.remove('h-20');
+    }
+  };
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Reveal au scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('inview'); io.unobserve(e.target); } });
+  }, { threshold: .14 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Carousel avec pastilles
+  (function() {
+    const track = document.getElementById('photos-track');
+    const prev = document.getElementById('photos-prev');
+    const next = document.getElementById('photos-next');
+    if (!track) return;
+
+    const containers = Array.from(track.children);
+    const count = containers.length;
+    let index = 0;
+
+    // Dots
+    const dotsC = document.getElementById('photos-dots');
+    if (dotsC) {
+      containers.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'h-3 w-3 rounded-full transition-all ' + (i === 0 ? 'bg-miel scale-125' : 'bg-gray-300');
+        b.setAttribute('aria-label', 'Aller à la diapositive ' + (i + 1));
+        b.addEventListener('click', () => go(i));
+        dotsC.appendChild(b);
+      });
+    }
+    const dots = dotsC ? Array.from(dotsC.children) : [];
+
+    function step() { return track.clientWidth }
+    
+    function go(i) {
+      index = Math.max(0, Math.min(count - 1, i));
+      track.scrollTo({ left: index * step(), behavior: 'smooth' });
+      updateDots();
+    }
+    
+    function updateDots() {
+      dots.forEach((d, k) => {
+        if (k === index) {
+          d.className = 'h-3 w-3 rounded-full transition-all bg-miel scale-125';
+        } else {
+          d.className = 'h-3 w-3 rounded-full transition-all bg-gray-300';
+        }
+      });
+    }
+
+    prev?.addEventListener('click', () => go(index - 1));
+    next?.addEventListener('click', () => go(index + 1));
+
+    let t;
+    track.addEventListener('scroll', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const s = step();
+        index = Math.round(track.scrollLeft / s);
+        updateDots();
+      }, 100);
+    });
+    
+    addEventListener('resize', () => track.scrollTo({ left: index * step() }));
+  })();
+</script>
+</body>
+</html>
