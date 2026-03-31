@@ -125,7 +125,7 @@
     <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
 
     <!-- wave transition -->
-    <svg class="absolute -bottom-1 left-0 w-full rotate-180" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="absolute bottom-[-1px] left-0 w-full -scale-x-100" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path fill="#FDFBF7" d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,120L0,120Z"/>
     </svg>
 
@@ -136,9 +136,8 @@
       <p class="mt-6 font-playfair text-xl md:text-2xl opacity-90 reveal max-w-2xl leading-relaxed">
         Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. <br class="hidden md:block"/>Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois et du domaine du Mont-Blanc.
       </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4 reveal">
+      <div class="mt-10 flex justify-center reveal">
         <a href="#tarifs" class="btn btn-sapin px-8 text-lg">Réserver maintenant</a>
-        <a href="#photos" class="btn btn-ghost px-8 text-lg">Visite virtuelle</a>
       </div>
     </div>
   </section>
@@ -382,6 +381,75 @@
             <a href="mailto:contact@booking-megeve.fr" class="btn btn-sapin w-full py-4 text-xl mt-4">Contacter l'Hébergeur</a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Avis Google -->
+  <section id="avis" class="py-24 bg-neige">
+    <div class="container">
+      <div class="text-center mb-16 reveal">
+        <h2 class="font-cinzel text-4xl mb-4">Avis de nos voyageurs</h2>
+        <div class="flex items-center justify-center gap-1 text-miel text-xl mb-2">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="font-playfair text-xl text-ardoise/60 italic">Une expérience 5 étoiles à Megève</p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3 reveal">
+        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
+          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="font-playfair text-lg text-ardoise italic mb-6">
+            "Un séjour magique ! Le studio est ultra-confortable et l'accès aux pistes en 1 minute est un vrai luxe."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">JM</div>
+            <div class="font-lora text-sm text-left">
+              <span class="block font-bold">Julie M.</span>
+              <span class="opacity-60 italic text-[12px]">Il y a 2 mois</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
+          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="font-playfair text-lg text-ardoise italic mb-6">
+            "L'emplacement au sein de l'hôtel Mamie Megève est top. On profite du calme des hauteurs tout en étant proche de tout."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">TR</div>
+            <div class="font-lora text-sm text-left">
+              <span class="block font-bold">Thomas R.</span>
+              <span class="opacity-60 italic text-[12px]">Il y a une semaine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
+          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="font-playfair text-lg text-ardoise italic mb-6">
+            "Le balcon avec vue sur les montagnes est incroyable pour le café du matin. Propreté impeccable."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">SL</div>
+            <div class="font-lora text-sm text-left">
+              <span class="block font-bold">Sophie L.</span>
+              <span class="opacity-60 italic text-[12px]">Il y a 3 semaines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center reveal">
+        <a href="https://www.google.com/maps" target="_blank" class="btn btn-ghost border-ardoise text-ardoise hover:bg-ardoise hover:text-white px-8">
+          Lire tous les avis sur Google
+        </a>
       </div>
     </div>
   </section>
