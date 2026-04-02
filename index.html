@@ -138,18 +138,19 @@
 
     /* ===== RESPONSIVE ===== */
 
-    /* Hero – use svh for real viewport on mobile, fallback to vh */
-    .hero-h { height: 70vh; height: 70svh; min-height: 480px; max-height: 720px; }
-    @media (max-width: 640px) {
-      .hero-h { height: 55vh; height: 55svh; min-height: 400px; max-height: 560px; }
+    /* Hero – Full height experience */
+    .hero-h { 
+      height: 100vh; 
+      height: 100svh; 
+      min-height: 500px;
     }
-    @media (min-width: 641px) and (max-height: 700px) {
-      .hero-h { height: auto; min-height: 420px; max-height: 560px; }
+    @media (max-width: 640px) {
+      .hero-h { height: 100vh; height: 100svh; }
     }
 
     /* Mobile-first typography clamp */
-    .hero-title { font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.25 }
-    .hero-sub   { font-size: clamp(.95rem, 1.8vw, 1.15rem) }
+    .hero-title { font-size: clamp(2rem, 8vw, 4rem); line-height: 1.1 }
+    .hero-sub   { font-size: clamp(0.95rem, 2vw, 1.25rem) }
 
     /* Small screens */
     @media (max-width: 480px) {
@@ -222,31 +223,43 @@
 
 <main>
   <!-- HERO -->
-  <section class="relative hero-h flex items-end overflow-hidden rounded-b-[2rem] sm:rounded-b-[2.5rem]">
+  <section class="relative hero-h flex items-center justify-center overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3.5rem]">
     <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover object-center" id="hero-img">
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60"></div>
 
-    <div class="container relative z-10 text-white pb-10 sm:pb-14 px-5 sm:px-6">
-      <div class="max-w-xl">
-        <div class="flex flex-wrap gap-2 mb-4 reveal">
-          <span class="chip text-xs">★★★★ Hôtel</span>
-          <span class="chip text-xs">🏔️ Mont Blanc</span>
-          <span class="chip text-xs">🎿 Pistes à 1 min</span>
+    <div class="container relative z-10 text-white text-center">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-2 mb-6 reveal">
+          <span class="chip text-xs bg-white/10 text-white border-white/20">★★★★ Hôtel</span>
+          <span class="chip text-xs bg-white/10 text-white border-white/20">🏔️ Mont Blanc</span>
+          <span class="chip text-xs bg-white/10 text-white border-white/20">🎿 Pistes à 1 min</span>
         </div>
 
-        <h1 class="font-lora hero-title font-semibold reveal">
-          Studio cosy à Megève, au pied du Mont d'Arbois
+        <h1 class="font-playfair hero-title font-bold reveal leading-tight tracking-tight">
+          Votre Évasion <span class="italic text-or italic">Privée</span> à Megève
         </h1>
-        <p class="mt-3 font-playfair hero-sub opacity-80 reveal max-w-lg leading-relaxed">
-          25m² · Balcon privé · Parking · Hôtel Mamie Megève
-        </p>
+        
+        <div class="mt-6 flex flex-col items-center gap-4 reveal">
+          <p class="font-lora hero-sub opacity-90 max-w-2xl leading-relaxed">
+            Studio cosy de 25m² avec balcon privé au cœur du Mont d'Arbois.<br class="hidden sm:block"> 
+            Découvrez l'élégance alpine au sein de l'Hôtel Mamie Megève.
+          </p>
+        </div>
 
-        <div class="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 reveal">
-          <a href="#tarifs" class="btn btn-miel text-sm sm:text-base px-7 shadow-glow">Réserver — dès 115€/nuit</a>
-          <a href="#photos" class="btn btn-ghost text-sm sm:text-base px-5">Voir les photos</a>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal">
+          <a href="#tarifs" class="btn btn-miel text-base px-10 shadow-glow">Réserver — dès 115€/nuit</a>
+          <a href="#photos" class="btn btn-ghost text-base px-8">Explorer le studio</a>
         </div>
       </div>
     </div>
+    
+    <!-- Défilement vers le bas -->
+    <a href="#apropos" class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 hover:opacity-100 transition-opacity">
+      <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
   </section>
 
   <!-- À propos -->
