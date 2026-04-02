@@ -135,6 +135,41 @@
 
     /* Subtle bg pattern */
     .bg-pattern { background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,.03) 1px, transparent 0); background-size: 40px 40px }
+
+    /* ===== RESPONSIVE ===== */
+
+    /* Hero – use svh for real viewport on mobile, fallback to vh */
+    .hero-h { height: 100vh; height: 100svh; }
+    @media (max-width: 640px) {
+      .hero-h { height: auto; min-height: 100svh; min-height: 100vh; }
+    }
+    @media (min-width: 641px) and (max-height: 700px) {
+      .hero-h { height: auto; min-height: 560px; }
+    }
+
+    /* Mobile-first typography clamp */
+    .hero-title { font-size: clamp(2.2rem, 6vw, 5.5rem); line-height: 1.1 }
+    .hero-sub   { font-size: clamp(1rem, 2.5vw, 1.5rem) }
+
+    /* Small screens */
+    @media (max-width: 480px) {
+      .btn { height: 44px; padding: 0 20px; font-size: .9rem }
+      .chip { font-size: .75rem; padding: .3rem .6rem }
+      .section-line { margin-bottom: 1rem }
+      .floating-cta { padding: 10px 12px }
+      .floating-cta .btn { height: 44px; font-size: .9rem }
+      .review-card::before { font-size: 3.5rem; top: -4px; left: 12px }
+    }
+
+    /* Medium screens */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .slide { height: 260px }
+    }
+
+    /* Large screens – cap hero at reasonable aspect ratio */
+    @media (min-width: 1440px) {
+      .hero-h { max-height: 900px; }
+    }
   </style>
 </head>
 
@@ -146,11 +181,11 @@
 <!-- HEADER -->
 <header class="fixed inset-x-0 top-0 z-50 bg-sapin/80 backdrop-blur-xl border-b border-white/8 transition-all duration-500">
   <nav class="container h-20 flex items-center justify-between text-white">
-    <a href="#" class="flex items-center gap-3 group">
-      <div class="h-11 w-11 bg-gradient-to-br from-miel to-or rounded-xl flex items-center justify-center font-cinzel text-lg font-bold text-white shadow-lg group-hover:scale-105 transition-transform">M</div>
-      <div class="flex flex-col">
-        <span class="font-lora text-lg tracking-widest uppercase">Mamie Megève</span>
-        <span class="text-[10px] uppercase tracking-[0.25em] opacity-50 font-lora">Studio de Prestige</span>
+    <a href="#" class="flex items-center gap-2 sm:gap-3 group min-w-0">
+      <div class="h-10 w-10 sm:h-11 sm:w-11 bg-gradient-to-br from-miel to-or rounded-xl flex items-center justify-center font-cinzel text-base sm:text-lg font-bold text-white shadow-lg group-hover:scale-105 transition-transform shrink-0">M</div>
+      <div class="flex flex-col min-w-0">
+        <span class="font-lora text-base sm:text-lg tracking-widest uppercase truncate">Mamie Megève</span>
+        <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] opacity-50 font-lora hidden xs:block">Studio de Prestige</span>
       </div>
     </a>
 
@@ -187,36 +222,36 @@
 
 <main>
   <!-- HERO -->
-  <section class="relative h-screen min-h-[640px] flex items-center overflow-hidden">
-    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover scale-105" id="hero-img">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
+  <section class="relative hero-h flex items-end sm:items-center overflow-hidden">
+    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover object-center" id="hero-img">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/65"></div>
 
     <!-- wave transition -->
-    <svg class="absolute bottom-[-1px] left-0 w-full -scale-x-100" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="absolute bottom-[-1px] left-0 w-full -scale-x-100" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
       <path fill="#FDFBF7" d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,120L0,120Z"/>
     </svg>
 
-    <div class="container relative z-10 text-white flex flex-col items-center text-center py-20 px-4">
+    <div class="container relative z-10 text-white flex flex-col items-center text-center pt-28 sm:pt-20 pb-36 sm:pb-28 px-5 sm:px-4">
       <!-- Badges -->
-      <div class="flex flex-wrap gap-3 justify-center mb-8 reveal">
-        <span class="chip text-xs"><span>★★★★</span> Hôtel</span>
-        <span class="chip text-xs">🏔️ Mont Blanc</span>
-        <span class="chip text-xs">🎿 Ski-in / Ski-out</span>
+      <div class="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8 reveal">
+        <span class="chip"><span>★★★★</span> Hôtel</span>
+        <span class="chip">🏔️ Mont Blanc</span>
+        <span class="chip">🎿 Ski-in / Ski-out</span>
       </div>
 
-      <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl drop-shadow-2xl reveal leading-[1.1]">
+      <h1 class="font-cinzel hero-title drop-shadow-2xl reveal">
         L'Art de Vivre <br/><span class="text-gradient">à Megève</span>
       </h1>
-      <p class="mt-8 font-playfair text-lg md:text-2xl opacity-85 reveal max-w-2xl leading-relaxed">
+      <p class="mt-5 sm:mt-8 font-playfair hero-sub opacity-85 reveal max-w-2xl leading-relaxed">
         Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. <br class="hidden md:block"/>Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois.
       </p>
-      <div class="mt-10 flex flex-wrap gap-4 justify-center reveal">
-        <a href="#tarifs" class="btn btn-miel px-10 text-lg shadow-glow">Réserver maintenant</a>
-        <a href="#photos" class="btn btn-ghost px-8 text-lg">Découvrir →</a>
+      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto reveal">
+        <a href="#tarifs" class="btn btn-miel px-10 text-base sm:text-lg shadow-glow">Réserver maintenant</a>
+        <a href="#photos" class="btn btn-ghost px-8 text-base sm:text-lg">Découvrir →</a>
       </div>
 
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-float">
+      <!-- Scroll indicator – hidden on very small screens -->
+      <div class="hidden sm:flex absolute bottom-24 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-60 animate-float">
         <span class="text-xs font-lora tracking-widest uppercase">Découvrir</span>
         <svg width="20" height="28" viewBox="0 0 20 28" fill="none" class="text-white"><rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="9" r="2" fill="currentColor" class="animate-bounce"/></svg>
       </div>
@@ -224,8 +259,8 @@
   </section>
 
   <!-- À propos -->
-  <section id="apropos" class="container py-28">
-    <div class="grid gap-16 lg:gap-20 md:grid-cols-2 md:items-center">
+  <section id="apropos" class="container py-16 sm:py-28">
+    <div class="grid gap-10 sm:gap-16 lg:gap-20 md:grid-cols-2 md:items-center">
       <div class="relative reveal-left">
         <div class="absolute -inset-4 bg-gradient-to-br from-miel/20 to-transparent rounded-3xl blur-2xl"></div>
         <img src="image/immeuble.jpg" alt="Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover rounded-3xl shadow-card">
@@ -247,9 +282,9 @@
           Profitez d'un balcon privé pour vos petits-déjeuners face aux sommets et d'un accès privilégié aux <strong class="text-sapin">Portes du domaine du Mont Blanc</strong>. 
           Situé dans le quartier calme des Princes, vous bénéficiez du calme absolu tout en restant à proximité immédiate de l'effervescence du village.
         </p>
-        <div class="pt-6 grid grid-cols-3 gap-4">
-          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
-            <span class="block text-2xl font-bold text-sapin font-cinzel">3</span>
+        <div class="pt-6 grid grid-cols-3 gap-2 sm:gap-4">
+          <div class="text-center p-3 sm:p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
+            <span class="block text-xl sm:text-2xl font-bold text-sapin font-cinzel">3</span>
             <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Pers. max</span>
           </div>
           <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
@@ -273,7 +308,7 @@
   </section>
 
   <!-- Photos -->
-  <section id="photos" class="bg-white/50 py-28">
+  <section id="photos" class="bg-white/50 py-16 sm:py-28">
     <div class="container">
       <div class="text-center mb-14 reveal">
         <div class="section-line"></div>
@@ -319,7 +354,7 @@
   </section>
 
   <!-- Équipements -->
-  <section id="equipements" class="py-28 bg-sapin text-white overflow-hidden relative">
+  <section id="equipements" class="py-16 sm:py-28 bg-sapin text-white overflow-hidden relative">
     <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjAuNSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvc3ZnPg==')] opacity-50"></div>
     <div class="container relative">
       <div class="absolute -top-20 -right-20 h-80 w-80 bg-miel/10 rounded-full blur-[100px]"></div>
@@ -330,7 +365,7 @@
         <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl">Prestations & <span class="text-miel">Confort</span></h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 reveal stagger">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 md:gap-6 reveal stagger">
         <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
           <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🎿</span>
           <span class="font-lora text-base md:text-lg">Local à skis & vestiaire</span>
@@ -368,7 +403,7 @@
   </section>
 
   <!-- Localisation -->
-  <section id="localisation" class="container py-24">
+  <section id="localisation" class="container py-16 sm:py-28">
     <div class="text-center mb-16 reveal">
       <h2 class="font-cinzel text-4xl mb-4">Emplacement Privilégié</h2>
       <p class="font-playfair text-xl text-ardoise/60">Quartier des Princes, Megève</p>
@@ -414,7 +449,7 @@
   </section>
 
   <!-- Activités -->
-  <section id="activites" class="py-28 bg-neige bg-pattern">
+  <section id="activites" class="py-16 sm:py-28 bg-neige bg-pattern">
     <div class="container">
       <div class="text-center mb-16 reveal">
         <div class="section-line"></div>
@@ -422,10 +457,10 @@
       </div>
 
       <div class="grid gap-20">
-        <div class="grid gap-12 md:grid-cols-2 md:items-center">
+        <div class="grid gap-8 sm:gap-12 md:grid-cols-2 md:items-center">
           <div class="relative reveal-left group">
             <div class="absolute -inset-3 bg-gradient-to-br from-sapin/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img src="image/montagne.jpg" alt="Le domaine skiable" class="relative w-full h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
+            <img src="image/montagne.jpg" alt="Le domaine skiable" class="relative w-full h-[280px] sm:h-[380px] md:h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
           </div>
           <div class="space-y-6 reveal-right">
             <h3 class="font-cinzel text-xl md:text-2xl text-sapin uppercase tracking-widest">Hiver : Glisse & Féerie</h3>
@@ -441,10 +476,10 @@
           </div>
         </div>
 
-        <div class="grid gap-12 md:grid-cols-2 md:items-center md:[&>*:first-child]:order-2">
+        <div class="grid gap-8 sm:gap-12 md:grid-cols-2 md:items-center md:[&>*:first-child]:order-2">
           <div class="relative reveal-right group">
             <div class="absolute -inset-3 bg-gradient-to-br from-miel/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img src="image/ville.jpg" alt="Randonnée en été" class="relative w-full h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
+            <img src="image/ville.jpg" alt="Randonnée en été" class="relative w-full h-[280px] sm:h-[380px] md:h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
           </div>
           <div class="space-y-6 reveal-left">
             <h3 class="font-cinzel text-xl md:text-2xl text-miel uppercase tracking-widest">Été : Nature & Art de Vivre</h3>
@@ -464,7 +499,7 @@
   </section>
 
   <!-- Tarifs & Disponibilités -->
-  <section id="tarifs" class="py-28 bg-ardoise text-white relative overflow-hidden">
+  <section id="tarifs" class="py-16 sm:py-28 bg-ardoise text-white relative overflow-hidden">
     <div class="absolute -top-40 -right-40 h-96 w-96 bg-miel/10 rounded-full blur-[120px]"></div>
     <div class="absolute -bottom-40 -left-40 h-80 w-80 bg-sapin/30 rounded-full blur-[100px]"></div>
     <div class="container text-center relative">
@@ -474,8 +509,8 @@
         <p class="font-playfair text-lg opacity-50 mb-16">Réservez en direct pour les meilleurs tarifs</p>
       </div>
       
-      <div class="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-        <div class="rounded-3xl p-10 reveal glass hover:bg-white/10 transition-all">
+      <div class="grid gap-6 sm:gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+        <div class="rounded-3xl p-8 sm:p-10 reveal glass hover:bg-white/10 transition-all">
           <div class="flex flex-col items-center gap-6">
             <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl">🗓️</div>
             <h3 class="font-lora text-2xl font-semibold">Toute l'année</h3>
@@ -484,13 +519,13 @@
             </p>
           </div>
         </div>
-        <div class="rounded-3xl p-10 reveal bg-white text-ardoise shadow-2xl hover:shadow-glow transition-all">
+        <div class="rounded-3xl p-8 sm:p-10 reveal bg-white text-ardoise shadow-2xl hover:shadow-glow transition-all">
           <div class="flex flex-col items-center gap-6">
             <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-miel/20 to-or/10 flex items-center justify-center text-3xl">💶</div>
             <h3 class="font-lora text-2xl font-semibold">Tarif Flexible</h3>
             <div class="font-playfair">
               <span class="text-sm text-ardoise/50 block">À partir de</span>
-              <span class="text-6xl md:text-7xl font-bold text-gradient">115€</span>
+              <span class="text-5xl sm:text-6xl md:text-7xl font-bold text-gradient">115€</span>
               <span class="text-sm text-ardoise/50 block mt-1">/nuit</span>
             </div>
             <p class="text-sm italic opacity-50 font-lora">Tarif selon saison • Taxe de séjour non incluse</p>
@@ -502,7 +537,7 @@
   </section>
  
   <!-- Avis Google -->
-  <section id="avis" class="py-28 bg-white/50">
+  <section id="avis" class="py-16 sm:py-28 bg-white/50">
     <div class="container">
       <div class="text-center mb-16 reveal">
         <div class="section-line"></div>
@@ -572,7 +607,7 @@
   </section>
 
   <!-- Section hôte -->
-  <section class="container py-28 text-center">
+  <section class="container py-16 sm:py-28 text-center">
     <div class="max-w-3xl mx-auto">
       <div class="reveal">
         <div class="section-line"></div>
@@ -694,13 +729,13 @@
     }, { passive: true });
   }
 
-  // Hero parallax effect
+  // Hero parallax effect (desktop only – skip on mobile for perf)
   const heroImg = document.getElementById('hero-img');
-  if (heroImg) {
+  if (heroImg && window.matchMedia('(min-width: 640px)').matches) {
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y < window.innerHeight) {
-        heroImg.style.transform = 'scale(1.05) translateY(' + (y * 0.3) + 'px)';
+        heroImg.style.transform = 'translateY(' + (y * 0.2) + 'px)';
       }
     }, { passive: true });
   }
