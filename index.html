@@ -6,7 +6,7 @@
   <title>Studio 4★ Mamie Megève – Évasion au Mont Blanc</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CDN + config -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,10 +16,11 @@
         extend: {
           colors: {
             neige: '#FDFBF7',
-            ardoise: '#4A4A4A',
+            ardoise: '#3A3A3A',
             sapin: '#2D4638',
             miel: '#D4A373',
             bois: '#8B5E3C',
+            or: '#C9A96E',
           },
           fontFamily: {
             cinzel: ['Cinzel', 'serif'],
@@ -28,9 +29,23 @@
           },
           boxShadow: {
             soft: '0 18px 50px -20px rgba(0,0,0,.25)',
-            ring: '0 0 0 6px rgba(45,70,56,.18)'
+            glow: '0 0 40px rgba(212,163,115,.25)',
+            card: '0 8px 32px -8px rgba(0,0,0,.12), 0 2px 8px -2px rgba(0,0,0,.06)',
+            'card-hover': '0 20px 48px -12px rgba(0,0,0,.18), 0 4px 12px -2px rgba(0,0,0,.08)',
           },
-          container: { center: true, padding: { DEFAULT: '1rem', sm: '1.25rem', lg: '2rem' } }
+          container: { center: true, padding: { DEFAULT: '1.25rem', sm: '1.5rem', lg: '2.5rem' } },
+          keyframes: {
+            'fade-up': { '0%': { opacity: '0', transform: 'translateY(24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            'slide-left': { '0%': { opacity: '0', transform: 'translateX(40px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+          },
+          animation: {
+            'fade-up': 'fade-up .8s cubic-bezier(.22,1,.36,1) forwards',
+            'fade-in': 'fade-in .6s ease forwards',
+            'slide-left': 'slide-left .7s cubic-bezier(.22,1,.36,1) forwards',
+            float: 'float 4s ease-in-out infinite',
+          },
         }
       }
     }
@@ -38,91 +53,143 @@
 
   <style>
     html { scroll-behavior: smooth }
-    section { scroll-margin-top: 96px }
+    section { scroll-margin-top: 80px }
+
+    /* Scroll progress */
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #D4A373, #C9A96E, #D4A373); z-index: 100; width: 0%; transition: width .1s linear; }
 
     /* Helpers */
-    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; border-radius: 9999px; transition: filter .2s, transform .2s }
-    .btn:active { transform: translateY(1px) }
-    .btn-ghost { border: 1px solid #fff; color: #fff }
-    .btn-ghost:hover { background: rgba(255,255,255,.12) }
-    .btn-sapin { background: #2D4638; color: #fff; box-shadow: 0 0 0 6px rgba(45,70,56,.18) }
-    .btn-sapin:hover { filter: brightness(1.1) }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; border-radius: 9999px; font-weight: 500; letter-spacing: .02em; transition: all .3s cubic-bezier(.22,1,.36,1) }
+    .btn:active { transform: translateY(1px) scale(.98) }
+    .btn-ghost { border: 1.5px solid rgba(255,255,255,.5); color: #fff; backdrop-filter: blur(4px) }
+    .btn-ghost:hover { background: rgba(255,255,255,.15); border-color: #fff }
+    .btn-sapin { background: linear-gradient(135deg, #2D4638, #3a5a48); color: #fff; box-shadow: 0 4px 20px rgba(45,70,56,.3) }
+    .btn-sapin:hover { box-shadow: 0 8px 30px rgba(45,70,56,.4); transform: translateY(-2px) }
+    .btn-miel { background: linear-gradient(135deg, #D4A373, #C9A96E); color: #fff; box-shadow: 0 4px 20px rgba(212,163,115,.3) }
+    .btn-miel:hover { box-shadow: 0 8px 30px rgba(212,163,115,.4); transform: translateY(-2px) }
 
-    .card { border-radius: 18px; background: #fff; border: 1px solid rgba(0,0,0,.06); box-shadow: 0 18px 50px -20px rgba(0,0,0,.25) }
-    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .7rem; border-radius: 9999px; background: rgba(255,255,255,.85); backdrop-filter: saturate(120%) blur(4px); color: #111; border: 1px solid rgba(0,0,0,.06) }
+    .card { border-radius: 20px; background: #fff; border: 1px solid rgba(0,0,0,.05); box-shadow: 0 8px 32px -8px rgba(0,0,0,.12); transition: box-shadow .4s ease, transform .4s ease }
+    .card:hover { box-shadow: 0 20px 48px -12px rgba(0,0,0,.18); transform: translateY(-4px) }
+    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .85rem; border-radius: 9999px; background: rgba(255,255,255,.9); backdrop-filter: saturate(140%) blur(8px); color: #111; border: 1px solid rgba(255,255,255,.3); font-size: .85rem; font-weight: 500 }
+
+    /* Gradient text */
+    .text-gradient { background: linear-gradient(135deg, #D4A373 0%, #C9A96E 50%, #D4A373 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text }
+
+    /* Glass */
+    .glass { background: rgba(255,255,255,.06); backdrop-filter: saturate(180%) blur(14px); border: 1px solid rgba(255,255,255,.12) }
 
     /* Reveal */
-    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
     .reveal.inview { opacity: 1; transform: none }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none } }
+    .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
+    .reveal-left.inview { opacity: 1; transform: none }
+    .reveal-right { opacity: 0; transform: translateX(30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
+    .reveal-right.inview { opacity: 1; transform: none }
+    @media (prefers-reduced-motion: reduce) { .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; transition: none } }
+
+    /* Stagger children */
+    .stagger > * { opacity: 0; transform: translateY(16px); transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1) }
+    .stagger.inview > *:nth-child(1) { transition-delay: 0ms }
+    .stagger.inview > *:nth-child(2) { transition-delay: 80ms }
+    .stagger.inview > *:nth-child(3) { transition-delay: 160ms }
+    .stagger.inview > *:nth-child(4) { transition-delay: 240ms }
+    .stagger.inview > *:nth-child(5) { transition-delay: 320ms }
+    .stagger.inview > *:nth-child(6) { transition-delay: 400ms }
+    .stagger.inview > *:nth-child(7) { transition-delay: 480ms }
+    .stagger.inview > *:nth-child(8) { transition-delay: 560ms }
+    .stagger.inview > * { opacity: 1; transform: none }
 
     /* Equipment Icons Animation */
-    .equipment-icon { transition: transform .2s ease; background: #fff; border: 1px solid rgba(0, 0, 0, 0.05); }
-    .equipment-icon:hover { transform: translateY(-4px); background: #fdfbf7; }
+    .equipment-icon { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease; background: #fff; border: 1px solid rgba(0, 0, 0, 0.05); }
+    .equipment-icon:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
 
     /* Carousel */
     #photos-track::-webkit-scrollbar { display: none }
     #photos-track { scrollbar-width: none }
     .slide-container { min-width: 100%; display: flex; gap: 16px; padding: 0 8px; box-sizing: border-box; scroll-snap-align: start }
-    .slide { flex: 1; max-width: calc(50% - 8px); height: 350px; object-fit: cover; border-radius: 14px; box-shadow: 0 12px 30px -14px rgba(0,0,0,.35) }
+    .slide { flex: 1; max-width: calc(50% - 8px); height: 380px; object-fit: cover; border-radius: 16px; box-shadow: 0 12px 30px -14px rgba(0,0,0,.3); transition: transform .4s ease, box-shadow .4s ease }
+    .slide:hover { transform: scale(1.02); box-shadow: 0 18px 40px -14px rgba(0,0,0,.4) }
     
     @media (max-width: 768px) {
-      .slide { max-width: 100%; }
+      .slide { max-width: 100%; height: 280px }
     }
-    
-    .edge-fade { position: absolute; inset-block: 0; width: 48px; pointer-events: none }
+
+    /* Section dividers */
+    .section-line { width: 60px; height: 3px; background: linear-gradient(90deg, #D4A373, #C9A96E); border-radius: 2px; margin: 0 auto 1.5rem }
+
+    /* Stat counter */
+    .stat-value { font-variant-numeric: tabular-nums }
+
+    /* Review quote */
+    .review-card::before { content: '"'; position: absolute; top: -8px; left: 16px; font-size: 5rem; line-height: 1; font-family: 'Playfair Display', serif; color: rgba(212,163,115,.15); pointer-events: none }
+
+    /* Floating mobile CTA */
+    .floating-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 49; padding: 12px 16px; background: rgba(253,251,247,.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(0,0,0,.06); transform: translateY(100%); transition: transform .4s cubic-bezier(.22,1,.36,1) }
+    .floating-cta.visible { transform: translateY(0) }
+
+    /* Hamburger animation */
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px) }
+    .hamburger.active span:nth-child(2) { opacity: 0 }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px) }
+
+    /* Subtle bg pattern */
+    .bg-pattern { background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,.03) 1px, transparent 0); background-size: 40px 40px }
   </style>
 </head>
 
-<body class="bg-neige text-ardoise">
+<body class="bg-neige text-ardoise bg-pattern">
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
 
 <!-- HEADER -->
-<header class="fixed inset-x-0 top-0 z-50 bg-sapin/90 backdrop-blur border-b border-white/10">
-  <nav class="container h-24 flex items-center justify-between text-white">
-    <a href="#" class="flex items-center gap-3">
-      <div class="h-12 w-12 bg-white/20 rounded-lg flex items-center justify-center font-cinzel text-xl font-bold">M</div>
+<header class="fixed inset-x-0 top-0 z-50 bg-sapin/80 backdrop-blur-xl border-b border-white/8 transition-all duration-500">
+  <nav class="container h-20 flex items-center justify-between text-white">
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="h-11 w-11 bg-gradient-to-br from-miel to-or rounded-xl flex items-center justify-center font-cinzel text-lg font-bold text-white shadow-lg group-hover:scale-105 transition-transform">M</div>
       <div class="flex flex-col">
         <span class="font-lora text-lg tracking-widest uppercase">Mamie Megève</span>
-        <span class="text-[10px] uppercase tracking-[0.2em] opacity-70">Studio de Prestige</span>
+        <span class="text-[10px] uppercase tracking-[0.25em] opacity-50 font-lora">Studio de Prestige</span>
       </div>
     </a>
 
-    <ul class="hidden md:flex items-center gap-8 font-lora">
-      <li><a href="#apropos" class="hover:text-miel transition-colors">Le Studio</a></li>
-      <li><a href="#photos" class="hover:text-miel transition-colors">Photos</a></li>
-      <li><a href="#equipements" class="hover:text-miel transition-colors">Confort</a></li>
-      <li><a href="#localisation" class="hover:text-miel transition-colors">Accès</a></li>
-      <li><a href="#activites" class="hover:text-miel transition-colors">Activités</a></li>
-      <li><a href="#tarifs" class="hover:text-miel transition-colors">Réservation</a></li>
+    <ul class="hidden md:flex items-center gap-7 font-lora text-[15px]">
+      <li><a href="#apropos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Le Studio</a></li>
+      <li><a href="#photos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Photos</a></li>
+      <li><a href="#equipements" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Confort</a></li>
+      <li><a href="#localisation" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Accès</a></li>
+      <li><a href="#activites" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Activités</a></li>
+      <li><a href="#tarifs" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Réservation</a></li>
     </ul>
 
     <div class="hidden md:flex items-center gap-3">
-      <a href="#tarifs" class="btn btn-ghost hover:border-miel hover:text-miel">Réserver</a>
+      <a href="#tarifs" class="btn btn-miel text-sm">Réserver</a>
     </div>
 
-    <button id="menuBtn" class="md:hidden p-2 rounded hover:bg-white/10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span class="text-2xl leading-none text-white">☰</span>
+    <button id="menuBtn" class="hamburger md:hidden p-2 rounded-lg hover:bg-white/10 flex flex-col gap-[5px] items-center justify-center h-10 w-10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
   <!-- MENU MOBILE -->
-  <div id="mobileMenu" class="md:hidden hidden bg-sapin shadow-xl">
-    <ul class="container py-6 text-white space-y-4 font-lora">
-      <li><a href="#apropos" class="block py-2">Le Studio</a></li>
-      <li><a href="#photos" class="block py-2">Photos</a></li>
-      <li><a href="#equipements" class="block py-2">Confort</a></li>
-      <li><a href="#localisation" class="block py-2">Accès</a></li>
-      <li><a href="#activites" class="block py-2">Activités</a></li>
-      <li><a href="#tarifs" class="block py-2 text-miel font-semibold underline underline-offset-4">Réserver maintenant</a></li>
+  <div id="mobileMenu" class="md:hidden hidden bg-sapin/95 backdrop-blur-xl shadow-2xl">
+    <ul class="container py-8 text-white space-y-3 font-lora">
+      <li><a href="#apropos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Le Studio</a></li>
+      <li><a href="#photos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Photos</a></li>
+      <li><a href="#equipements" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Confort</a></li>
+      <li><a href="#localisation" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Accès</a></li>
+      <li><a href="#activites" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Activités</a></li>
+      <li class="pt-2"><a href="#tarifs" class="btn btn-miel w-full text-center">Réserver maintenant</a></li>
     </ul>
   </div>
 </header>
 
 <main>
   <!-- HERO -->
-  <section class="relative h-screen min-h-[600px] flex items-center">
-    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+  <section class="relative h-screen min-h-[640px] flex items-center overflow-hidden">
+    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover scale-105" id="hero-img">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
 
     <!-- wave transition -->
     <svg class="absolute bottom-[-1px] left-0 w-full -scale-x-100" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -130,61 +197,93 @@
     </svg>
 
     <div class="container relative z-10 text-white flex flex-col items-center text-center py-20 px-4">
-      <h1 class="font-cinzel text-5xl md:text-7xl drop-shadow-lg reveal leading-tight">
-        L'Art de Vivre <br/><span class="text-miel">à Megève</span>
+      <!-- Badges -->
+      <div class="flex flex-wrap gap-3 justify-center mb-8 reveal">
+        <span class="chip text-xs"><span>★★★★</span> Hôtel</span>
+        <span class="chip text-xs">🏔️ Mont Blanc</span>
+        <span class="chip text-xs">🎿 Ski-in / Ski-out</span>
+      </div>
+
+      <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl drop-shadow-2xl reveal leading-[1.1]">
+        L'Art de Vivre <br/><span class="text-gradient">à Megève</span>
       </h1>
-      <p class="mt-6 font-playfair text-xl md:text-2xl opacity-90 reveal max-w-2xl leading-relaxed">
-        Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. <br class="hidden md:block"/>Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois et du domaine du Mont-Blanc.
+      <p class="mt-8 font-playfair text-lg md:text-2xl opacity-85 reveal max-w-2xl leading-relaxed">
+        Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. <br class="hidden md:block"/>Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois.
       </p>
-      <div class="mt-10 flex justify-center reveal">
-        <a href="#tarifs" class="btn btn-sapin px-8 text-lg">Réserver maintenant</a>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center reveal">
+        <a href="#tarifs" class="btn btn-miel px-10 text-lg shadow-glow">Réserver maintenant</a>
+        <a href="#photos" class="btn btn-ghost px-8 text-lg">Découvrir →</a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-float">
+        <span class="text-xs font-lora tracking-widest uppercase">Découvrir</span>
+        <svg width="20" height="28" viewBox="0 0 20 28" fill="none" class="text-white"><rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="9" r="2" fill="currentColor" class="animate-bounce"/></svg>
       </div>
     </div>
   </section>
 
   <!-- À propos -->
-  <section id="apropos" class="container py-24">
-    <div class="grid gap-16 md:grid-cols-2 md:items-center">
-      <div class="relative reveal">
-        <img src="image/immeuble.jpg" alt="Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover rounded-2xl shadow-soft">
-        <div class="absolute -bottom-8 -right-8 h-48 w-48 bg-sapin rounded-2xl hidden lg:flex items-center justify-center p-8 text-center text-white font-cinzel text-lg border-8 border-neige">
-          25m²<br/>de pur confort
+  <section id="apropos" class="container py-28">
+    <div class="grid gap-16 lg:gap-20 md:grid-cols-2 md:items-center">
+      <div class="relative reveal-left">
+        <div class="absolute -inset-4 bg-gradient-to-br from-miel/20 to-transparent rounded-3xl blur-2xl"></div>
+        <img src="image/immeuble.jpg" alt="Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover rounded-3xl shadow-card">
+        <div class="absolute -bottom-6 -right-6 h-44 w-44 bg-gradient-to-br from-sapin to-sapin/90 rounded-2xl hidden lg:flex items-center justify-center p-6 text-center text-white font-cinzel text-lg shadow-xl">
+          <div>
+            <span class="block text-4xl font-bold stat-value" data-count="25">25</span>
+            <span class="text-sm opacity-80 mt-1 block">m² de confort</span>
+          </div>
         </div>
       </div>
-      <div class="space-y-6 reveal">
-        <h2 class="font-cinzel text-4xl text-ardoise">Un Refuge Alpin Insolite</h2>
-        <p class="font-playfair text-lg md:text-xl text-ardoise/80 leading-relaxed">
-          Bienvenue dans notre studio privatif situé dans les hauteurs du village de Megève, au sein du célèbre hôtel 4 étoiles <strong>Mamie Megève</strong>. 
+      <div class="space-y-6 reveal-right">
+        <div class="section-line !ml-0"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-ardoise leading-tight">Un Refuge Alpin<br/><span class="text-gradient">Insolite</span></h2>
+        <p class="font-playfair text-lg text-ardoise/75 leading-relaxed">
+          Bienvenue dans notre studio privatif situé dans les hauteurs du village de Megève, au sein du célèbre hôtel 4 étoiles <strong class="text-sapin">Mamie Megève</strong>. 
           Alliant charme vintage et confort moderne, cet espace de 25m² a été pensé pour les amoureux de la montagne en quête d'authenticité.
         </p>
-        <p class="font-playfair text-lg md:text-xl text-ardoise/80 leading-relaxed">
-          Profitez d'un balcon privé pour vos petits-déjeuners face aux sommets et d'un accès privilégié aux <strong>Portes du domaine du Mont Blanc</strong>. 
+        <p class="font-playfair text-lg text-ardoise/75 leading-relaxed">
+          Profitez d'un balcon privé pour vos petits-déjeuners face aux sommets et d'un accès privilégié aux <strong class="text-sapin">Portes du domaine du Mont Blanc</strong>. 
           Situé dans le quartier calme des Princes, vous bénéficiez du calme absolu tout en restant à proximité immédiate de l'effervescence du village.
         </p>
-        <div class="pt-4 flex flex-wrap gap-8">
-          <div><span class="block text-2xl font-bold text-sapin">3 pers.</span><span class="text-sm uppercase tracking-wider opacity-60">Capacité</span></div>
-          <div><span class="block text-2xl font-bold text-sapin">25m²</span><span class="text-sm uppercase tracking-wider opacity-60">Superficie</span></div>
-          <div><span class="block text-2xl font-bold text-sapin">Privatif</span><span class="text-sm uppercase tracking-wider opacity-60">Parking</span></div>
+        <div class="pt-6 grid grid-cols-3 gap-4">
+          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
+            <span class="block text-2xl font-bold text-sapin font-cinzel">3</span>
+            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Pers. max</span>
+          </div>
+          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
+            <span class="block text-2xl font-bold text-sapin font-cinzel">25m²</span>
+            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Surface</span>
+          </div>
+          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
+            <span class="block text-2xl font-bold text-sapin font-cinzel">1</span>
+            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Parking</span>
+          </div>
         </div>
-        <div class="pt-4 border-t border-ardoise/10">
-          <p class="font-lora text-sapin font-semibold italic">Configuration des couchages :</p>
-          <p class="font-playfair text-ardoise/70">1 lit escamotable double et 1 lit superposé 1 place</p>
+        <div class="pt-4 border-t border-ardoise/8">
+          <p class="font-lora text-sapin font-semibold italic flex items-center gap-2">
+            <span class="inline-block h-5 w-5 rounded-full bg-miel/20 text-center text-xs leading-5">🛏️</span>
+            Configuration des couchages :
+          </p>
+          <p class="font-playfair text-ardoise/65 mt-1">1 lit escamotable double et 1 lit superposé 1 place</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Photos -->
-  <section id="photos" class="bg-ardoise/5 py-24">
+  <section id="photos" class="bg-white/50 py-28">
     <div class="container">
-      <div class="text-center mb-12 reveal">
-        <h2 class="font-cinzel text-4xl mb-4">Le Studio en images</h2>
-        <p class="font-playfair text-xl text-ardoise/60">Découvrez l'ambiance chaleureuse de votre futur séjour</p>
+      <div class="text-center mb-14 reveal">
+        <div class="section-line"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Le Studio <span class="text-gradient">en images</span></h2>
+        <p class="font-playfair text-lg text-ardoise/50 max-w-lg mx-auto">Découvrez l'ambiance chaleureuse de votre futur séjour</p>
       </div>
 
-      <div class="relative card p-4 reveal bg-white">
+      <div class="relative card p-4 md:p-5 reveal bg-white">
         <!-- Track -->
-        <div id="photos-track" class="flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory rounded-[14px]">
+        <div id="photos-track" class="flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory rounded-2xl">
           <div class="slide-container">
             <img src="image/studio1.jpg" alt="Intérieur Studio 1" class="slide" loading="lazy">
             <img src="image/studio2.jpg" alt="Intérieur Studio 2" class="slide" loading="lazy">
@@ -205,59 +304,64 @@
 
         <!-- Controls -->
         <button id="photos-prev" type="button" aria-label="Précédent"
-          class="absolute left-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 shadow-xl border border-black/5 hover:bg-white transition-all text-2xl">
+          class="absolute left-3 md:left-7 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/95 shadow-xl border border-black/5 hover:bg-white hover:scale-110 transition-all text-xl text-ardoise">
           ‹
         </button>
         <button id="photos-next" type="button" aria-label="Suivant"
-          class="absolute right-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 shadow-xl border border-black/5 hover:bg-white transition-all text-2xl">
+          class="absolute right-3 md:right-7 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/95 shadow-xl border border-black/5 hover:bg-white hover:scale-110 transition-all text-xl text-ardoise">
           ›
         </button>
 
         <!-- Dots -->
-        <div id="photos-dots" class="mt-6 flex items-center justify-center gap-3"></div>
+        <div id="photos-dots" class="mt-6 flex items-center justify-center gap-2"></div>
       </div>
     </div>
   </section>
 
   <!-- Équipements -->
-  <section id="equipements" class="py-24 bg-sapin text-white overflow-hidden">
+  <section id="equipements" class="py-28 bg-sapin text-white overflow-hidden relative">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjAuNSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvc3ZnPg==')] opacity-50"></div>
     <div class="container relative">
-      <div class="absolute -top-10 -right-10 h-64 w-64 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute -top-20 -right-20 h-80 w-80 bg-miel/10 rounded-full blur-[100px]"></div>
+      <div class="absolute -bottom-20 -left-20 h-60 w-60 bg-white/5 rounded-full blur-[80px]"></div>
       
-      <h2 class="font-cinzel text-4xl text-center mb-16 reveal">Prestations & Confort</h2>
+      <div class="text-center mb-16 reveal">
+        <div class="section-line !bg-gradient-to-r !from-miel/60 !to-or/60"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl">Prestations & <span class="text-miel">Confort</span></h2>
+      </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 reveal">
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🎿</span>
-          <span class="font-lora text-lg">Local à skis & vestiaire</span>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 reveal stagger">
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🎿</span>
+          <span class="font-lora text-base md:text-lg">Local à skis & vestiaire</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🚗</span>
-          <span class="font-lora text-lg">Place de parking privée</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🚗</span>
+          <span class="font-lora text-base md:text-lg">Place de parking privée</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">👶</span>
-          <span class="font-lora text-lg">Lits bébé gratuits</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">👶</span>
+          <span class="font-lora text-base md:text-lg">Lits bébé gratuits</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">⛰️</span>
-          <span class="font-lora text-lg">Balcon privé</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">⛰️</span>
+          <span class="font-lora text-base md:text-lg">Balcon privé</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🛏️</span>
-          <span class="font-lora text-lg">Literie de qualité supérieure</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🛏️</span>
+          <span class="font-lora text-base md:text-lg">Literie de qualité supérieure</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">📺</span>
-          <span class="font-lora text-lg">TV LCD & Numérique</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">📺</span>
+          <span class="font-lora text-base md:text-lg">TV LCD & Numérique</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🧹</span>
-          <span class="font-lora text-lg">Ménage quotidien</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🧹</span>
+          <span class="font-lora text-base md:text-lg">Ménage quotidien</span>
         </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-          <span class="equipment-icon grid place-items-center h-16 w-16 rounded-full text-sapin text-2xl">🚿</span>
-          <span class="font-lora text-lg">Salle de bain privée</span>
+        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
+          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🚿</span>
+          <span class="font-lora text-base md:text-lg">Salle de bain privée</span>
         </div>
       </div>
     </div>
@@ -310,45 +414,48 @@
   </section>
 
   <!-- Activités -->
-  <section id="activites" class="py-24 bg-neige">
+  <section id="activites" class="py-28 bg-neige bg-pattern">
     <div class="container">
-      <h2 class="font-cinzel text-4xl text-center mb-16 reveal">Megève en toutes Saisons</h2>
+      <div class="text-center mb-16 reveal">
+        <div class="section-line"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl">Megève en toutes <span class="text-gradient">Saisons</span></h2>
+      </div>
 
-      <div class="grid gap-16">
+      <div class="grid gap-20">
         <div class="grid gap-12 md:grid-cols-2 md:items-center">
-          <div class="relative reveal group">
-            <img src="image/montagne.jpg" alt="Le domaine skiable" class="w-full h-[400px] object-cover rounded-2xl shadow-soft">
-            <div class="absolute inset-0 bg-sapin/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+          <div class="relative reveal-left group">
+            <div class="absolute -inset-3 bg-gradient-to-br from-sapin/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <img src="image/montagne.jpg" alt="Le domaine skiable" class="relative w-full h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
           </div>
-          <div class="space-y-6 reveal">
-            <h3 class="font-cinzel text-2xl text-sapin uppercase tracking-widest">Hiver : Glisse & Féerie</h3>
+          <div class="space-y-6 reveal-right">
+            <h3 class="font-cinzel text-xl md:text-2xl text-sapin uppercase tracking-widest">Hiver : Glisse & Féerie</h3>
             <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
               Avec ses 400km de pistes, le domaine Évasion Mont-Blanc est un paradis pour tous les skieurs. De la piste noire aux sentiers en forêt, les panoramas sur le Mont Blanc sont omniprésents. Le soir, laissez-vous porter par la magie des calèches et des illuminations du village.
             </p>
-            <ul class="space-y-2 text-ardoise/70 font-lora">
-              <li>• Ski alpin & Snowboard</li>
-              <li>• Balades en calèche traditionnelles</li>
-              <li>• Patinoire de plein air</li>
-              <li>• Gastronomie étoilée</li>
+            <ul class="space-y-3 text-ardoise/65 font-lora">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Ski alpin & Snowboard</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Balades en calèche traditionnelles</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Patinoire de plein air</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Gastronomie étoilée</li>
             </ul>
           </div>
         </div>
 
         <div class="grid gap-12 md:grid-cols-2 md:items-center md:[&>*:first-child]:order-2">
-          <div class="relative reveal group">
-            <img src="image/ville.jpg" alt="Randonnée en été" class="w-full h-[400px] object-cover rounded-2xl shadow-soft">
-            <div class="absolute inset-0 bg-miel/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+          <div class="relative reveal-right group">
+            <div class="absolute -inset-3 bg-gradient-to-br from-miel/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <img src="image/ville.jpg" alt="Randonnée en été" class="relative w-full h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
           </div>
-          <div class="space-y-6 reveal">
-            <h3 class="font-cinzel text-2xl text-miel uppercase tracking-widest">Été : Nature & Art de Vivre</h3>
+          <div class="space-y-6 reveal-left">
+            <h3 class="font-cinzel text-xl md:text-2xl text-miel uppercase tracking-widest">Été : Nature & Art de Vivre</h3>
             <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
               Quand la neige fond, Megève dévoile ses plateaux alpins verdoyants. C'est le moment idéal pour les randonnées vers les lacs d'altitude, le VTT électrique ou une partie de golf face au Mont d'Arbois. Le village vit au rythme des festivals de jazz et des marchés locaux.
             </p>
-            <ul class="space-y-2 text-ardoise/70 font-lora">
-              <li>• Randonnée Pédestre & VTT</li>
-              <li>• Golf du Mont d'Arbois</li>
-              <li>• Escalade & Canyoning</li>
-              <li>• Festivals culturels internationaux</li>
+            <ul class="space-y-3 text-ardoise/65 font-lora">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Randonnée Pédestre & VTT</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Golf du Mont d'Arbois</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Escalade & Canyoning</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Festivals culturels internationaux</li>
             </ul>
           </div>
         </div>
@@ -357,28 +464,37 @@
   </section>
 
   <!-- Tarifs & Disponibilités -->
-  <section id="tarifs" class="py-24 bg-ardoise text-white">
-    <div class="container text-center">
-      <h2 class="font-cinzel text-4xl mb-6 reveal">Votre Séjour d'Exception</h2>
-      <p class="font-playfair text-xl opacity-60 mb-16 reveal">Réservez en direct pour les meilleurs tarifs</p>
+  <section id="tarifs" class="py-28 bg-ardoise text-white relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-96 w-96 bg-miel/10 rounded-full blur-[120px]"></div>
+    <div class="absolute -bottom-40 -left-40 h-80 w-80 bg-sapin/30 rounded-full blur-[100px]"></div>
+    <div class="container text-center relative">
+      <div class="reveal">
+        <div class="section-line !bg-gradient-to-r !from-miel/60 !to-or/60"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Votre Séjour <span class="text-miel">d'Exception</span></h2>
+        <p class="font-playfair text-lg opacity-50 mb-16">Réservez en direct pour les meilleurs tarifs</p>
+      </div>
       
       <div class="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-        <div class="card p-10 reveal bg-sapin border-none shadow-2xl">
+        <div class="rounded-3xl p-10 reveal glass hover:bg-white/10 transition-all">
           <div class="flex flex-col items-center gap-6">
-            <div class="h-16 w-16 rounded-full bg-white/10 flex items-center justify-center text-3xl">🗓️</div>
+            <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl">🗓️</div>
             <h3 class="font-lora text-2xl font-semibold">Toute l'année</h3>
-            <p class="font-playfair text-lg opacity-80 leading-relaxed">
+            <p class="font-playfair text-lg opacity-70 leading-relaxed">
               Le studio est ouvert hiver comme été pour vous faire profiter des charmes de Megève.
             </p>
           </div>
         </div>
-        <div class="card p-10 reveal bg-white text-ardoise border-none shadow-2xl">
+        <div class="rounded-3xl p-10 reveal bg-white text-ardoise shadow-2xl hover:shadow-glow transition-all">
           <div class="flex flex-col items-center gap-6">
-            <div class="h-16 w-16 rounded-full bg-miel/10 flex items-center justify-center text-3xl">💶</div>
+            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-miel/20 to-or/10 flex items-center justify-center text-3xl">💶</div>
             <h3 class="font-lora text-2xl font-semibold">Tarif Flexible</h3>
-            <p class="font-playfair text-5xl text-sapin font-bold">À partir de <span class="text-6xl">115€</span></p>
-            <p class="text-sm italic opacity-60 font-lora">Tarif par nuit selon saison • Taxe de séjour non incluse</p>
-            <a href="mailto:contact@booking-megeve.fr" class="btn btn-sapin w-full py-4 text-xl mt-4">Contacter l'Hébergeur</a>
+            <div class="font-playfair">
+              <span class="text-sm text-ardoise/50 block">À partir de</span>
+              <span class="text-6xl md:text-7xl font-bold text-gradient">115€</span>
+              <span class="text-sm text-ardoise/50 block mt-1">/nuit</span>
+            </div>
+            <p class="text-sm italic opacity-50 font-lora">Tarif selon saison • Taxe de séjour non incluse</p>
+            <a href="mailto:contact@booking-megeve.fr" class="btn btn-sapin w-full py-4 text-lg mt-2">Contacter l'Hébergeur</a>
           </div>
         </div>
       </div>
@@ -386,110 +502,122 @@
   </section>
  
   <!-- Avis Google -->
-  <section id="avis" class="py-24 bg-neige">
+  <section id="avis" class="py-28 bg-white/50">
     <div class="container">
       <div class="text-center mb-16 reveal">
-        <h2 class="font-cinzel text-4xl mb-4">Avis de nos voyageurs</h2>
-        <div class="flex items-center justify-center gap-1 text-miel text-xl mb-2">
+        <div class="section-line"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Avis de nos <span class="text-gradient">voyageurs</span></h2>
+        <div class="flex items-center justify-center gap-1.5 text-miel text-xl mb-3">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-        <p class="font-playfair text-xl text-ardoise/60 italic">Une expérience 5 étoiles à Megève</p>
+        <p class="font-playfair text-lg text-ardoise/50 italic">Une expérience 5 étoiles à Megève</p>
       </div>
 
-      <div class="grid gap-8 md:grid-cols-3 reveal">
-        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
-          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+      <div class="grid gap-6 md:grid-cols-3 reveal stagger">
+        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
+          <div class="flex items-center gap-1 text-miel text-sm mb-5">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="font-playfair text-lg text-ardoise italic mb-6">
+          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
             "Un séjour magique ! Le studio est ultra-confortable et l'accès aux pistes en 1 minute est un vrai luxe."
           </p>
-          <div class="flex items-center gap-4">
-            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">JM</div>
+          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
+            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">JM</div>
             <div class="font-lora text-sm text-left">
               <span class="block font-bold">Julie M.</span>
-              <span class="opacity-60 italic text-[12px]">Il y a 2 mois</span>
+              <span class="opacity-50 italic text-[12px]">Il y a 2 mois</span>
             </div>
           </div>
         </div>
 
-        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
-          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
+          <div class="flex items-center gap-1 text-miel text-sm mb-5">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="font-playfair text-lg text-ardoise italic mb-6">
+          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
             "L'emplacement au sein de l'hôtel Mamie Megève est top. On profite du calme des hauteurs tout en étant proche de tout."
           </p>
-          <div class="flex items-center gap-4">
-            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">TR</div>
+          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
+            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">TR</div>
             <div class="font-lora text-sm text-left">
               <span class="block font-bold">Thomas R.</span>
-              <span class="opacity-60 italic text-[12px]">Il y a une semaine</span>
+              <span class="opacity-50 italic text-[12px]">Il y a une semaine</span>
             </div>
           </div>
         </div>
 
-        <div class="card p-8 bg-white border border-black/5 hover:border-miel/30 transition-colors">
-          <div class="flex items-center gap-1 text-miel text-sm mb-4">
+        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
+          <div class="flex items-center gap-1 text-miel text-sm mb-5">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="font-playfair text-lg text-ardoise italic mb-6">
+          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
             "Le balcon avec vue sur les montagnes est incroyable pour le café du matin. Propreté impeccable."
           </p>
-          <div class="flex items-center gap-4">
-            <div class="h-10 w-10 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-bold text-sm">SL</div>
+          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
+            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">SL</div>
             <div class="font-lora text-sm text-left">
               <span class="block font-bold">Sophie L.</span>
-              <span class="opacity-60 italic text-[12px]">Il y a 3 semaines</span>
+              <span class="opacity-50 italic text-[12px]">Il y a 3 semaines</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-16 text-center reveal">
-        <a href="https://www.google.com/maps" target="_blank" class="btn btn-ghost border-ardoise text-ardoise hover:bg-ardoise hover:text-white px-8">
-          Lire tous les avis sur Google
+      <div class="mt-14 text-center reveal">
+        <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="btn border-1.5 border-ardoise/20 text-ardoise hover:bg-sapin hover:text-white hover:border-sapin px-10 transition-all">
+          Lire tous les avis sur Google →
         </a>
       </div>
     </div>
   </section>
 
   <!-- Section hôte -->
-  <section class="container py-24 text-center">
-    <h2 class="font-cinzel text-4xl mb-8 reveal">Votre Hôte</h2>
-    <div class="relative inline-block reveal mb-8">
-      <div class="absolute inset-0 bg-miel blur-2xl opacity-20 rounded-full"></div>
-      <img src="https://ui-avatars.com/api/?name=Stéphane+L&background=2D4638&color=fff&size=200" alt="Avatar Hôte" class="relative mx-auto h-40 w-40 rounded-full object-cover shadow-soft border-4 border-white" />
+  <section class="container py-28 text-center">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal">
+        <div class="section-line"></div>
+        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-10">Votre <span class="text-gradient">Hôte</span></h2>
+      </div>
+      <div class="relative inline-block reveal mb-10">
+        <div class="absolute -inset-4 bg-gradient-to-br from-miel/30 to-or/10 blur-3xl rounded-full"></div>
+        <img src="https://ui-avatars.com/api/?name=Stéphane+L&background=2D4638&color=fff&size=200" alt="Avatar Hôte" class="relative mx-auto h-36 w-36 rounded-full object-cover shadow-xl border-[3px] border-white ring-4 ring-miel/20" />
+      </div>
+      <p class="max-w-2xl mx-auto font-playfair text-xl md:text-2xl italic text-ardoise/70 leading-relaxed reveal">
+        "Passionné par notre région, j'ai à cœur de vous offrir un séjour inoubliable à Megève. Le studio a été aménagé avec soin pour offrir tout le confort nécessaire après une journée sur les pistes ou en montagne."
+      </p>
+      <div class="mt-8 font-lora text-lg font-bold text-sapin reveal">— Stéphane L.</div>
     </div>
-    <p class="max-w-2xl mx-auto font-playfair text-xl md:text-2xl italic text-ardoise/80 leading-relaxed reveal">
-      "Passionné par notre région, j'ai à cœur de vous offrir un séjour inoubliable à Megève. Le studio a été aménagé avec soin pour offrir tout le confort nécessaire après une journée sur les pistes ou en montagne."
-    </p>
-    <div class="mt-8 font-lora text-lg font-bold reveal">— Stéphane L.</div>
   </section>
 </main>
 
+<!-- Floating mobile CTA -->
+<div class="floating-cta md:hidden" id="floatingCta">
+  <a href="#tarifs" class="btn btn-miel w-full text-center shadow-glow">Réserver — à partir de 115€/nuit</a>
+</div>
+
 <!-- Footer -->
-<footer class="bg-sapin text-white border-t border-white/5">
+<footer class="bg-sapin text-white relative overflow-hidden">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-miel/30 to-transparent"></div>
   <div class="container py-20 grid gap-12 md:grid-cols-3 text-center md:text-left">
     <div class="reveal">
-      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">LÉGAL</h3>
-      <ul class="space-y-4 font-lora text-white/60">
-        <li><a href="#" class="hover:text-white transition">Mentions légales</a></li>
-        <li><a href="#" class="hover:text-white transition">Politique de confidentialité</a></li>
-        <li><a href="#" class="hover:text-white transition">Règlement intérieur</a></li>
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">LÉGAL</h3>
+      <ul class="space-y-4 font-lora text-white/50 text-[15px]">
+        <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Règlement intérieur</a></li>
       </ul>
     </div>
     <div class="reveal">
-      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">CRÉDITS</h3>
-      <p class="font-lora text-white/60 leading-relaxed">
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CRÉDITS</h3>
+      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
         Site développé par Julian Grégoire<br/>
         Design par Léana Zorzetto<br/>
         © 2024 Megève Studio Mamie
       </p>
     </div>
     <div class="reveal">
-      <h3 class="font-cinzel text-lg mb-6 tracking-widest text-miel">CONTACT</h3>
-      <p class="font-lora text-white/60 leading-relaxed">
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CONTACT</h3>
+      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
         Hôtel Mamie Megève<br/>
         Route du Crêt, 74120 Megève<br/>
         Email : contact@megeve-studio.fr
@@ -500,12 +628,13 @@
 
 <!-- JS -->
 <script>
-  // Menu mobile
+  // Menu mobile with hamburger animation
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('mobileMenu');
   btn?.addEventListener('click', () => {
     const open = !menu.classList.contains('hidden');
     menu.classList.toggle('hidden');
+    btn.classList.toggle('active');
     btn.setAttribute('aria-expanded', String(!open));
   });
 
@@ -513,30 +642,96 @@
   menu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       menu.classList.add('hidden');
+      btn.classList.remove('active');
       btn.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // Header ombre au scroll
-  const header = document.querySelector('header');
-  const onScroll = () => {
-    if (window.scrollY > 20) {
-      header.classList.add('shadow-2xl', 'bg-sapin/95');
-      header.classList.remove('h-24');
-      header.classList.add('h-20');
-    } else {
-      header.classList.remove('shadow-2xl', 'bg-sapin/95');
-      header.classList.add('h-24');
-      header.classList.remove('h-20');
-    }
-  };
-  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = progress + '%';
+  }
 
-  // Reveal au scroll
+  // Header shrink on scroll
+  const header = document.querySelector('header');
+  const navEl = header?.querySelector('nav');
+  function onScroll() {
+    const scrolled = window.scrollY > 40;
+    header.classList.toggle('shadow-2xl', scrolled);
+    header.classList.toggle('bg-sapin/95', scrolled);
+    if (navEl) {
+      navEl.classList.toggle('h-16', scrolled);
+      navEl.classList.toggle('h-20', !scrolled);
+    }
+    updateProgress();
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Floating CTA visibility
+  const floatingCta = document.getElementById('floatingCta');
+  const tarifsSection = document.getElementById('tarifs');
+  if (floatingCta && tarifsSection) {
+    const ctaObserver = new IntersectionObserver(([entry]) => {
+      // Hide when tarifs section is visible, show otherwise once scrolled past hero
+      if (entry.isIntersecting || window.scrollY < window.innerHeight * 0.5) {
+        floatingCta.classList.remove('visible');
+      } else {
+        floatingCta.classList.add('visible');
+      }
+    }, { threshold: 0.1 });
+    ctaObserver.observe(tarifsSection);
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < window.innerHeight * 0.5) {
+        floatingCta.classList.remove('visible');
+      } else if (!tarifsSection.getBoundingClientRect || tarifsSection.getBoundingClientRect().top > window.innerHeight) {
+        floatingCta.classList.add('visible');
+      }
+    }, { passive: true });
+  }
+
+  // Hero parallax effect
+  const heroImg = document.getElementById('hero-img');
+  if (heroImg) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroImg.style.transform = 'scale(1.05) translateY(' + (y * 0.3) + 'px)';
+      }
+    }, { passive: true });
+  }
+
+  // Reveal on scroll (supports .reveal, .reveal-left, .reveal-right, .stagger)
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('inview'); io.unobserve(e.target); } });
-  }, { threshold: .14 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('inview');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => io.observe(el));
+
+  // Active nav link highlight
+  const navLinks = document.querySelectorAll('header nav a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute('href') === '#' + id;
+          link.classList.toggle('text-miel', isActive);
+          link.classList.toggle('after:w-full', isActive);
+        });
+      }
+    });
+  }, { threshold: .3, rootMargin: '-80px 0px -50% 0px' });
+  sections.forEach(s => navObserver.observe(s));
 
   // Carousel avec pastilles
   (function() {
@@ -554,7 +749,7 @@
     if (dotsC) {
       containers.forEach((_, i) => {
         const b = document.createElement('button');
-        b.className = 'h-3 w-3 rounded-full transition-all ' + (i === 0 ? 'bg-miel scale-125' : 'bg-gray-300');
+        b.className = 'h-2.5 w-2.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-miel w-8' : 'bg-gray-300 hover:bg-gray-400');
         b.setAttribute('aria-label', 'Aller à la diapositive ' + (i + 1));
         b.addEventListener('click', () => go(i));
         dotsC.appendChild(b);
@@ -573,9 +768,9 @@
     function updateDots() {
       dots.forEach((d, k) => {
         if (k === index) {
-          d.className = 'h-3 w-3 rounded-full transition-all bg-miel scale-125';
+          d.className = 'h-2.5 rounded-full transition-all duration-300 bg-miel w-8';
         } else {
-          d.className = 'h-3 w-3 rounded-full transition-all bg-gray-300';
+          d.className = 'h-2.5 w-2.5 rounded-full transition-all duration-300 bg-gray-300 hover:bg-gray-400';
         }
       });
     }
