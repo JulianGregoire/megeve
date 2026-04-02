@@ -139,17 +139,17 @@
     /* ===== RESPONSIVE ===== */
 
     /* Hero – use svh for real viewport on mobile, fallback to vh */
-    .hero-h { height: 100vh; height: 100svh; }
+    .hero-h { height: 70vh; height: 70svh; min-height: 480px; max-height: 720px; }
     @media (max-width: 640px) {
-      .hero-h { height: auto; min-height: 100svh; min-height: 100vh; }
+      .hero-h { height: 55vh; height: 55svh; min-height: 400px; max-height: 560px; }
     }
     @media (min-width: 641px) and (max-height: 700px) {
-      .hero-h { height: auto; min-height: 560px; }
+      .hero-h { height: auto; min-height: 420px; max-height: 560px; }
     }
 
     /* Mobile-first typography clamp */
-    .hero-title { font-size: clamp(2.2rem, 6vw, 5.5rem); line-height: 1.1 }
-    .hero-sub   { font-size: clamp(1rem, 2.5vw, 1.5rem) }
+    .hero-title { font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.25 }
+    .hero-sub   { font-size: clamp(.95rem, 1.8vw, 1.15rem) }
 
     /* Small screens */
     @media (max-width: 480px) {
@@ -166,9 +166,9 @@
       .slide { height: 260px }
     }
 
-    /* Large screens – cap hero at reasonable aspect ratio */
+    /* Large screens – cap hero */
     @media (min-width: 1440px) {
-      .hero-h { max-height: 900px; }
+      .hero-h { max-height: 720px; }
     }
   </style>
 </head>
@@ -222,38 +222,29 @@
 
 <main>
   <!-- HERO -->
-  <section class="relative hero-h flex items-end sm:items-center overflow-hidden">
+  <section class="relative hero-h flex items-end overflow-hidden rounded-b-[2rem] sm:rounded-b-[2.5rem]">
     <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover object-center" id="hero-img">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/65"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
-    <!-- wave transition -->
-    <svg class="absolute bottom-[-1px] left-0 w-full -scale-x-100" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
-      <path fill="#FDFBF7" d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,120L0,120Z"/>
-    </svg>
+    <div class="container relative z-10 text-white pb-10 sm:pb-14 px-5 sm:px-6">
+      <div class="max-w-xl">
+        <div class="flex flex-wrap gap-2 mb-4 reveal">
+          <span class="chip text-xs">★★★★ Hôtel</span>
+          <span class="chip text-xs">🏔️ Mont Blanc</span>
+          <span class="chip text-xs">🎿 Pistes à 1 min</span>
+        </div>
 
-    <div class="container relative z-10 text-white flex flex-col items-center text-center pt-28 sm:pt-20 pb-36 sm:pb-28 px-5 sm:px-4">
-      <!-- Badges -->
-      <div class="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8 reveal">
-        <span class="chip"><span>★★★★</span> Hôtel</span>
-        <span class="chip">🏔️ Mont Blanc</span>
-        <span class="chip">🎿 Ski-in / Ski-out</span>
-      </div>
+        <h1 class="font-lora hero-title font-semibold reveal">
+          Studio cosy à Megève, au pied du Mont d'Arbois
+        </h1>
+        <p class="mt-3 font-playfair hero-sub opacity-80 reveal max-w-lg leading-relaxed">
+          25m² · Balcon privé · Parking · Hôtel Mamie Megève
+        </p>
 
-      <h1 class="font-cinzel hero-title drop-shadow-2xl reveal">
-        L'Art de Vivre <br/><span class="text-gradient">à Megève</span>
-      </h1>
-      <p class="mt-5 sm:mt-8 font-playfair hero-sub opacity-85 reveal max-w-2xl leading-relaxed">
-        Votre studio de 25m² avec balcon privé au sein de l'Hôtel Mamie Megève. <br class="hidden md:block"/>Un cocon chaleureux avec accès immédiat aux pistes du Mont d'Arbois.
-      </p>
-      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto reveal">
-        <a href="#tarifs" class="btn btn-miel px-10 text-base sm:text-lg shadow-glow">Réserver maintenant</a>
-        <a href="#photos" class="btn btn-ghost px-8 text-base sm:text-lg">Découvrir →</a>
-      </div>
-
-      <!-- Scroll indicator – hidden on very small screens -->
-      <div class="hidden sm:flex absolute bottom-24 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-60 animate-float">
-        <span class="text-xs font-lora tracking-widest uppercase">Découvrir</span>
-        <svg width="20" height="28" viewBox="0 0 20 28" fill="none" class="text-white"><rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="9" r="2" fill="currentColor" class="animate-bounce"/></svg>
+        <div class="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 reveal">
+          <a href="#tarifs" class="btn btn-miel text-sm sm:text-base px-7 shadow-glow">Réserver — dès 115€/nuit</a>
+          <a href="#photos" class="btn btn-ghost text-sm sm:text-base px-5">Voir les photos</a>
+        </div>
       </div>
     </div>
   </section>
