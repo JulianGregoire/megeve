@@ -4,95 +4,207 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mentions Légales – Studio Mamie Megève</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: { neige: '#FDFBF7', ardoise: '#3A3A3A', sapin: '#2D4638', miel: '#D4A373', or: '#C9A96E' },
           fontFamily: { cinzel: ['Cinzel', 'serif'], lora: ['Lora', 'serif'], playfair: ['Playfair Display', 'serif'] },
+          container: { center: true, padding: { DEFAULT: '1.25rem', sm: '1.5rem', lg: '2.5rem' } },
         }
       }
     }
   </script>
   <style>
+    html { scroll-behavior: smooth }
     body { background-color: #FDFBF7; color: #3A3A3A; font-family: 'Lora', serif; }
     h1, h2, h3 { font-family: 'Cinzel', serif; color: #2D4638; }
-    .content-box { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem; }
-    .btn-back { display: inline-flex; align-items: center; gap: 0.5rem; color: #D4A373; font-weight: 600; margin-bottom: 2rem; transition: all 0.3s ease; }
-    .btn-back:hover { color: #2D4638; transform: translateX(-4px); }
+    .content-box { max-width: 900px; margin: 0 auto; padding: 120px 1.5rem 60px; }
+    
+    /* Progress bar */
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #D4A373, #C9A96E, #D4A373); z-index: 100; width: 0%; transition: width .1s linear; }
+    
+    /* Header/Footer specific */
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; border-radius: 9999px; font-weight: 500; letter-spacing: .02em; transition: all .3s cubic-bezier(.22,1,.36,1) }
+    .btn-miel { background: linear-gradient(135deg, #D4A373, #C9A96E); color: #fff; box-shadow: 0 4px 20px rgba(212,163,115,.3) }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px) }
+    .hamburger.active span:nth-child(2) { opacity: 0 }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px) }
   </style>
 </head>
-<body>
-  <div class="content-box">
-    <a href="index.html" class="btn-back">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-      Retour à l'accueil
+<body class="bg-neige text-ardoise">
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- HEADER -->
+<header class="fixed inset-x-0 top-0 z-50 bg-sapin backdrop-blur-xl border-b border-white/8 transition-all duration-500">
+  <nav class="container h-20 flex items-center justify-between text-white">
+    <a href="index.html" class="flex items-center gap-2 sm:gap-3 group min-w-0">
+      <div class="h-10 w-10 sm:h-11 sm:w-11 bg-gradient-to-br from-miel to-or rounded-xl flex items-center justify-center font-cinzel text-base sm:text-lg font-bold text-white shadow-lg group-hover:scale-105 transition-transform shrink-0">M</div>
+      <div class="flex flex-col min-w-0">
+        <span class="font-lora text-base sm:text-lg tracking-widest uppercase truncate">Mamie Megève</span>
+        <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] opacity-50 font-lora hidden xs:block">Studio de Prestige</span>
+      </div>
     </a>
-    
-    <h1 class="text-3xl md:text-4xl font-bold mb-8 uppercase tracking-widest">Mentions Légales</h1>
 
-    <div class="space-y-8 text-lg leading-relaxed font-playfair">
-      <section>
-        <h2 class="text-xl font-bold mb-4">1. Informations légales</h2>
-        <p><strong>Propriétaire du site :</strong><br/>
-        Didier Riou<br/>
-        9 Impasse Lucie Aubrac<br/>
-        34440 Nissan-lez-Enserune, France<br/>
-        Email : didierriou29@gmail.com<br/>
-        Téléphone : +33 7 82 31 22 06</p>
-      </section>
+    <ul class="hidden md:flex items-center gap-7 font-lora text-[15px]">
+      <li><a href="index.html#apropos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Le Studio</a></li>
+      <li><a href="index.html#photos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Photos</a></li>
+      <li><a href="index.html#equipements" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Confort</a></li>
+      <li><a href="index.html#localisation" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Accès</a></li>
+      <li><a href="index.html#tarifs" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Réservation</a></li>
+    </ul>
 
-      <section>
-        <h2 class="text-xl font-bold mb-4">2. Responsable de la publication</h2>
-        <p>Le responsable de la publication du site est Didier Riou.<br/>
-        Email : didierriou29@gmail.com</p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">3. Hébergement</h2>
-        <p>Cloudflare, Inc.<br/>
-        101 Townsend St.<br/>
-        San Francisco, CA 94107<br/>
-        États-Unis<br/>
-        Site web : <a href="https://www.cloudflare.com" class="text-miel underline">www.cloudflare.com</a></p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">4. Conception et développement</h2>
-        <p><strong>Développeur web :</strong> Julian Gregoire<br/>
-        SIRET : 88896315400016 | Code APE : 7311Z<br/>
-        Email : juliangregoirepro@gmail.com | Téléphone : 07 86 28 84 60<br/>
-        Site web : <a href="https://julian-gregoire.fr" class="text-miel underline">julian-gregoire.fr</a></p>
-        <p><strong>Web designer :</strong> Léana Zorzetto<br/>
-        Email : zorzettoleana@gmail.com | Téléphone : 06 51 80 54 66</p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">5. Propriété intellectuelle</h2>
-        <p>L'ensemble du contenu de ce site (textes, images, vidéos, graphismes, logos, icônes) est la propriété exclusive de Didier Riou ou de ses partenaires, sauf mention contraire. Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents éléments est strictement interdite sans l'accord écrit préalable du propriétaire du site.</p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">6. Limitation de responsabilité</h2>
-        <p>Le propriétaire du site ne pourra être tenu responsable des dommages directs et indirects causés au matériel de l'utilisateur lors de l'accès au site. Le propriétaire s'engage à sécuriser au mieux le site, cependant sa responsabilité ne pourra être engagée en cas de force majeure ou du fait imprévisible et insurmontable d'un tiers.</p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">7. Liens hypertextes</h2>
-        <p>Le site peut contenir des liens hypertextes vers d'autres sites. Le propriétaire n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.</p>
-      </section>
-
-      <section>
-        <h2 class="text-xl font-bold mb-4">8. Droit applicable</h2>
-        <p>Les présentes mentions légales sont régies par le droit français. En cas de litige et à défaut d'accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.</p>
-      </section>
+    <div class="hidden md:flex items-center gap-3">
+      <a href="index.html#tarifs" class="btn btn-miel text-sm">Réserver</a>
     </div>
 
-    <div class="mt-16 pt-8 border-t border-ardoise/10 text-center">
-      <p class="text-sm opacity-50">&copy; 2025 Studio Mamie Megève. Tous droits réservés.</p>
+    <button id="menuBtn" class="hamburger md:hidden p-2 rounded-lg hover:bg-white/10 flex flex-col gap-[5px] items-center justify-center h-10 w-10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MENU MOBILE -->
+  <div id="mobileMenu" class="md:hidden hidden bg-sapin/95 backdrop-blur-xl shadow-2xl">
+    <ul class="container py-8 text-white space-y-3 font-lora">
+      <li><a href="index.html#apropos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Le Studio</a></li>
+      <li><a href="index.html#photos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Photos</a></li>
+      <li><a href="index.html#equipements" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Confort</a></li>
+      <li><a href="index.html#localisation" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Accès</a></li>
+      <li class="pt-2"><a href="index.html#tarifs" class="btn btn-miel w-full text-center">Réserver maintenant</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="content-box">
+  <h1 class="text-3xl md:text-4xl font-bold mb-8 uppercase tracking-widest">Mentions Légales</h1>
+
+  <div class="space-y-8 text-lg leading-relaxed font-playfair">
+    <section>
+      <h2 class="text-xl font-bold mb-4">1. Informations légales</h2>
+      <p><strong>Propriétaire du site :</strong><br/>
+      Didier Riou<br/>
+      9 Impasse Lucie Aubrac<br/>
+      34440 Nissan-lez-Enserune, France<br/>
+      Email : didierriou29@gmail.com<br/>
+      Téléphone : +33 7 82 31 22 06</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">2. Responsable de la publication</h2>
+      <p>Le responsable de la publication du site est Didier Riou.<br/>
+      Email : didierriou29@gmail.com</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">3. Hébergement</h2>
+      <p>Cloudflare, Inc.<br/>
+      101 Townsend St.<br/>
+      San Francisco, CA 94107<br/>
+      États-Unis<br/>
+      Site web : <a href="https://www.cloudflare.com" class="text-miel underline" target="_blank">www.cloudflare.com</a></p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">4. Conception et développement</h2>
+      <p><strong>Développeur web :</strong> Julian Gregoire<br/>
+      SIRET : 88896315400016 | Code APE : 7311Z<br/>
+      Email : juliangregoirepro@gmail.com | Téléphone : 07 86 28 84 60<br/>
+      Site web : <a href="https://julian-gregoire.fr" class="text-miel underline" target="_blank">julian-gregoire.fr</a></p>
+      <p><strong>Web designer :</strong> Léana Zorzetto<br/>
+      Email : zorzettoleana@gmail.com | Téléphone : 06 51 80 54 66</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">5. Propriété intellectuelle</h2>
+      <p>L'ensemble du contenu de ce site (textes, images, vidéos, graphismes, logos, icônes) est la propriété exclusive de Didier Riou ou de ses partenaires, sauf mention contraire. Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents éléments est strictement interdite sans l'accord écrit préalable du propriétaire du site.</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">6. Limitation de responsabilité</h2>
+      <p>Le propriétaire du site ne pourra être tenu responsable des dommages directs et indirects causés au matériel de l'utilisateur lors de l'accès au site. Le propriétaire s'engage à sécuriser au mieux le site, cependant sa responsabilité ne pourra être engagée en cas de force majeure ou du fait imprévisible et insurmontable d'un tiers.</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">7. Liens hypertextes</h2>
+      <p>Le site peut contenir des liens hypertextes vers d'autres sites. Le propriétaire n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">8. Droit applicable</h2>
+      <p>Les présentes mentions légales sont régies par le droit français. En cas de litige et à défaut d'accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.</p>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-sapin text-white relative overflow-hidden">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-miel/30 to-transparent"></div>
+  <div class="container py-20 grid gap-12 md:grid-cols-3 text-center md:text-left">
+    <div>
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">LÉGAL</h3>
+      <ul class="space-y-4 font-lora text-white/50 text-[15px]">
+        <li><a href="mentions-legales.html" class="hover:text-white transition-colors">Mentions légales</a></li>
+        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors">Politique de confidentialité</a></li>
+        <li><a href="cgv.html" class="hover:text-white transition-colors">CGV</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CRÉDITS</h3>
+      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
+        Site développé par Julian Grégoire<br/>
+        Design par Léana Zorzetto<br/>
+        © 2024 Megève Studio Mamie
+      </p>
+    </div>
+    <div>
+      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CONTACT</h3>
+      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
+        Hôtel Mamie Megève<br/>
+        Route du Crêt, 74120 Megève<br/>
+        Email : didierriou29@gmail.com
+      </p>
     </div>
   </div>
+</footer>
+
+<!-- JS -->
+<script>
+  // Menu mobile with hamburger animation
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn?.addEventListener('click', () => {
+    const open = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.classList.toggle('active');
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Close mobile menu on click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+</script>
+
 </body>
 </html>
