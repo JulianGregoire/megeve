@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio 4★ Mamie Megève – Évasion au Mont Blanc</title>
+  <title>Mamie Megève · Studio 4★ au cœur du Mont d'Arbois</title>
+  <meta name="description" content="Studio de prestige 25m² à Megève, au sein de l'Hôtel 4★ Mamie Megève. Balcon privé, accès direct aux pistes du Mont d'Arbois." />
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:wght@400;500;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CDN + config -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,37 +18,28 @@
       theme: {
         extend: {
           colors: {
-            neige: '#FDFBF7',
-            ardoise: '#3A3A3A',
-            sapin: '#2D4638',
-            miel: '#D4A373',
-            bois: '#8B5E3C',
-            or: '#C9A96E',
+            ivoire: '#F7F2E8',
+            neige:  '#FBF8F1',
+            creme:  '#EFE7D6',
+            ardoise:'#1F1F1F',
+            graphite:'#3A3A3A',
+            sapin:  '#1E3A2E',
+            sapinDark:'#142A21',
+            mousse: '#3F5C4D',
+            or:     '#B58E5C',
+            champagne:'#D4B996',
+            bronze: '#8E6A3F',
+            bois:   '#6F4E32',
           },
           fontFamily: {
             cinzel: ['Cinzel', 'serif'],
-            lora: ['Lora', 'serif'],
-            playfair: ['Playfair Display', 'serif'],
+            display: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           },
-          boxShadow: {
-            soft: '0 18px 50px -20px rgba(0,0,0,.25)',
-            glow: '0 0 40px rgba(212,163,115,.25)',
-            card: '0 8px 32px -8px rgba(0,0,0,.12), 0 2px 8px -2px rgba(0,0,0,.06)',
-            'card-hover': '0 20px 48px -12px rgba(0,0,0,.18), 0 4px 12px -2px rgba(0,0,0,.08)',
+          letterSpacing: {
+            'kicker': '.32em',
           },
-          container: { center: true, padding: { DEFAULT: '1.25rem', sm: '1.5rem', lg: '2.5rem' } },
-          keyframes: {
-            'fade-up': { '0%': { opacity: '0', transform: 'translateY(24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-            'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            'slide-left': { '0%': { opacity: '0', transform: 'translateX(40px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
-            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
-          },
-          animation: {
-            'fade-up': 'fade-up .8s cubic-bezier(.22,1,.36,1) forwards',
-            'fade-in': 'fade-in .6s ease forwards',
-            'slide-left': 'slide-left .7s cubic-bezier(.22,1,.36,1) forwards',
-            float: 'float 4s ease-in-out infinite',
-          },
+          container: { center: true, padding: { DEFAULT: '1.25rem', sm: '1.75rem', lg: '3rem' } },
         }
       }
     }
@@ -53,636 +47,870 @@
 
   <style>
     html { scroll-behavior: smooth }
-    section { scroll-margin-top: 80px }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    section { scroll-margin-top: 96px }
 
-    /* Scroll progress */
-    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #D4A373, #C9A96E, #D4A373); z-index: 100; width: 0%; transition: width .1s linear; }
+    /* ---- Typographic display utilities ---- */
+    .display { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: -0.01em; }
+    .display-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; }
+    .kicker { font-family: 'Cinzel', serif; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; font-size: .72rem; }
 
-    /* Helpers */
-    .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; border-radius: 9999px; font-weight: 500; letter-spacing: .02em; transition: all .3s cubic-bezier(.22,1,.36,1) }
-    .btn:active { transform: translateY(1px) scale(.98) }
-    .btn-ghost { border: 1.5px solid rgba(255,255,255,.5); color: #fff; backdrop-filter: blur(4px) }
-    .btn-ghost:hover { background: rgba(255,255,255,.15); border-color: #fff }
-    .btn-sapin { background: linear-gradient(135deg, #2D4638, #3a5a48); color: #fff; box-shadow: 0 4px 20px rgba(45,70,56,.3) }
-    .btn-sapin:hover { box-shadow: 0 8px 30px rgba(45,70,56,.4); transform: translateY(-2px) }
-    .btn-miel { background: linear-gradient(135deg, #D4A373, #C9A96E); color: #fff; box-shadow: 0 4px 20px rgba(212,163,115,.3) }
-    .btn-miel:hover { box-shadow: 0 8px 30px rgba(212,163,115,.4); transform: translateY(-2px) }
+    /* ---- Scroll progress ---- */
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, transparent, #B58E5C, #D4B996, #B58E5C, transparent); z-index: 100; width: 0%; transition: width .15s linear; }
 
-    .card { border-radius: 20px; background: #fff; border: 1px solid rgba(0,0,0,.05); box-shadow: 0 8px 32px -8px rgba(0,0,0,.12); transition: box-shadow .4s ease, transform .4s ease }
-    .card:hover { box-shadow: 0 20px 48px -12px rgba(0,0,0,.18); transform: translateY(-4px) }
-    .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .85rem; border-radius: 9999px; background: rgba(255,255,255,.9); backdrop-filter: saturate(140%) blur(8px); color: #111; border: 1px solid rgba(255,255,255,.3); font-size: .85rem; font-weight: 500 }
+    /* ---- Buttons ---- */
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 30px; font-family:'Cinzel',serif; font-weight: 500; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; transition: all .35s cubic-bezier(.22,1,.36,1); position: relative; overflow: hidden; }
+    .btn-primary { background: #1E3A2E; color: #F7F2E8; border: 1px solid #1E3A2E; }
+    .btn-primary:hover { background: #142A21; box-shadow: 0 14px 30px -12px rgba(30,58,46,.5); transform: translateY(-1px); }
+    .btn-gold { background: linear-gradient(135deg,#B58E5C 0%, #C9A574 50%, #B58E5C 100%); color: #fff; border: 1px solid #B58E5C; }
+    .btn-gold:hover { box-shadow: 0 14px 32px -12px rgba(181,142,92,.55); transform: translateY(-1px); }
+    .btn-ghost { color: #fff; border: 1px solid rgba(255,255,255,.55); backdrop-filter: blur(6px); }
+    .btn-ghost:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+    .btn-outline { background: transparent; color: #1F1F1F; border: 1px solid rgba(31,31,31,.25); }
+    .btn-outline:hover { background: #1E3A2E; color: #F7F2E8; border-color: #1E3A2E; }
 
-    /* Gradient text */
-    .text-gradient { background: linear-gradient(135deg, #D4A373 0%, #C9A96E 50%, #D4A373 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text }
+    /* ---- Section title rule ---- */
+    .rule { display: inline-flex; align-items: center; gap: .9rem; color: #B58E5C; }
+    .rule::before, .rule::after { content: ''; width: 38px; height: 1px; background: currentColor; opacity: .55; }
 
-    /* Glass */
-    .glass { background: rgba(255,255,255,.06); backdrop-filter: saturate(180%) blur(14px); border: 1px solid rgba(255,255,255,.12) }
+    /* ---- Soft cards ---- */
+    .card-soft { background: #fff; border: 1px solid rgba(31,31,31,.06); box-shadow: 0 1px 0 rgba(31,31,31,.02); transition: box-shadow .4s ease, transform .4s ease; }
+    .card-soft:hover { box-shadow: 0 22px 50px -22px rgba(31,31,31,.18); transform: translateY(-3px); }
 
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
-    .reveal.inview { opacity: 1; transform: none }
-    .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
-    .reveal-left.inview { opacity: 1; transform: none }
-    .reveal-right { opacity: 0; transform: translateX(30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1) }
-    .reveal-right.inview { opacity: 1; transform: none }
-    @media (prefers-reduced-motion: reduce) { .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; transition: none } }
+    /* ---- Glass dark ---- */
+    .glass-dark { background: rgba(255,255,255,.04); backdrop-filter: saturate(140%) blur(10px); border: 1px solid rgba(255,255,255,.08); }
 
-    /* Stagger children */
-    .stagger > * { opacity: 0; transform: translateY(16px); transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1) }
-    .stagger.inview > *:nth-child(1) { transition-delay: 0ms }
-    .stagger.inview > *:nth-child(2) { transition-delay: 80ms }
-    .stagger.inview > *:nth-child(3) { transition-delay: 160ms }
-    .stagger.inview > *:nth-child(4) { transition-delay: 240ms }
-    .stagger.inview > *:nth-child(5) { transition-delay: 320ms }
-    .stagger.inview > *:nth-child(6) { transition-delay: 400ms }
-    .stagger.inview > *:nth-child(7) { transition-delay: 480ms }
-    .stagger.inview > *:nth-child(8) { transition-delay: 560ms }
-    .stagger.inview > * { opacity: 1; transform: none }
+    /* ---- Reveals ---- */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+    .reveal.inview { opacity: 1; transform: none; }
+    .reveal-l { opacity: 0; transform: translateX(-32px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+    .reveal-r { opacity: 0; transform: translateX(32px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+    .reveal-l.inview, .reveal-r.inview { opacity: 1; transform: none; }
+    .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .stagger.inview > * { opacity: 1; transform: none; }
+    .stagger.inview > *:nth-child(1){transition-delay:0ms}
+    .stagger.inview > *:nth-child(2){transition-delay:80ms}
+    .stagger.inview > *:nth-child(3){transition-delay:160ms}
+    .stagger.inview > *:nth-child(4){transition-delay:240ms}
+    .stagger.inview > *:nth-child(5){transition-delay:320ms}
+    .stagger.inview > *:nth-child(6){transition-delay:400ms}
+    .stagger.inview > *:nth-child(7){transition-delay:480ms}
+    .stagger.inview > *:nth-child(8){transition-delay:560ms}
+    @media (prefers-reduced-motion: reduce) { .reveal,.reveal-l,.reveal-r,.stagger>* { opacity: 1; transform: none; transition: none } }
 
-    /* Equipment Icons Animation */
-    .equipment-icon { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease; background: #fff; border: 1px solid rgba(0, 0, 0, 0.05); }
-    .equipment-icon:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+    /* ---- Hero ---- */
+    .hero-h { height: 100vh; height: 100svh; min-height: 580px; }
+    @media (min-width: 1440px) { .hero-h { max-height: 820px } }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(3rem, 9vw, 6.5rem); line-height: 0.95; letter-spacing: -0.02em; }
+    .hero-italic { font-style: italic; font-weight: 300; }
+    .hero-sub { font-family: 'Inter', sans-serif; font-weight: 300; font-size: clamp(.95rem, 1.3vw, 1.1rem); letter-spacing: .04em; line-height: 1.7; }
 
-    /* Carousel */
-    #photos-track::-webkit-scrollbar { display: none }
-    #photos-track { scrollbar-width: none }
-    .slide-container { min-width: 100%; display: flex; gap: 16px; padding: 0 8px; box-sizing: border-box; scroll-snap-align: start }
-    .slide { flex: 1; max-width: calc(50% - 8px); height: 380px; object-fit: cover; border-radius: 16px; box-shadow: 0 12px 30px -14px rgba(0,0,0,.3); transition: transform .4s ease, box-shadow .4s ease }
-    .slide:hover { transform: scale(1.02); box-shadow: 0 18px 40px -14px rgba(0,0,0,.4) }
-    
-    @media (max-width: 768px) {
-      .slide { max-width: 100%; height: 280px }
+    /* Ken Burns subtle on hero */
+    @keyframes kenBurns { 0% { transform: scale(1.02) translate(0,0) } 100% { transform: scale(1.12) translate(-1%, -1%) } }
+    .ken-burns { animation: kenBurns 22s ease-in-out infinite alternate; }
+
+    /* ---- Header ---- */
+    header { transition: background-color .5s ease, backdrop-filter .5s ease, border-color .5s ease; }
+    header.scrolled { background: rgba(20, 42, 33, .96); backdrop-filter: saturate(160%) blur(16px); border-bottom: 1px solid rgba(255,255,255,.08); }
+    header:not(.scrolled) { background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0)); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav-link { position: relative; padding: .35rem 0; transition: color .3s; }
+    .nav-link::after { content: ''; position: absolute; left: 0; bottom: -2px; height: 1px; width: 0; background: #D4B996; transition: width .35s ease; }
+    .nav-link:hover, .nav-link.active { color: #D4B996; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    /* ---- Decorative chevron divider ---- */
+    .chevron-line { display: flex; align-items: center; justify-content: center; gap: .9rem; color: rgba(181,142,92,.6); }
+    .chevron-line::before, .chevron-line::after { content:''; height:1px; flex:1; max-width:90px; background: currentColor; }
+
+    /* ---- Photo gallery (masonry) ---- */
+    .gallery {
+      column-count: 1;
+      column-gap: 18px;
+    }
+    @media (min-width: 640px) { .gallery { column-count: 2; column-gap: 22px; } }
+    @media (min-width: 1024px) { .gallery { column-count: 3; column-gap: 24px; } }
+    .gallery .photo {
+      break-inside: avoid;
+      display: block;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: zoom-in;
+      box-shadow: 0 6px 20px -10px rgba(31,31,31,.2);
+      transition: box-shadow .5s ease, transform .5s ease;
+    }
+    .gallery .photo:hover { box-shadow: 0 24px 50px -20px rgba(31,31,31,.35); transform: translateY(-2px); }
+    .gallery .photo img { width: 100%; height: auto; display: block; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+    .gallery .photo:hover img { transform: scale(1.04); }
+    .gallery .photo::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(20,42,33,.45));
+      opacity: 0; transition: opacity .5s ease;
+      pointer-events: none;
+    }
+    .gallery .photo:hover::after { opacity: 1; }
+    .gallery .photo .caption {
+      position: absolute; left: 18px; bottom: 16px;
+      color: #fff; font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
+      opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease;
+    }
+    .gallery .photo:hover .caption { opacity: 1; transform: translateY(0); }
+
+    /* ---- Lightbox ---- */
+    .lightbox { position: fixed; inset: 0; background: rgba(15,15,15,.96); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 95vw; max-height: 88vh; object-fit: contain; box-shadow: 0 30px 80px rgba(0,0,0,.5); border-radius: 2px; }
+    .lightbox button { position: absolute; color: #F7F2E8; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.18); width: 48px; height: 48px; border-radius: 999px; transition: all .25s ease; backdrop-filter: blur(8px); }
+    .lightbox button:hover { background: rgba(255,255,255,.12); border-color: #D4B996; color: #D4B996; }
+    .lightbox .lb-close { top: 24px; right: 24px; }
+    .lightbox .lb-prev { left: 24px; top: 50%; transform: translateY(-50%); }
+    .lightbox .lb-next { right: 24px; top: 50%; transform: translateY(-50%); }
+    .lightbox .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .3em; color: rgba(247,242,232,.7); }
+
+    /* ---- Equipment cards ---- */
+    .equip { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2rem 1.25rem; text-align: center; border: 1px solid rgba(255,255,255,.08); transition: all .4s ease; position: relative; overflow: hidden; }
+    .equip::before { content:''; position:absolute; left:0; right:0; bottom:0; height:1px; background: linear-gradient(90deg, transparent, rgba(212,185,150,.4), transparent); transform: scaleX(0); transition: transform .5s ease; }
+    .equip:hover { background: rgba(212,185,150,.05); border-color: rgba(212,185,150,.25); transform: translateY(-3px); }
+    .equip:hover::before { transform: scaleX(1); }
+    .equip svg { color: #D4B996; transition: transform .4s ease; }
+    .equip:hover svg { transform: scale(1.08); }
+
+    /* ---- Activity card ---- */
+    .activity-img-wrap { position: relative; overflow: hidden; }
+    .activity-img-wrap img { transition: transform 1.2s cubic-bezier(.22,1,.36,1); }
+    .activity-img-wrap:hover img { transform: scale(1.05); }
+    .activity-img-wrap::before { content:''; position:absolute; inset:14px; border:1px solid rgba(255,255,255,.4); pointer-events:none; z-index: 2; transition: inset .5s ease; }
+    .activity-img-wrap:hover::before { inset: 22px; }
+
+    /* ---- Hôte polaroïd frame ---- */
+    .polaroid {
+      background: #FBF8F1;
+      padding: 14px 14px 56px;
+      box-shadow: 0 25px 60px -25px rgba(31,31,31,.45), 0 1px 3px rgba(31,31,31,.06);
+      transform: rotate(-1.5deg);
+      transition: transform .6s cubic-bezier(.22,1,.36,1);
+      position: relative;
+    }
+    .polaroid:hover { transform: rotate(0deg); }
+    .polaroid img { display: block; width: 100%; height: auto; }
+    .polaroid::after {
+      content: 'Mamie Megève';
+      position: absolute; left: 0; right: 0; bottom: 18px; text-align: center;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: #1F1F1F;
     }
 
-    /* Section dividers */
-    .section-line { width: 60px; height: 3px; background: linear-gradient(90deg, #D4A373, #C9A96E); border-radius: 2px; margin: 0 auto 1.5rem }
+    /* ---- Map frame ---- */
+    .map-frame { position: relative; padding: 14px; background: #fff; border: 1px solid rgba(31,31,31,.08); box-shadow: 0 24px 50px -25px rgba(31,31,31,.25); }
+    .map-frame::before { content:''; position: absolute; inset:6px; border: 1px solid rgba(181,142,92,.25); pointer-events: none; z-index:3; }
 
-    /* Stat counter */
-    .stat-value { font-variant-numeric: tabular-nums }
+    /* ---- Number/marquee row ---- */
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1; color: #1E3A2E; letter-spacing: -0.02em; }
 
-    /* Review quote */
-    .review-card::before { content: '"'; position: absolute; top: -8px; left: 16px; font-size: 5rem; line-height: 1; font-family: 'Playfair Display', serif; color: rgba(212,163,115,.15); pointer-events: none }
+    /* ---- Subtle background pattern ---- */
+    .bg-noise {
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(181,142,92,.06), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(30,58,46,.05), transparent 40%);
+    }
+    .bg-paper {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(31,31,31,.045) 1px, transparent 0);
+      background-size: 28px 28px;
+    }
 
-    /* Floating mobile CTA */
-    .floating-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 49; padding: 12px 16px; background: rgba(253,251,247,.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(0,0,0,.06); transform: translateY(100%); transition: transform .4s cubic-bezier(.22,1,.36,1) }
-    .floating-cta.visible { transform: translateY(0) }
+    /* ---- Mountain silhouette ---- */
+    .silhouette { position: absolute; left:0; right:0; bottom:0; width:100%; height:auto; pointer-events:none; opacity: .14; }
 
-    /* Hamburger animation */
-    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s ease; }
+    /* ---- Floating mobile CTA ---- */
+    .floating-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 49; padding: 12px 16px; background: rgba(247,242,232,.96); backdrop-filter: blur(14px); border-top: 1px solid rgba(31,31,31,.08); transform: translateY(110%); transition: transform .45s cubic-bezier(.22,1,.36,1); }
+    .floating-cta.visible { transform: translateY(0); }
+
+    /* ---- Hamburger ---- */
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: #fff; transition: all .3s ease; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px) }
     .hamburger.active span:nth-child(2) { opacity: 0 }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px) }
 
-    /* Subtle bg pattern */
-    .bg-pattern { background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,.03) 1px, transparent 0); background-size: 40px 40px }
+    /* ---- Review ---- */
+    .review { background: #fff; padding: 2.25rem; border: 1px solid rgba(31,31,31,.07); position: relative; }
+    .review::before { content:'“'; position:absolute; top:-22px; left:22px; font-family:'Cormorant Garamond',serif; font-size: 5.5rem; line-height: 1; color: #B58E5C; opacity: .4; }
 
-    /* ===== RESPONSIVE ===== */
+    /* ---- Tarif card ---- */
+    .price-frame { background: #FBF8F1; padding: 3.5rem 2.5rem; border: 1px solid rgba(212,185,150,.3); position: relative; }
+    .price-frame::before { content:''; position: absolute; inset: 12px; border: 1px solid rgba(212,185,150,.4); pointer-events: none; }
 
-    /* Hero – Full height experience */
-    .hero-h { 
-      height: 100vh; 
-      height: 100svh; 
-      min-height: 500px;
-    }
-    @media (max-width: 640px) {
-      .hero-h { height: 100vh; height: 100svh; }
-    }
+    /* ---- Hide scrollbar utilities ---- */
+    .no-scrollbar::-webkit-scrollbar { display: none }
+    .no-scrollbar { scrollbar-width: none }
 
-    /* Mobile-first typography clamp */
-    .hero-title { font-size: clamp(2rem, 8vw, 4rem); line-height: 1.1 }
-    .hero-sub   { font-size: clamp(0.95rem, 2vw, 1.25rem) }
-
-    /* Small screens */
+    /* ---- Small ---- */
     @media (max-width: 480px) {
-      .btn { height: 44px; padding: 0 20px; font-size: .9rem }
-      .chip { font-size: .75rem; padding: .3rem .6rem }
-      .section-line { margin-bottom: 1rem }
-      .floating-cta { padding: 10px 12px }
-      .floating-cta .btn { height: 44px; font-size: .9rem }
-      .review-card::before { font-size: 3.5rem; top: -4px; left: 12px }
-    }
-
-    /* Medium screens */
-    @media (min-width: 481px) and (max-width: 768px) {
-      .slide { height: 260px }
-    }
-
-    /* Large screens – cap hero */
-    @media (min-width: 1440px) {
-      .hero-h { max-height: 720px; }
+      .btn { height: 46px; padding: 0 22px; font-size: .7rem; letter-spacing: .18em; }
+      .price-frame { padding: 2.25rem 1.4rem; }
     }
   </style>
 </head>
 
-<body class="bg-neige text-ardoise bg-pattern">
+<body class="bg-ivoire text-ardoise">
 
-<!-- Scroll progress bar -->
+<!-- Scroll progress -->
 <div id="scroll-progress"></div>
 
 <!-- HEADER -->
-<header class="fixed inset-x-0 top-0 z-50 bg-sapin/80 backdrop-blur-xl border-b border-white/8 transition-all duration-500">
+<header class="fixed inset-x-0 top-0 z-50">
   <nav class="container h-20 flex items-center justify-between text-white">
-    <a href="#" class="flex items-center gap-2 sm:gap-3 group min-w-0">
-      <div class="h-10 w-10 sm:h-11 sm:w-11 bg-gradient-to-br from-miel to-or rounded-xl flex items-center justify-center font-cinzel text-base sm:text-lg font-bold text-white shadow-lg group-hover:scale-105 transition-transform shrink-0">M</div>
-      <div class="flex flex-col min-w-0">
-        <span class="font-lora text-base sm:text-lg tracking-widest uppercase truncate">Mamie Megève</span>
-        <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] opacity-50 font-lora hidden xs:block">Studio de Prestige</span>
+    <a href="#" class="flex items-center gap-3 group min-w-0">
+      <div class="h-11 w-11 border border-champagne/60 flex items-center justify-center font-cinzel text-base font-semibold text-champagne tracking-[.05em] shrink-0 group-hover:bg-champagne group-hover:text-sapinDark transition-all duration-500">M</div>
+      <div class="flex flex-col min-w-0 leading-none">
+        <span class="font-cinzel text-[15px] tracking-[.32em] uppercase truncate">Mamie Megève</span>
+        <span class="text-[10px] uppercase tracking-[.4em] text-champagne/70 mt-1 hidden sm:block">Studio · 4 Étoiles</span>
       </div>
     </a>
 
-    <ul class="hidden md:flex items-center gap-7 font-lora text-[15px]">
-      <li><a href="#apropos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Le Studio</a></li>
-      <li><a href="#photos" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Photos</a></li>
-      <li><a href="#equipements" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Confort</a></li>
-      <li><a href="#localisation" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Accès</a></li>
-      <li><a href="#activites" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Activités</a></li>
-      <li><a href="#tarifs" class="relative py-1 hover:text-miel transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-miel after:transition-all hover:after:w-full">Réservation</a></li>
+    <ul class="hidden lg:flex items-center gap-9 font-sans text-[13px] tracking-wider uppercase">
+      <li><a href="#apropos" class="nav-link">Le Studio</a></li>
+      <li><a href="#galerie" class="nav-link">Galerie</a></li>
+      <li><a href="#equipements" class="nav-link">Confort</a></li>
+      <li><a href="#localisation" class="nav-link">Accès</a></li>
+      <li><a href="#activites" class="nav-link">Saisons</a></li>
+      <li><a href="#avis" class="nav-link">Avis</a></li>
     </ul>
 
-    <div class="hidden md:flex items-center gap-3">
-      <a href="#tarifs" class="btn btn-miel text-sm">Réserver</a>
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="#tarifs" class="btn btn-gold !h-10 !px-6 !text-[11px]">Réserver</a>
     </div>
 
-    <button id="menuBtn" class="hamburger md:hidden p-2 rounded-lg hover:bg-white/10 flex flex-col gap-[5px] items-center justify-center h-10 w-10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+    <button id="menuBtn" class="hamburger lg:hidden p-2 flex flex-col gap-[6px] items-center justify-center h-10 w-10" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <!-- MENU MOBILE -->
-  <div id="mobileMenu" class="md:hidden hidden bg-sapin/95 backdrop-blur-xl shadow-2xl">
-    <ul class="container py-8 text-white space-y-3 font-lora">
-      <li><a href="#apropos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Le Studio</a></li>
-      <li><a href="#photos" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Photos</a></li>
-      <li><a href="#equipements" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Confort</a></li>
-      <li><a href="#localisation" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Accès</a></li>
-      <li><a href="#activites" class="block py-3 px-4 rounded-xl hover:bg-white/5 transition-colors">Activités</a></li>
-      <li class="pt-2"><a href="#tarifs" class="btn btn-miel w-full text-center">Réserver maintenant</a></li>
+  <div id="mobileMenu" class="lg:hidden hidden bg-sapinDark/98 backdrop-blur-xl border-t border-white/10">
+    <ul class="container py-10 text-white space-y-1 font-cinzel text-sm tracking-[.2em] uppercase">
+      <li><a href="#apropos" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Le Studio</a></li>
+      <li><a href="#galerie" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Galerie</a></li>
+      <li><a href="#equipements" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Confort</a></li>
+      <li><a href="#localisation" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Accès</a></li>
+      <li><a href="#activites" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Saisons</a></li>
+      <li><a href="#avis" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Avis</a></li>
+      <li class="pt-6"><a href="#tarifs" class="btn btn-gold w-full text-center">Réserver</a></li>
     </ul>
   </div>
 </header>
 
 <main>
-  <!-- HERO -->
-  <section class="relative hero-h flex items-center justify-center overflow-hidden">
-    <img src="image/montagne.jpg" alt="Vue sur les montagnes de Megève" class="absolute inset-0 w-full h-full object-cover object-center" id="hero-img">
-    <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60"></div>
 
-    <!-- wave neige -->
-    <svg class="absolute -bottom-1 left-0 w-full z-10" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path fill="#FDFBF7" d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,120L0,120Z"/>
-    </svg>
+  <!-- ============== HERO ============== -->
+  <section class="relative hero-h flex items-center justify-center overflow-hidden bg-ardoise">
+    <img src="image/montagne.jpg" alt="Massif du Mont Blanc à Megève" class="absolute inset-0 w-full h-full object-cover object-center ken-burns" id="hero-img">
+    <!-- Overlays -->
+    <div class="absolute inset-0 bg-gradient-to-b from-ardoise/55 via-ardoise/15 to-ardoise/75"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ardoise/40 via-transparent to-ardoise/30"></div>
 
+    <!-- Frame corners -->
+    <div class="hidden md:block absolute top-32 left-10 w-12 h-12 border-l border-t border-champagne/50 z-10"></div>
+    <div class="hidden md:block absolute top-32 right-10 w-12 h-12 border-r border-t border-champagne/50 z-10"></div>
+    <div class="hidden md:block absolute bottom-28 left-10 w-12 h-12 border-l border-b border-champagne/50 z-10"></div>
+    <div class="hidden md:block absolute bottom-28 right-10 w-12 h-12 border-r border-b border-champagne/50 z-10"></div>
+
+    <!-- Content -->
     <div class="container relative z-10 text-white text-center">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="flex flex-wrap justify-center gap-2 mb-6 reveal">
-          <span class="chip text-xs bg-white/10 text-white border-white/20">★★★★ Hôtel</span>
-          <span class="chip text-xs bg-white/10 text-white border-white/20">🏔️ Mont Blanc</span>
-          <span class="chip text-xs bg-white/10 text-white border-white/20">🎿 Pistes à 1 min</span>
-        </div>
+      <div class="max-w-5xl mx-auto px-2">
+        <p class="kicker text-champagne reveal" style="opacity:0">— Au cœur du Mont d'Arbois —</p>
 
-        <h1 class="font-playfair hero-title font-bold reveal leading-tight tracking-tight">
-          Votre Évasion <span class="italic text-or italic">Privée</span> à Megève
+        <h1 class="hero-title mt-6 reveal text-white" style="opacity:0">
+          Mamie<br>
+          <span class="hero-italic text-champagne">Megève</span>
         </h1>
-        
-        <div class="mt-6 flex flex-col items-center gap-4 reveal">
-          <p class="font-lora hero-sub opacity-90 max-w-2xl leading-relaxed">
-            Studio cosy de 25m² avec balcon privé au cœur du Mont d'Arbois.<br class="hidden sm:block"> 
-            Découvrez l'élégance alpine au sein de l'Hôtel Mamie Megève.
-          </p>
+
+        <div class="mt-8 flex justify-center reveal" style="opacity:0">
+          <svg width="120" height="14" viewBox="0 0 120 14" class="text-champagne/70">
+            <path d="M0 7 L52 7 M68 7 L120 7" stroke="currentColor" stroke-width="0.7" fill="none"/>
+            <path d="M55 7 L60 2 L65 7 L60 12 Z" fill="currentColor" opacity=".7"/>
+          </svg>
         </div>
 
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal">
-          <a href="#tarifs" class="btn btn-miel text-base px-10 shadow-glow">Réserver — dès 115€/nuit</a>
-          <a href="#photos" class="btn btn-ghost text-base px-8">Explorer le studio</a>
+        <p class="hero-sub mt-7 max-w-2xl mx-auto text-white/85 reveal" style="opacity:0">
+          Studio privatif d'exception au sein de l'Hôtel 4★.<br class="hidden sm:block">
+          Balcon ouvert sur la cime des sapins, accès direct aux pistes du domaine Évasion Mont-Blanc.
+        </p>
+
+        <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style="opacity:0">
+          <a href="#tarifs" class="btn btn-gold">Réserver — dès 115€</a>
+          <a href="#galerie" class="btn btn-ghost">Visite immersive</a>
+        </div>
+
+        <!-- Hero meta -->
+        <div class="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] kicker text-white/60 reveal" style="opacity:0">
+          <span class="flex items-center gap-2"><span class="text-champagne text-base">★</span> Hôtel 4 étoiles</span>
+          <span class="hidden sm:inline opacity-30">·</span>
+          <span>25 m² · 3 personnes</span>
+          <span class="hidden sm:inline opacity-30">·</span>
+          <span>Pistes à 1 min</span>
         </div>
       </div>
     </div>
-    
-    <!-- Défilement vers le bas -->
-    <a href="#apropos" class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 hover:opacity-100 transition-opacity">
-      <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
+
+    <!-- Scroll indicator -->
+    <a href="#apropos" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 group">
+      <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+        <span class="kicker text-[10px] text-white/80">Découvrir</span>
+        <div class="w-px h-10 bg-gradient-to-b from-champagne to-transparent"></div>
+      </div>
     </a>
   </section>
 
-  <!-- À propos -->
-  <section id="apropos" class="container py-16 sm:py-28">
-    <div class="grid gap-10 sm:gap-16 lg:gap-20 md:grid-cols-2 md:items-center">
-      <div class="relative reveal-left">
-        <div class="absolute -inset-4 bg-gradient-to-br from-miel/20 to-transparent rounded-3xl blur-2xl"></div>
-        <img src="image/immeuble.jpg" alt="Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover rounded-3xl shadow-card">
-        <div class="absolute -bottom-6 -right-6 h-44 w-44 bg-gradient-to-br from-sapin to-sapin/90 rounded-2xl hidden lg:flex items-center justify-center p-6 text-center text-white font-cinzel text-lg shadow-xl">
-          <div>
-            <span class="block text-4xl font-bold stat-value" data-count="25">25</span>
-            <span class="text-sm opacity-80 mt-1 block">m² de confort</span>
-          </div>
-        </div>
-      </div>
-      <div class="space-y-6 reveal-right">
-        <div class="section-line !ml-0"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-ardoise leading-tight">Un Refuge Alpin<br/><span class="text-gradient">Insolite</span></h2>
-        <p class="font-playfair text-lg text-ardoise/75 leading-relaxed">
-          Bienvenue dans notre studio privatif situé dans les hauteurs du village de Megève, au sein du célèbre hôtel 4 étoiles <strong class="text-sapin">Mamie Megève</strong>. 
-          Alliant charme vintage et confort moderne, cet espace de 25m² a été pensé pour les amoureux de la montagne en quête d'authenticité.
-        </p>
-        <p class="font-playfair text-lg text-ardoise/75 leading-relaxed">
-          Profitez d'un balcon privé pour vos petits-déjeuners face aux sommets et d'un accès privilégié aux <strong class="text-sapin">Portes du domaine du Mont Blanc</strong>. 
-          Situé dans le quartier calme des Princes, vous bénéficiez du calme absolu tout en restant à proximité immédiate de l'effervescence du village.
-        </p>
-        <div class="pt-6 grid grid-cols-3 gap-2 sm:gap-4">
-          <div class="text-center p-3 sm:p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
-            <span class="block text-xl sm:text-2xl font-bold text-sapin font-cinzel">3</span>
-            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Pers. max</span>
-          </div>
-          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
-            <span class="block text-2xl font-bold text-sapin font-cinzel">25m²</span>
-            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Surface</span>
-          </div>
-          <div class="text-center p-4 rounded-2xl bg-white border border-black/5 shadow-sm">
-            <span class="block text-2xl font-bold text-sapin font-cinzel">1</span>
-            <span class="text-xs uppercase tracking-wider text-ardoise/50 font-lora mt-1 block">Parking</span>
-          </div>
-        </div>
-        <div class="pt-4 border-t border-ardoise/8">
-          <p class="font-lora text-sapin font-semibold italic flex items-center gap-2">
-            <span class="inline-block h-5 w-5 rounded-full bg-miel/20 text-center text-xs leading-5">🛏️</span>
-            Configuration des couchages :
-          </p>
-          <p class="font-playfair text-ardoise/65 mt-1">1 lit escamotable double et 1 lit superposé 1 place</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Photos -->
-  <section id="photos" class="bg-white/50 py-16 sm:py-28">
+  <!-- ============== A PROPOS ============== -->
+  <section id="apropos" class="relative py-24 sm:py-32 lg:py-40 overflow-hidden">
     <div class="container">
-      <div class="text-center mb-14 reveal">
-        <div class="section-line"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Le Studio <span class="text-gradient">en images</span></h2>
-        <p class="font-playfair text-lg text-ardoise/50 max-w-lg mx-auto">Découvrez l'ambiance chaleureuse de votre futur séjour</p>
-      </div>
+      <div class="grid gap-14 lg:gap-24 lg:grid-cols-12 items-center">
 
-      <div class="relative card p-4 md:p-5 reveal bg-white">
-        <!-- Track -->
-        <div id="photos-track" class="flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory rounded-2xl">
-          <div class="slide-container">
-            <img src="image/studio1.jpg" alt="Intérieur Studio 1" class="slide" loading="lazy">
-            <img src="image/studio2.jpg" alt="Intérieur Studio 2" class="slide" loading="lazy">
-          </div>
-          <div class="slide-container">
-            <img src="image/studio3.jpg" alt="Intérieur Studio 3" class="slide" loading="lazy">
-            <img src="image/studio4.jpg" alt="Intérieur Studio 4" class="slide" loading="lazy">
-          </div>
-          <div class="slide-container">
-            <img src="image/studio5.jpg" alt="Intérieur Studio 5" class="slide" loading="lazy">
-            <img src="image/studio6.jpg" alt="Intérieur Studio 6" class="slide" loading="lazy">
-          </div>
-          <div class="slide-container">
-            <img src="image/studio7.jpg" alt="Intérieur Studio 7" class="slide" loading="lazy">
-            <img src="image/stidio.jpg" alt="Intérieur Studio 8" class="slide" loading="lazy">
-          </div>
-        </div>
+        <!-- Image collage -->
+        <div class="lg:col-span-6 relative reveal-l">
+          <div class="relative">
+            <!-- Decoration -->
+            <div class="hidden md:block absolute -top-8 -left-8 w-28 h-28 border-l border-t border-or/40 z-0"></div>
+            <div class="hidden md:block absolute -bottom-8 -right-8 w-28 h-28 border-r border-b border-or/40 z-0"></div>
 
-        <!-- Controls -->
-        <button id="photos-prev" type="button" aria-label="Précédent"
-          class="absolute left-3 md:left-7 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/95 shadow-xl border border-black/5 hover:bg-white hover:scale-110 transition-all text-xl text-ardoise">
-          ‹
-        </button>
-        <button id="photos-next" type="button" aria-label="Suivant"
-          class="absolute right-3 md:right-7 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/95 shadow-xl border border-black/5 hover:bg-white hover:scale-110 transition-all text-xl text-ardoise">
-          ›
-        </button>
+            <img src="image/immeuble.jpg" alt="L'Hôtel Mamie Megève" class="relative w-full aspect-[4/5] object-cover z-10">
 
-        <!-- Dots -->
-        <div id="photos-dots" class="mt-6 flex items-center justify-center gap-2"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Équipements -->
-  <section id="equipements" class="py-16 sm:py-28 bg-sapin text-white overflow-hidden relative">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjAuNSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvc3ZnPg==')] opacity-50"></div>
-    <div class="container relative">
-      <div class="absolute -top-20 -right-20 h-80 w-80 bg-miel/10 rounded-full blur-[100px]"></div>
-      <div class="absolute -bottom-20 -left-20 h-60 w-60 bg-white/5 rounded-full blur-[80px]"></div>
-      
-      <div class="text-center mb-16 reveal">
-        <div class="section-line !bg-gradient-to-r !from-miel/60 !to-or/60"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl">Prestations & <span class="text-miel">Confort</span></h2>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 md:gap-6 reveal stagger">
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🎿</span>
-          <span class="font-lora text-base md:text-lg">Local à skis & vestiaire</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🚗</span>
-          <span class="font-lora text-base md:text-lg">Place de parking privée</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">👶</span>
-          <span class="font-lora text-base md:text-lg">Lits bébé gratuits</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">⛰️</span>
-          <span class="font-lora text-base md:text-lg">Balcon privé</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🛏️</span>
-          <span class="font-lora text-base md:text-lg">Literie de qualité supérieure</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">📺</span>
-          <span class="font-lora text-base md:text-lg">TV LCD & Numérique</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🧹</span>
-          <span class="font-lora text-base md:text-lg">Ménage quotidien</span>
-        </div>
-        <div class="flex flex-col items-center gap-4 text-center p-6 md:p-8 rounded-2xl glass hover:bg-white/10 transition-all duration-300 group cursor-default">
-          <span class="equipment-icon grid place-items-center h-14 w-14 md:h-16 md:w-16 rounded-2xl text-sapin text-2xl group-hover:rounded-xl">🚿</span>
-          <span class="font-lora text-base md:text-lg">Salle de bain privée</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Localisation -->
-  <section id="localisation" class="container py-16 sm:py-28">
-    <div class="text-center mb-16 reveal">
-      <h2 class="font-cinzel text-4xl mb-4">Emplacement Privilégié</h2>
-      <p class="font-playfair text-xl text-ardoise/60">Quartier des Princes, Megève</p>
-    </div>
-    
-    <div class="grid gap-12 md:grid-cols-2 md:items-center">
-      <div class="card overflow-hidden reveal h-[450px]">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.637!2d6.618!3d45.857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478950!2sMamie%20Megève!5e0!3m2!1sfr!2sfr!4v1700000000000"
-          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-
-      <div class="space-y-8 reveal">
-        <div class="flex gap-6">
-          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">🎿</div>
-          <div>
-            <h3 class="font-lora text-xl font-bold mb-1">Accès Pistes</h3>
-            <p class="text-ardoise/70">
-              Station Mont d'Arbois à 1 min à pied.<br/>
-              Station de ski de Megève à 2 min à pied.
-            </p>
-          </div>
-        </div>
-        <div class="flex gap-6">
-          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">🚠</div>
-          <div>
-            <h3 class="font-lora text-xl font-bold mb-1">Remontées Mécaniques</h3>
-            <p class="text-ardoise/70">
-              Télécabine du Chamois à 13 min à pied.<br/>
-              Télécabine du Mont d’Arbois à 16 min à pied.
-            </p>
-          </div>
-        </div>
-        <div class="flex gap-6">
-          <div class="h-12 w-12 rounded-full bg-miel/10 flex items-center justify-center text-miel shrink-0">📍</div>
-          <div>
-            <h3 class="font-lora text-xl font-bold mb-1">Village & Place Centrale</h3>
-            <p class="text-ardoise/70">À seulement 13 minutes à pied de l'effervescence du centre de Megève.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Activités -->
-  <section id="activites" class="py-16 sm:py-28 bg-neige bg-pattern">
-    <div class="container">
-      <div class="text-center mb-16 reveal">
-        <div class="section-line"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl">Megève en toutes <span class="text-gradient">Saisons</span></h2>
-      </div>
-
-      <div class="grid gap-20">
-        <div class="grid gap-8 sm:gap-12 md:grid-cols-2 md:items-center">
-          <div class="relative reveal-left group">
-            <div class="absolute -inset-3 bg-gradient-to-br from-sapin/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img src="image/montagne.jpg" alt="Le domaine skiable" class="relative w-full h-[280px] sm:h-[380px] md:h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
-          </div>
-          <div class="space-y-6 reveal-right">
-            <h3 class="font-cinzel text-xl md:text-2xl text-sapin uppercase tracking-widest">Hiver : Glisse & Féerie</h3>
-            <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
-              Avec ses 400km de pistes, le domaine Évasion Mont-Blanc est un paradis pour tous les skieurs. De la piste noire aux sentiers en forêt, les panoramas sur le Mont Blanc sont omniprésents. Le soir, laissez-vous porter par la magie des calèches et des illuminations du village.
-            </p>
-            <ul class="space-y-3 text-ardoise/65 font-lora">
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Ski alpin & Snowboard</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Balades en calèche traditionnelles</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Patinoire de plein air</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sapin inline-block"></span> Gastronomie étoilée</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="grid gap-8 sm:gap-12 md:grid-cols-2 md:items-center md:[&>*:first-child]:order-2">
-          <div class="relative reveal-right group">
-            <div class="absolute -inset-3 bg-gradient-to-br from-miel/10 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img src="image/ville.jpg" alt="Randonnée en été" class="relative w-full h-[280px] sm:h-[380px] md:h-[420px] object-cover rounded-3xl shadow-card group-hover:shadow-card-hover transition-all">
-          </div>
-          <div class="space-y-6 reveal-left">
-            <h3 class="font-cinzel text-xl md:text-2xl text-miel uppercase tracking-widest">Été : Nature & Art de Vivre</h3>
-            <p class="font-playfair text-lg text-ardoise/80 leading-relaxed">
-              Quand la neige fond, Megève dévoile ses plateaux alpins verdoyants. C'est le moment idéal pour les randonnées vers les lacs d'altitude, le VTT électrique ou une partie de golf face au Mont d'Arbois. Le village vit au rythme des festivals de jazz et des marchés locaux.
-            </p>
-            <ul class="space-y-3 text-ardoise/65 font-lora">
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Randonnée Pédestre & VTT</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Golf du Mont d'Arbois</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Escalade & Canyoning</li>
-              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-miel inline-block"></span> Festivals culturels internationaux</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tarifs & Disponibilités -->
-  <section id="tarifs" class="py-16 sm:py-28 bg-ardoise text-white relative overflow-hidden">
-    <div class="absolute -top-40 -right-40 h-96 w-96 bg-miel/10 rounded-full blur-[120px]"></div>
-    <div class="absolute -bottom-40 -left-40 h-80 w-80 bg-sapin/30 rounded-full blur-[100px]"></div>
-    <div class="container text-center relative">
-      <div class="reveal">
-        <div class="section-line !bg-gradient-to-r !from-miel/60 !to-or/60"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Votre Séjour <span class="text-miel">d'Exception</span></h2>
-        <p class="font-playfair text-lg opacity-50 mb-16">Réservez en direct pour les meilleurs tarifs</p>
-      </div>
-      
-      <div class="grid gap-6 sm:gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-        <div class="rounded-3xl p-8 sm:p-10 reveal glass hover:bg-white/10 transition-all">
-          <div class="flex flex-col items-center gap-6">
-            <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl">🗓️</div>
-            <h3 class="font-lora text-2xl font-semibold">Toute l'année</h3>
-            <p class="font-playfair text-lg opacity-70 leading-relaxed">
-              Le studio est ouvert hiver comme été pour vous faire profiter des charmes de Megève.
-            </p>
-          </div>
-        </div>
-        <div class="rounded-3xl p-8 sm:p-10 reveal bg-white text-ardoise shadow-2xl hover:shadow-glow transition-all">
-          <div class="flex flex-col items-center gap-6">
-            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-miel/20 to-or/10 flex items-center justify-center text-3xl">💶</div>
-            <h3 class="font-lora text-2xl font-semibold">Tarif Flexible</h3>
-            <div class="font-playfair">
-              <span class="text-sm text-ardoise/50 block">À partir de</span>
-              <span class="text-5xl sm:text-6xl md:text-7xl font-bold text-gradient">115€</span>
-              <span class="text-sm text-ardoise/50 block mt-1">/nuit</span>
+            <!-- Floating badge -->
+            <div class="absolute bottom-8 -right-3 sm:-right-6 lg:-right-10 z-20 bg-sapin text-ivoire p-7 sm:p-9 text-center shadow-2xl w-44 sm:w-52">
+              <div class="kicker text-champagne text-[10px] mb-3">Depuis 1955</div>
+              <div class="display text-5xl sm:text-6xl font-light text-champagne">25</div>
+              <div class="mt-1 text-[10px] uppercase tracking-[.3em] text-ivoire/70">m² de confort</div>
             </div>
-            <p class="text-sm italic opacity-50 font-lora">Tarif selon saison • Taxe de séjour non incluse</p>
-            <a href="mailto:contact@booking-megeve.fr" class="btn btn-sapin w-full py-4 text-lg mt-2">Contacter l'Hébergeur</a>
+          </div>
+        </div>
+
+        <!-- Text content -->
+        <div class="lg:col-span-6 reveal-r">
+          <p class="kicker text-or mb-5">— Le Studio —</p>
+          <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05] text-ardoise">
+            Un refuge alpin<br>
+            <span class="display-italic text-or">à la touche d'antan.</span>
+          </h2>
+
+          <div class="mt-9 space-y-6 text-graphite/90 text-[16px] leading-[1.85] font-light">
+            <p>
+              Niché dans les hauteurs du village, notre studio privatif fait partie intégrante de l'Hôtel 4 étoiles <span class="text-sapin font-medium">Mamie Megève</span>. Bois clair, lainages écossais, plaids en laine et lumière dorée : tout y a été pensé pour faire de votre séjour un moment d'élégance simple, à la mégevanne.
+            </p>
+            <p>
+              Le balcon privé ouvre sur la cime des sapins. Au matin, le café se sirote face aux Aravis ; le soir, l'on regagne les Portes du domaine du Mont Blanc en quelques pas. Le quartier des Princes offre le calme absolu, à un souffle de l'effervescence du village.
+            </p>
+          </div>
+
+          <!-- Stats row -->
+          <div class="mt-12 grid grid-cols-3 gap-px bg-or/15 border border-or/15">
+            <div class="bg-ivoire p-5 sm:p-7 text-center">
+              <div class="stat-num">3</div>
+              <div class="kicker text-[10px] mt-3 text-graphite/55">Personnes</div>
+            </div>
+            <div class="bg-ivoire p-5 sm:p-7 text-center">
+              <div class="stat-num">25<span class="text-2xl">m²</span></div>
+              <div class="kicker text-[10px] mt-3 text-graphite/55">Surface</div>
+            </div>
+            <div class="bg-ivoire p-5 sm:p-7 text-center">
+              <div class="stat-num">1</div>
+              <div class="kicker text-[10px] mt-3 text-graphite/55">Parking</div>
+            </div>
+          </div>
+
+          <!-- Couchage -->
+          <div class="mt-10 pt-8 border-t border-or/20">
+            <p class="kicker text-or text-[11px] mb-2">Couchages</p>
+            <p class="display-italic text-xl text-ardoise/85">Un lit escamotable double <span class="text-or">·</span> Un lit superposé une place</p>
           </div>
         </div>
       </div>
     </div>
   </section>
- 
-  <!-- Avis Google -->
-  <section id="avis" class="py-16 sm:py-28 bg-white/50">
+
+
+  <!-- ============== GALERIE ============== -->
+  <section id="galerie" class="relative py-24 sm:py-32 lg:py-40 bg-neige bg-paper">
     <div class="container">
-      <div class="text-center mb-16 reveal">
-        <div class="section-line"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-4">Avis de nos <span class="text-gradient">voyageurs</span></h2>
-        <div class="flex items-center justify-center gap-1.5 text-miel text-xl mb-3">
+
+      <div class="text-center mb-16 sm:mb-20 reveal">
+        <p class="kicker text-or mb-5">— Galerie —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05] text-ardoise max-w-3xl mx-auto">
+          L'âme du studio<br>
+          <span class="display-italic text-or">en images.</span>
+        </h2>
+        <p class="mt-7 text-graphite/70 max-w-xl mx-auto font-light leading-relaxed">
+          Cliquez sur une image pour la découvrir en grand format.
+        </p>
+      </div>
+
+      <div class="gallery reveal" id="gallery">
+        <a class="photo" data-index="0"><img src="image/studio1.jpg" alt="Lits superposés et lit double escamotable" loading="lazy"><span class="caption">Couchages</span></a>
+        <a class="photo" data-index="1"><img src="image/studio2.jpg" alt="Vue intérieure du studio" loading="lazy"><span class="caption">Espace de vie</span></a>
+        <a class="photo" data-index="2"><img src="image/studio3.jpg" alt="Détails du studio" loading="lazy"><span class="caption">Détails</span></a>
+        <a class="photo" data-index="3"><img src="image/studio4.jpg" alt="Aménagement bois" loading="lazy"><span class="caption">Aménagement</span></a>
+        <a class="photo" data-index="4"><img src="image/studio5.jpg" alt="Salle de bain" loading="lazy"><span class="caption">Confort</span></a>
+        <a class="photo" data-index="5"><img src="image/studio6.jpg" alt="Coin nuit" loading="lazy"><span class="caption">Coin nuit</span></a>
+        <a class="photo" data-index="6"><img src="image/studio7.jpg" alt="Atmosphère du studio" loading="lazy"><span class="caption">Atmosphère</span></a>
+        <a class="photo" data-index="7"><img src="image/stidio.jpg" alt="Vue d'ensemble" loading="lazy"><span class="caption">Vue d'ensemble</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse de photos">
+    <button class="lb-close" aria-label="Fermer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lb-prev" aria-label="Précédente">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lb-next" aria-label="Suivante">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <img id="lb-image" alt="Photo agrandie">
+    <div class="lb-counter" id="lb-counter">1 / 8</div>
+  </div>
+
+
+  <!-- ============== EQUIPEMENTS ============== -->
+  <section id="equipements" class="relative py-24 sm:py-32 lg:py-40 bg-sapinDark text-ivoire overflow-hidden">
+
+    <!-- Mountain silhouette -->
+    <svg class="silhouette" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#D4B996" d="M0 200 L0 110 L120 75 L240 130 L380 60 L500 100 L640 40 L780 95 L920 50 L1080 110 L1220 70 L1360 130 L1440 90 L1440 200 Z"/>
+    </svg>
+
+    <div class="container relative">
+
+      <div class="text-center mb-16 sm:mb-20 reveal">
+        <p class="kicker text-champagne mb-5">— Prestations —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05]">
+          Le confort<br>
+          <span class="display-italic text-champagne">d'un grand hôtel.</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 reveal stagger">
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l5-8m4-1l5 9M14 8l-1 4M9 4l1 4M5 21h14"/>
+            <circle cx="12" cy="6" r="2"/>
+          </svg>
+          <span class="display text-lg leading-snug">Local à skis<br>& vestiaire</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 17h14M5 17v-5l2-5h10l2 5v5M5 17v3M19 17v3M9 12h6"/>
+            <circle cx="8" cy="17" r="1"/>
+            <circle cx="16" cy="17" r="1"/>
+          </svg>
+          <span class="display text-lg leading-snug">Place de parking<br>privée</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8a3 3 0 100-6 3 3 0 000 6zM12 8v6M8 12h8M9 22l3-8 3 8"/>
+          </svg>
+          <span class="display text-lg leading-snug">Lits bébé<br>gracieusement</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20M4 20l8-14 4 7M14 13l3-5 5 12"/>
+          </svg>
+          <span class="display text-lg leading-snug">Balcon privé<br>face aux cimes</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12V7a2 2 0 012-2h14a2 2 0 012 2v5M3 12h18M3 12v5a2 2 0 002 2h14a2 2 0 002-2v-5M7 12V9M17 12V9"/>
+          </svg>
+          <span class="display text-lg leading-snug">Literie de qualité<br>supérieure</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="13" rx="1"/>
+            <path d="M9 21h6M12 18v3"/>
+          </svg>
+          <span class="display text-lg leading-snug">Téléviseur<br>connecté</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18M5 21V10l7-4 7 4v11M9 21v-6h6v6M5 10h14"/>
+          </svg>
+          <span class="display text-lg leading-snug">Ménage<br>quotidien</span>
+        </div>
+
+        <div class="equip">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 4v4M8 8a2 2 0 110 4 2 2 0 010-4zM8 12v8M14 12h6M17 12v8M11 16h12"/>
+          </svg>
+          <span class="display text-lg leading-snug">Salle de bain<br>privative</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== LOCALISATION ============== -->
+  <section id="localisation" class="py-24 sm:py-32 lg:py-40">
+    <div class="container">
+
+      <div class="text-center mb-16 sm:mb-20 reveal">
+        <p class="kicker text-or mb-5">— Accès —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05] text-ardoise">
+          Quartier des Princes,<br>
+          <span class="display-italic text-or">au cœur de Megève.</span>
+        </h2>
+      </div>
+
+      <div class="grid gap-14 lg:gap-20 lg:grid-cols-2 lg:items-center">
+
+        <div class="map-frame reveal-l h-[420px] sm:h-[520px]">
+          <iframe
+            class="w-full h-full block grayscale-[20%]"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.637!2d6.618!3d45.857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478950!2sMamie%20Megève!5e0!3m2!1sfr!2sfr!4v1700000000000"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="reveal-r">
+          <ul class="relative">
+            <!-- Vertical line -->
+            <span class="absolute top-2 bottom-2 left-[19px] w-px bg-or/30 hidden sm:block"></span>
+
+            <li class="relative pl-0 sm:pl-16 pb-10">
+              <span class="hidden sm:flex absolute left-0 top-0 w-10 h-10 border border-or/40 bg-ivoire items-center justify-center text-or">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l5-8m4-1l5 9M14 8l-1 4M9 4l1 4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <p class="kicker text-or text-[11px] mb-2">À pied · 1 min</p>
+              <h3 class="display text-2xl sm:text-3xl text-ardoise">Pistes du Mont d'Arbois</h3>
+              <p class="mt-3 text-graphite/75 leading-relaxed font-light">
+                Station Mont d'Arbois à 1 minute. Station de ski de Megève à 2 minutes.
+              </p>
+            </li>
+
+            <li class="relative pl-0 sm:pl-16 pb-10">
+              <span class="hidden sm:flex absolute left-0 top-0 w-10 h-10 border border-or/40 bg-ivoire items-center justify-center text-or">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M5 12l1-7h12l1 7M7 17h10M9 12v5M15 12v5M5 17v3M19 17v3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <p class="kicker text-or text-[11px] mb-2">À pied · 13 min</p>
+              <h3 class="display text-2xl sm:text-3xl text-ardoise">Remontées mécaniques</h3>
+              <p class="mt-3 text-graphite/75 leading-relaxed font-light">
+                Télécabine du Chamois à 13 minutes. Télécabine du Mont d'Arbois à 16 minutes.
+              </p>
+            </li>
+
+            <li class="relative pl-0 sm:pl-16">
+              <span class="hidden sm:flex absolute left-0 top-0 w-10 h-10 border border-or/40 bg-ivoire items-center justify-center text-or">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-7.5-7-12a7 7 0 0114 0c0 4.5-7 12-7 12z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </span>
+              <p class="kicker text-or text-[11px] mb-2">À pied · 13 min</p>
+              <h3 class="display text-2xl sm:text-3xl text-ardoise">Place du village</h3>
+              <p class="mt-3 text-graphite/75 leading-relaxed font-light">
+                À 13 minutes à pied de l'effervescence du centre historique : église, marché, gastronomie.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== ACTIVITES (saisons) ============== -->
+  <section id="activites" class="relative py-24 sm:py-32 lg:py-40 bg-creme/40 bg-paper">
+    <div class="container">
+
+      <div class="text-center mb-20 reveal">
+        <p class="kicker text-or mb-5">— Saisons —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05] text-ardoise max-w-3xl mx-auto">
+          Megève en toutes <span class="display-italic text-or">saisons.</span>
+        </h2>
+      </div>
+
+      <!-- Hiver -->
+      <article class="grid gap-10 sm:gap-16 lg:grid-cols-12 items-center mb-24 lg:mb-32">
+        <div class="lg:col-span-7 reveal-l activity-img-wrap">
+          <img src="image/montagne.jpg" alt="Domaine skiable" class="w-full h-[320px] sm:h-[460px] lg:h-[540px] object-cover">
+        </div>
+        <div class="lg:col-span-5 lg:pl-6 reveal-r">
+          <p class="kicker text-or text-[11px] mb-4">— I —</p>
+          <h3 class="display text-3xl sm:text-4xl lg:text-5xl text-ardoise leading-tight">
+            Hiver,<br><span class="display-italic text-or">la glisse & la féerie.</span>
+          </h3>
+          <p class="mt-7 text-graphite/85 leading-[1.85] font-light">
+            Avec ses 400 km de pistes, le domaine Évasion Mont-Blanc est un paradis pour tous les skieurs. De la piste noire au sentier en sous-bois, la cime des géants est omniprésente. Le soir venu, on se laisse porter par la magie des calèches et des illuminations.
+          </p>
+          <ul class="mt-8 space-y-3">
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Ski alpin & snowboard</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Balades en calèche</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Patinoire de plein air</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Tables étoilées</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Été (renversé) -->
+      <article class="grid gap-10 sm:gap-16 lg:grid-cols-12 items-center">
+        <div class="lg:col-span-7 lg:order-2 reveal-r activity-img-wrap">
+          <img src="image/ville.jpg" alt="Megève en été" class="w-full h-[320px] sm:h-[460px] lg:h-[540px] object-cover">
+        </div>
+        <div class="lg:col-span-5 lg:order-1 lg:pr-6 reveal-l">
+          <p class="kicker text-or text-[11px] mb-4">— II —</p>
+          <h3 class="display text-3xl sm:text-4xl lg:text-5xl text-ardoise leading-tight">
+            Été,<br><span class="display-italic text-or">nature & art de vivre.</span>
+          </h3>
+          <p class="mt-7 text-graphite/85 leading-[1.85] font-light">
+            Quand la neige fond, Megève dévoile ses plateaux verdoyants. Idéal pour les randonnées vers les lacs d'altitude, le VTT électrique ou une partie de golf face au Mont d'Arbois. Le village vit au rythme des festivals de jazz et des marchés locaux.
+          </p>
+          <ul class="mt-8 space-y-3">
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Randonnée pédestre & VTT</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Golf du Mont d'Arbois</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Escalade & canyoning</span></li>
+            <li class="flex items-center gap-3 text-graphite/80"><span class="h-px w-8 bg-or"></span><span class="font-light">Festivals culturels</span></li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============== TARIFS ============== -->
+  <section id="tarifs" class="relative py-24 sm:py-32 lg:py-40 bg-ardoise text-ivoire overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-[480px] w-[480px] bg-or/10 rounded-full blur-[140px]"></div>
+    <div class="absolute -bottom-40 -left-40 h-[420px] w-[420px] bg-sapin/40 rounded-full blur-[120px]"></div>
+
+    <div class="container relative">
+
+      <div class="text-center mb-16 sm:mb-20 reveal">
+        <p class="kicker text-champagne mb-5">— Réservation —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05]">
+          Votre séjour<br>
+          <span class="display-italic text-champagne">d'exception.</span>
+        </h2>
+        <p class="mt-7 text-ivoire/65 max-w-md mx-auto font-light leading-relaxed">
+          Une réservation en direct, sans intermédiaire — pour le meilleur tarif, et un accueil personnalisé.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto reveal">
+        <div class="price-frame text-ardoise text-center">
+          <div class="kicker text-or text-[11px] mb-4">À partir de</div>
+          <div class="display text-7xl sm:text-8xl text-sapin leading-none">115<span class="text-3xl text-or align-top">€</span></div>
+          <div class="kicker text-graphite/55 text-[10px] mt-3">par nuit · taxe de séjour non incluse</div>
+
+          <div class="my-10 chevron-line">
+            <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7 L7 2 L12 7 L7 12 Z" stroke="currentColor" stroke-width="0.7" fill="none"/></svg>
+          </div>
+
+          <p class="display-italic text-xl text-graphite/85 max-w-md mx-auto leading-relaxed">
+            "Le studio est ouvert hiver comme été pour vous faire profiter des charmes intemporels de Megève."
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="mailto:didierriou29@gmail.com" class="btn btn-primary">Contacter l'hôte</a>
+            <a href="tel:+33000000000" class="btn btn-outline">Par téléphone</a>
+          </div>
+
+          <p class="kicker text-or text-[10px] mt-8">— Réponse sous 24 h —</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============== AVIS ============== -->
+  <section id="avis" class="py-24 sm:py-32 lg:py-40 bg-neige">
+    <div class="container">
+
+      <div class="text-center mb-16 sm:mb-20 reveal">
+        <p class="kicker text-or mb-5">— Témoignages —</p>
+        <h2 class="display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.05] text-ardoise">
+          Une expérience<br>
+          <span class="display-italic text-or">cinq étoiles.</span>
+        </h2>
+        <div class="mt-8 flex justify-center items-center gap-2 text-or text-xl">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-        <p class="font-playfair text-lg text-ardoise/50 italic">Une expérience 5 étoiles à Megève</p>
       </div>
 
-      <div class="grid gap-6 md:grid-cols-3 reveal stagger">
-        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
-          <div class="flex items-center gap-1 text-miel text-sm mb-5">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-          </div>
-          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
-            "Un séjour magique ! Le studio est ultra-confortable et l'accès aux pistes en 1 minute est un vrai luxe."
-          </p>
-          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
-            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">JM</div>
-            <div class="font-lora text-sm text-left">
-              <span class="block font-bold">Julie M.</span>
-              <span class="opacity-50 italic text-[12px]">Il y a 2 mois</span>
-            </div>
-          </div>
-        </div>
+      <div class="grid gap-6 md:gap-8 md:grid-cols-3 reveal stagger">
 
-        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
-          <div class="flex items-center gap-1 text-miel text-sm mb-5">
+        <article class="review">
+          <div class="flex items-center gap-1 text-or text-sm mb-5">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
-            "L'emplacement au sein de l'hôtel Mamie Megève est top. On profite du calme des hauteurs tout en étant proche de tout."
+          <p class="display-italic text-[19px] text-ardoise/85 leading-[1.65]">
+            Un séjour magique. Le studio est ultra-confortable et l'accès aux pistes en une minute est un vrai luxe.
           </p>
-          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
-            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">TR</div>
-            <div class="font-lora text-sm text-left">
-              <span class="block font-bold">Thomas R.</span>
-              <span class="opacity-50 italic text-[12px]">Il y a une semaine</span>
+          <div class="mt-8 pt-6 border-t border-ardoise/8 flex items-center gap-4">
+            <div class="h-11 w-11 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-cinzel text-sm">JM</div>
+            <div>
+              <div class="font-cinzel text-[13px] tracking-[.15em] uppercase text-ardoise">Julie M.</div>
+              <div class="text-[11px] text-graphite/55 italic mt-0.5">Il y a 2 mois</div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="review-card relative card p-8 pt-10 bg-white border border-black/5 hover:border-miel/20 hover:shadow-glow transition-all">
-          <div class="flex items-center gap-1 text-miel text-sm mb-5">
+        <article class="review">
+          <div class="flex items-center gap-1 text-or text-sm mb-5">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="font-playfair text-[17px] text-ardoise/80 italic mb-8 leading-relaxed">
-            "Le balcon avec vue sur les montagnes est incroyable pour le café du matin. Propreté impeccable."
+          <p class="display-italic text-[19px] text-ardoise/85 leading-[1.65]">
+            L'emplacement au sein de l'hôtel Mamie Megève est parfait. On profite du calme des hauteurs tout en étant proche de tout.
           </p>
-          <div class="flex items-center gap-4 pt-4 border-t border-black/5">
-            <div class="h-11 w-11 rounded-full bg-gradient-to-br from-sapin to-sapin/80 flex items-center justify-center text-white font-bold text-sm">SL</div>
-            <div class="font-lora text-sm text-left">
-              <span class="block font-bold">Sophie L.</span>
-              <span class="opacity-50 italic text-[12px]">Il y a 3 semaines</span>
+          <div class="mt-8 pt-6 border-t border-ardoise/8 flex items-center gap-4">
+            <div class="h-11 w-11 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-cinzel text-sm">TR</div>
+            <div>
+              <div class="font-cinzel text-[13px] tracking-[.15em] uppercase text-ardoise">Thomas R.</div>
+              <div class="text-[11px] text-graphite/55 italic mt-0.5">Il y a une semaine</div>
             </div>
           </div>
-        </div>
+        </article>
+
+        <article class="review">
+          <div class="flex items-center gap-1 text-or text-sm mb-5">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="display-italic text-[19px] text-ardoise/85 leading-[1.65]">
+            Le balcon avec vue sur les montagnes est incroyable pour le café du matin. La propreté est impeccable.
+          </p>
+          <div class="mt-8 pt-6 border-t border-ardoise/8 flex items-center gap-4">
+            <div class="h-11 w-11 rounded-full bg-sapin/10 flex items-center justify-center text-sapin font-cinzel text-sm">SL</div>
+            <div>
+              <div class="font-cinzel text-[13px] tracking-[.15em] uppercase text-ardoise">Sophie L.</div>
+              <div class="text-[11px] text-graphite/55 italic mt-0.5">Il y a 3 semaines</div>
+            </div>
+          </div>
+        </article>
+
       </div>
 
       <div class="mt-14 text-center reveal">
-        <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="btn border-1.5 border-ardoise/20 text-ardoise hover:bg-sapin hover:text-white hover:border-sapin px-10 transition-all">
-          Lire tous les avis sur Google →
-        </a>
+        <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="btn btn-outline">Lire tous les avis</a>
       </div>
     </div>
   </section>
 
-  <!-- Section hôte -->
-  <section class="container py-16 sm:py-28 text-center">
-    <div class="max-w-3xl mx-auto">
-      <div class="reveal">
-        <div class="section-line"></div>
-        <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl mb-10">Votre <span class="text-gradient">Hôte</span></h2>
+
+  <!-- ============== HOTE ============== -->
+  <section id="hote" class="py-24 sm:py-32 lg:py-40 bg-ivoire bg-noise">
+    <div class="container">
+      <div class="grid gap-14 lg:gap-24 lg:grid-cols-12 items-center">
+
+        <div class="lg:col-span-5 flex justify-center reveal-l">
+          <div class="relative max-w-xs w-full">
+            <div class="polaroid">
+              <img src="image/didier copie 3.jpg" alt="Didier Riou, votre hôte" class="aspect-[4/5] object-cover">
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 reveal-r">
+          <p class="kicker text-or mb-5">— Votre hôte —</p>
+          <h2 class="display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] text-ardoise mb-9">
+            Bienvenue<br><span class="display-italic text-or">à Megève.</span>
+          </h2>
+          <blockquote class="display-italic text-2xl sm:text-3xl text-graphite/85 leading-[1.5] border-l-2 border-or/40 pl-6 sm:pl-8">
+            Passionné par notre région, j'ai à cœur de vous offrir un séjour inoubliable. Le studio a été aménagé avec soin pour offrir tout le confort nécessaire après une journée sur les pistes ou en montagne.
+          </blockquote>
+          <div class="mt-10 flex items-center gap-4">
+            <div class="h-px w-12 bg-or"></div>
+            <div>
+              <div class="font-cinzel text-sm tracking-[.25em] uppercase text-sapin">Didier Riou</div>
+              <div class="text-[11px] kicker text-or/70 mt-1">Propriétaire</div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="relative inline-block reveal mb-10">
-        <div class="absolute -inset-4 bg-gradient-to-br from-miel/30 to-or/10 blur-3xl rounded-full"></div>
-        <img src="image/didier copie 3.jpg" alt="Didier Riou, votre hôte" class="relative mx-auto h-36 w-36 rounded-full object-cover shadow-xl border-[3px] border-white ring-4 ring-miel/20" />
-      </div>
-      <p class="max-w-2xl mx-auto font-playfair text-xl md:text-2xl italic text-ardoise/70 leading-relaxed reveal">
-        "Passionné par notre région, j'ai à cœur de vous offrir un séjour inoubliable à Megève. Le studio a été aménagé avec soin pour offrir tout le confort nécessaire après une journée sur les pistes ou en montagne."
-      </p>
-      <div class="mt-8 font-lora text-lg font-bold text-sapin reveal">— Didier Riou</div>
     </div>
   </section>
+
 </main>
 
+
 <!-- Floating mobile CTA -->
-<div class="floating-cta md:hidden" id="floatingCta">
-  <a href="#tarifs" class="btn btn-miel w-full text-center shadow-glow">Réserver — à partir de 115€/nuit</a>
+<div class="floating-cta lg:hidden" id="floatingCta">
+  <a href="#tarifs" class="btn btn-gold w-full">Réserver — dès 115€</a>
 </div>
 
-<!-- Footer -->
-<footer class="bg-sapin text-white relative overflow-hidden">
-  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-miel/30 to-transparent"></div>
-  <div class="container py-20 grid gap-12 md:grid-cols-3 text-center md:text-left">
-    <div class="reveal">
-      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">LÉGAL</h3>
-      <ul class="space-y-4 font-lora text-white/50 text-[15px]">
-        <li><a href="mentions-legales.html" class="hover:text-white transition-colors">Mentions légales</a></li>
-        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors">Politique de confidentialité</a></li>
-        <li><a href="cgv.html" class="hover:text-white transition-colors">CGV</a></li>
-      </ul>
+
+<!-- ============== FOOTER ============== -->
+<footer class="bg-sapinDark text-ivoire/80 relative overflow-hidden">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-or/40 to-transparent"></div>
+
+  <div class="container pt-20 pb-10">
+
+    <div class="text-center mb-16">
+      <div class="inline-flex flex-col items-center">
+        <div class="h-14 w-14 border border-champagne/60 flex items-center justify-center font-cinzel text-xl text-champagne">M</div>
+        <div class="mt-5 font-cinzel text-base tracking-[.32em] text-ivoire">Mamie Megève</div>
+        <div class="mt-1.5 kicker text-[10px] text-champagne/70">Studio · 4 Étoiles</div>
+      </div>
     </div>
-    <div class="reveal">
-      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CRÉDITS</h3>
-      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
-        Site développé par Julian Grégoire<br/>
-        Design par Léana Zorzetto<br/>
-        © 2024 Megève Studio Mamie
-      </p>
+
+    <div class="grid gap-12 md:grid-cols-3 text-center md:text-left max-w-5xl mx-auto">
+
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Légal</h3>
+        <ul class="space-y-3 font-light text-[14px] text-ivoire/65">
+          <li><a href="mentions-legales.html" class="hover:text-champagne transition-colors">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html" class="hover:text-champagne transition-colors">Politique de confidentialité</a></li>
+          <li><a href="cgv.html" class="hover:text-champagne transition-colors">CGV</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Crédits</h3>
+        <p class="font-light text-[14px] text-ivoire/65 leading-[1.9]">
+          Site développé par Julian Grégoire<br>
+          Design par Léana Zorzetto<br>
+          <span class="text-ivoire/40">© 2024 Mamie Megève</span>
+        </p>
+      </div>
+
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Contact</h3>
+        <p class="font-light text-[14px] text-ivoire/65 leading-[1.9]">
+          Hôtel Mamie Megève<br>
+          Route du Crêt, 74120 Megève<br>
+          <a href="mailto:didierriou29@gmail.com" class="hover:text-champagne transition-colors break-all">didierriou29@gmail.com</a>
+        </p>
+      </div>
+
     </div>
-    <div class="reveal">
-      <h3 class="font-cinzel text-sm mb-6 tracking-[.25em] text-miel/80">CONTACT</h3>
-      <p class="font-lora text-white/50 leading-relaxed text-[15px]">
-        Hôtel Mamie Megève<br/>
-        Route du Crêt, 74120 Megève<br/>
-        Email : didierriou29@gmail.com
-      </p>
+
+    <div class="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] kicker text-ivoire/40">
+      <span>— Megève · Mont Blanc —</span>
+      <span>Tous droits réservés</span>
     </div>
   </div>
 </footer>
 
-<!-- JS -->
+
+<!-- ============== JS ============== -->
 <script>
-  // Menu mobile with hamburger animation
+  // -- Mobile menu --
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('mobileMenu');
   btn?.addEventListener('click', () => {
-    const open = !menu.classList.contains('hidden');
+    const open = menu.classList.contains('hidden');
     menu.classList.toggle('hidden');
     btn.classList.toggle('active');
-    btn.setAttribute('aria-expanded', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
   });
-
-  // Close mobile menu on click
   menu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       menu.classList.add('hidden');
@@ -691,65 +919,52 @@
     });
   });
 
-  // Scroll progress bar
-  const progressBar = document.getElementById('scroll-progress');
-  function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    if (progressBar) progressBar.style.width = progress + '%';
-  }
-
-  // Header shrink on scroll
+  // -- Header scrolled state + progress bar --
   const header = document.querySelector('header');
-  const navEl = header?.querySelector('nav');
+  const progressBar = document.getElementById('scroll-progress');
   function onScroll() {
-    const scrolled = window.scrollY > 40;
-    header.classList.toggle('shadow-2xl', scrolled);
-    header.classList.toggle('bg-sapin/95', scrolled);
-    if (navEl) {
-      navEl.classList.toggle('h-16', scrolled);
-      navEl.classList.toggle('h-20', !scrolled);
-    }
-    updateProgress();
+    const scrolled = window.scrollY > 60;
+    header.classList.toggle('scrolled', scrolled);
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const p = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+    if (progressBar) progressBar.style.width = p + '%';
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Floating CTA visibility
+  // -- Floating mobile CTA visibility --
   const floatingCta = document.getElementById('floatingCta');
   const tarifsSection = document.getElementById('tarifs');
   if (floatingCta && tarifsSection) {
-    const ctaObserver = new IntersectionObserver(([entry]) => {
-      // Hide when tarifs section is visible, show otherwise once scrolled past hero
-      if (entry.isIntersecting || window.scrollY < window.innerHeight * 0.5) {
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting || window.scrollY < window.innerHeight * 0.6) {
         floatingCta.classList.remove('visible');
       } else {
         floatingCta.classList.add('visible');
       }
-    }, { threshold: 0.1 });
-    ctaObserver.observe(tarifsSection);
+    }, { threshold: 0.05 });
+    obs.observe(tarifsSection);
     window.addEventListener('scroll', () => {
-      if (window.scrollY < window.innerHeight * 0.5) {
+      if (window.scrollY < window.innerHeight * 0.6) {
         floatingCta.classList.remove('visible');
-      } else if (!tarifsSection.getBoundingClientRect || tarifsSection.getBoundingClientRect().top > window.innerHeight) {
+      } else if (tarifsSection.getBoundingClientRect().top > window.innerHeight) {
         floatingCta.classList.add('visible');
       }
     }, { passive: true });
   }
 
-  // Hero parallax effect (desktop only – skip on mobile for perf)
+  // -- Hero parallax (desktop) --
   const heroImg = document.getElementById('hero-img');
-  if (heroImg && window.matchMedia('(min-width: 640px)').matches) {
+  if (heroImg && window.matchMedia('(min-width: 768px)').matches) {
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y < window.innerHeight) {
-        heroImg.style.transform = 'translateY(' + (y * 0.2) + 'px)';
+        heroImg.style.transform = 'translateY(' + (y * 0.18) + 'px) scale(' + (1.04 + Math.min(y/3000, 0.04)) + ')';
       }
     }, { passive: true });
   }
 
-  // Reveal on scroll (supports .reveal, .reveal-left, .reveal-right, .stagger)
+  // -- Reveal on scroll --
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -757,82 +972,61 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => io.observe(el));
+  }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .stagger').forEach(el => io.observe(el));
 
-  // Active nav link highlight
+  // -- Active nav link --
   const navLinks = document.querySelectorAll('header nav a[href^="#"]');
   const sections = document.querySelectorAll('section[id]');
-  const navObserver = new IntersectionObserver((entries) => {
+  const navObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
-        navLinks.forEach(link => {
-          const isActive = link.getAttribute('href') === '#' + id;
-          link.classList.toggle('text-miel', isActive);
-          link.classList.toggle('after:w-full', isActive);
-        });
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
       }
     });
-  }, { threshold: .3, rootMargin: '-80px 0px -50% 0px' });
-  sections.forEach(s => navObserver.observe(s));
+  }, { threshold: .35, rootMargin: '-80px 0px -50% 0px' });
+  sections.forEach(s => navObs.observe(s));
 
-  // Carousel avec pastilles
+  // -- Lightbox --
   (function() {
-    const track = document.getElementById('photos-track');
-    const prev = document.getElementById('photos-prev');
-    const next = document.getElementById('photos-next');
-    if (!track) return;
+    const photos = Array.from(document.querySelectorAll('#gallery .photo'));
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-image');
+    const counter = document.getElementById('lb-counter');
+    if (!photos.length || !lb) return;
 
-    const containers = Array.from(track.children);
-    const count = containers.length;
-    let index = 0;
+    let current = 0;
 
-    // Dots
-    const dotsC = document.getElementById('photos-dots');
-    if (dotsC) {
-      containers.forEach((_, i) => {
-        const b = document.createElement('button');
-        b.className = 'h-2.5 w-2.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-miel w-8' : 'bg-gray-300 hover:bg-gray-400');
-        b.setAttribute('aria-label', 'Aller à la diapositive ' + (i + 1));
-        b.addEventListener('click', () => go(i));
-        dotsC.appendChild(b);
-      });
+    function open(idx) {
+      current = idx;
+      const img = photos[idx].querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      counter.textContent = (idx + 1) + ' / ' + photos.length;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
-    const dots = dotsC ? Array.from(dotsC.children) : [];
-
-    function step() { return track.clientWidth }
-    
-    function go(i) {
-      index = Math.max(0, Math.min(count - 1, i));
-      track.scrollTo({ left: index * step(), behavior: 'smooth' });
-      updateDots();
+    function close() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
     }
-    
-    function updateDots() {
-      dots.forEach((d, k) => {
-        if (k === index) {
-          d.className = 'h-2.5 rounded-full transition-all duration-300 bg-miel w-8';
-        } else {
-          d.className = 'h-2.5 w-2.5 rounded-full transition-all duration-300 bg-gray-300 hover:bg-gray-400';
-        }
-      });
+    function go(delta) {
+      current = (current + delta + photos.length) % photos.length;
+      open(current);
     }
 
-    prev?.addEventListener('click', () => go(index - 1));
-    next?.addEventListener('click', () => go(index + 1));
-
-    let t;
-    track.addEventListener('scroll', () => {
-      clearTimeout(t);
-      t = setTimeout(() => {
-        const s = step();
-        index = Math.round(track.scrollLeft / s);
-        updateDots();
-      }, 100);
+    photos.forEach((p, i) => p.addEventListener('click', (e) => { e.preventDefault(); open(i); }));
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.querySelector('.lb-prev').addEventListener('click', () => go(-1));
+    lb.querySelector('.lb-next').addEventListener('click', () => go(1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
     });
-    
-    addEventListener('resize', () => track.scrollTo({ left: index * step() }));
   })();
 </script>
 </body>
