@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Le Mont d'Arbois : le quartier le plus prestigieux de Megève | Mamie Megève</title>
+  <meta name="description" content="Le Mont d'Arbois à Megève : son histoire (Rothschild), son domaine skiable, ses adresses et son art de vivre. Le quartier emblématique où se niche le studio Mamie Megève." />
+  <meta name="keywords" content="Mont d'Arbois, quartier Princes Megève, Rothschild Megève, ski Mont d'Arbois, télécabine Mont d'Arbois" />
+
+  <meta property="og:title" content="Le Mont d'Arbois : le quartier le plus prestigieux de Megève" />
+  <meta property="og:description" content="Histoire et art de vivre du quartier emblématique de Megève." />
+  <meta property="og:image" content="image/immeuble.jpg" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ivoire:'#F7F2E8', neige:'#FBF8F1', creme:'#EFE7D6', ardoise:'#1F1F1F', graphite:'#3A3A3A', sapin:'#1E3A2E', sapinDark:'#142A21', mousse:'#3F5C4D', or:'#B58E5C', champagne:'#D4B996', bronze:'#8E6A3F', bois:'#6F4E32' },
+        fontFamily: { cinzel:['Cinzel','serif'], display:['"Cormorant Garamond"','serif'], sans:['Inter','system-ui','sans-serif'] },
+        container: { center:true, padding:{ DEFAULT:'1.25rem', sm:'1.75rem', lg:'3rem' } }
+      }}
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .display { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: -0.01em; }
+    .display-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; }
+    .kicker { font-family: 'Cinzel', serif; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; font-size: .72rem; }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, transparent, #B58E5C, #D4B996, #B58E5C, transparent); z-index: 100; width: 0%; transition: width .15s linear; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 30px; font-family:'Cinzel',serif; font-weight:500; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; transition: all .35s cubic-bezier(.22,1,.36,1); }
+    .btn-gold { background:linear-gradient(135deg,#B58E5C 0%,#C9A574 50%,#B58E5C 100%); color:#fff; border:1px solid #B58E5C; }
+    .btn-gold:hover { box-shadow: 0 14px 32px -12px rgba(181,142,92,.55); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color:#1F1F1F; border:1px solid rgba(31,31,31,.25); }
+    .btn-outline:hover { background:#1E3A2E; color:#F7F2E8; border-color:#1E3A2E; }
+
+    header { transition: background-color .5s ease, backdrop-filter .5s ease, border-color .5s ease; }
+    header.scrolled { background: rgba(20,42,33,.96); backdrop-filter: saturate(160%) blur(16px); border-bottom: 1px solid rgba(255,255,255,.08); }
+    header:not(.scrolled) { background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0)); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav-link { position: relative; padding:.35rem 0; transition: color .3s; }
+    .nav-link::after { content:''; position:absolute; left:0; bottom:-2px; height:1px; width:0; background:#D4B996; transition: width .35s ease; }
+    .nav-link:hover, .nav-link.active { color:#D4B996; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+    .reveal.inview { opacity: 1; transform: none; }
+    .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .stagger.inview > * { opacity: 1; transform: none; }
+    .stagger.inview > *:nth-child(1){transition-delay:0ms}
+    .stagger.inview > *:nth-child(2){transition-delay:120ms}
+    .stagger.inview > *:nth-child(3){transition-delay:240ms}
+    @media (prefers-reduced-motion: reduce) { .reveal,.stagger>* { opacity:1; transform:none; transition:none } }
+
+    .hamburger span { display:block; width:22px; height:1.5px; background:#fff; transition: all .3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px) }
+    .hamburger.active span:nth-child(2) { opacity: 0 }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px) }
+
+    .article-hero { height: 78vh; min-height: 540px; }
+    .article-hero img { animation: kenBurns 22s ease-in-out infinite alternate; }
+    @keyframes kenBurns { 0% { transform: scale(1.02) } 100% { transform: scale(1.10) translate(-1%, -1%) } }
+    .article-h1 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(2.5rem, 6.5vw, 5rem); line-height: 1.02; letter-spacing: -0.02em; }
+
+    .prose-article p { font-weight: 300; font-size: 17px; line-height: 1.85; color: #3A3A3A; margin-bottom: 1.4em; }
+    .prose-article h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.75rem, 3vw, 2.4rem); line-height: 1.15; color: #1F1F1F; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+    .prose-article h2 .ital { font-style: italic; color: #B58E5C; }
+    .prose-article h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.35rem; color: #1E3A2E; margin-top: 2.2rem; margin-bottom: .8rem; }
+    .prose-article ul { margin: 1.4rem 0 1.8rem; }
+    .prose-article ul li { display:flex; gap:.85rem; margin-bottom:.7rem; font-weight: 300; color: #3A3A3A; line-height: 1.7; }
+    .prose-article ul li::before { content:''; flex-shrink:0; width: 24px; height: 1px; background: #B58E5C; margin-top: .85rem; }
+    .prose-article strong { color: #1E3A2E; font-weight: 500; }
+    .prose-article a { color: #B58E5C; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .3s; }
+    .prose-article a:hover { color: #1E3A2E; }
+    .prose-article blockquote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.55rem; line-height: 1.5; color: #1F1F1F; margin: 2.5rem 0; padding-left: 1.8rem; border-left: 2px solid rgba(181,142,92,.4); }
+
+    .callout { background: linear-gradient(135deg, rgba(247,242,232,.6), rgba(239,231,214,.4)); border-left: 3px solid #B58E5C; padding: 1.8rem 2rem; margin: 2.5rem 0; }
+    .callout .callout-label { font-family: 'Cinzel', serif; letter-spacing: .3em; text-transform: uppercase; font-size: .68rem; color: #B58E5C; margin-bottom: .7rem; }
+    .callout p { margin: 0; font-size: 16px; }
+
+    .cross-link img { transition: transform .8s cubic-bezier(.22,1,.36,1); }
+    .cross-link:hover img { transform: scale(1.05); }
+    .cross-link h3 { transition: color .3s; }
+    .cross-link:hover h3 { color: #B58E5C; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: rgba(181,142,92,.18); border: 1px solid rgba(181,142,92,.18); margin: 3rem 0; }
+    .stat-row > div { background: #fff; padding: 1.5rem 1rem; text-align: center; }
+    .stat-row .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; line-height: 1; color: #1E3A2E; }
+    .stat-row .stat-lbl { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; color: #B58E5C; margin-top: .55rem; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; margin: 2rem 0 2.5rem; border-left: 1px solid rgba(181,142,92,.4); }
+    .timeline-item { position: relative; padding-bottom: 1.6rem; }
+    .timeline-item::before { content:''; position: absolute; left: -2.3rem; top: .5rem; width: 9px; height: 9px; background: #B58E5C; border-radius: 50%; }
+    .timeline-item .year { font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: #B58E5C; }
+    .timeline-item p { font-weight: 300; font-size: 16px; line-height: 1.7; color: #3A3A3A; margin: .35rem 0 0; }
+  </style>
+</head>
+
+<body class="bg-ivoire text-ardoise">
+
+<div id="scroll-progress"></div>
+
+<!-- HEADER -->
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav class="container h-20 flex items-center justify-between text-white">
+    <a href="index.html" class="flex items-center gap-3 group min-w-0">
+      <div class="h-11 w-11 border border-champagne/60 flex items-center justify-center font-cinzel text-base font-semibold text-champagne tracking-[.05em] shrink-0 group-hover:bg-champagne group-hover:text-sapinDark transition-all duration-500">M</div>
+      <div class="flex flex-col min-w-0 leading-none">
+        <span class="font-cinzel text-[15px] tracking-[.32em] uppercase truncate">Mamie Megève</span>
+        <span class="text-[10px] uppercase tracking-[.4em] text-champagne/70 mt-1 hidden sm:block">Studio · 4 Étoiles</span>
+      </div>
+    </a>
+    <ul class="hidden lg:flex items-center gap-6 xl:gap-7 font-sans text-[12px] xl:text-[13px] tracking-wider uppercase">
+      <li><a href="index.html#apropos" class="nav-link">Le Studio</a></li>
+      <li><a href="index.html#galerie" class="nav-link">Galerie</a></li>
+      <li><a href="index.html#equipements" class="nav-link">Confort</a></li>
+      <li><a href="index.html#localisation" class="nav-link">Accès</a></li>
+      <li><a href="index.html#activites" class="nav-link">Saisons</a></li>
+      <li><a href="index.html#guides" class="nav-link active">Guides</a></li>
+      <li><a href="index.html#avis" class="nav-link">Avis</a></li>
+    </ul>
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="index.html#tarifs" class="btn btn-gold !h-10 !px-6 !text-[11px]">Réserver</a>
+    </div>
+    <button id="menuBtn" class="hamburger lg:hidden p-2 flex flex-col gap-[6px] items-center justify-center h-10 w-10" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="lg:hidden hidden bg-sapinDark/98 backdrop-blur-xl border-t border-white/10">
+    <ul class="container py-10 text-white space-y-1 font-cinzel text-sm tracking-[.2em] uppercase">
+      <li><a href="index.html#apropos" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Le Studio</a></li>
+      <li><a href="index.html#galerie" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Galerie</a></li>
+      <li><a href="index.html#equipements" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Confort</a></li>
+      <li><a href="index.html#localisation" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Accès</a></li>
+      <li><a href="index.html#activites" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Saisons</a></li>
+      <li><a href="index.html#guides" class="block py-3.5 border-b border-white/8 text-champagne transition-colors">Guides</a></li>
+      <li><a href="index.html#avis" class="block py-3.5 border-b border-white/8 hover:text-champagne transition-colors">Avis</a></li>
+      <li class="pt-6"><a href="index.html#tarifs" class="btn btn-gold w-full text-center">Réserver</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="relative article-hero flex items-end overflow-hidden bg-ardoise">
+    <img src="image/immeuble.jpg" alt="Le Mont d'Arbois à Megève" class="absolute inset-0 w-full h-full object-cover object-center">
+    <div class="absolute inset-0 bg-gradient-to-b from-ardoise/55 via-ardoise/15 to-ardoise/85"></div>
+    <div class="hidden md:block absolute top-32 left-10 w-12 h-12 border-l border-t border-champagne/50 z-10"></div>
+    <div class="hidden md:block absolute top-32 right-10 w-12 h-12 border-r border-t border-champagne/50 z-10"></div>
+
+    <div class="container relative z-10 text-white pb-20 pt-40">
+      <nav class="kicker text-[10px] text-champagne/90 mb-8" aria-label="Fil d'Ariane">
+        <a href="index.html" class="hover:text-white transition-colors">Accueil</a>
+        <span class="opacity-40 mx-2">/</span>
+        <a href="index.html#guides" class="hover:text-white transition-colors">Guides</a>
+        <span class="opacity-40 mx-2">/</span>
+        <span class="text-white">Le Mont d'Arbois</span>
+      </nav>
+      <p class="kicker text-champagne mb-5">— Guide VI —</p>
+      <h1 class="article-h1 text-white max-w-4xl">
+        Le Mont d'Arbois,<br>
+        <span class="display-italic text-champagne">quartier d'élégance.</span>
+      </h1>
+      <p class="mt-7 max-w-2xl text-white/85 font-light text-lg leading-[1.7]">
+        Au-dessus du village, un nom qui résume à lui seul l'élégance mégevanne. Histoire, ski, art de vivre : visite du quartier le plus prestigieux de Megève — celui où se niche notre studio.
+      </p>
+    </div>
+  </section>
+
+  <!-- ARTICLE -->
+  <article class="py-20 sm:py-28">
+    <div class="container max-w-3xl prose-article reveal">
+
+      <p class="text-xl !leading-[1.75] !text-graphite/90 mb-10">
+        Pour comprendre Megève, il faut comprendre le <strong>Mont d'Arbois</strong>. C'est ici que tout a commencé dans les années 20, c'est ici que se concentrent aujourd'hui les hôtels les plus emblématiques, les pistes les plus mythiques et les chalets les plus discrètement somptueux. Un quartier où le temps semble couler plus lentement.
+      </p>
+
+      <h2>Une histoire <span class="ital">de Rothschild.</span></h2>
+      <p>
+        Le Mont d'Arbois moderne naît d'une vision : celle de la <strong>baronne Noémie de Rothschild</strong>. Dans les années 1920, lassée de Saint-Moritz, elle cherche un domaine français où développer une station digne de ce nom. Le baron Maurice, son mari, achète près de 800 hectares sur les pentes du Mont d'Arbois en 1923. C'est le début d'un projet qui va profondément marquer Megève.
+      </p>
+
+      <div class="timeline not-prose">
+        <div class="timeline-item">
+          <div class="year">1923</div>
+          <p>Acquisition du domaine du Mont d'Arbois par les Rothschild — 800 hectares de pentes alpines.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1933</div>
+          <p>Inauguration du <strong>premier téléphérique du Mont d'Arbois</strong>, l'un des tout premiers de France.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1936</div>
+          <p>Ouverture du <strong>Palace des Neiges</strong>, devenu plus tard l'Hôtel du Mont d'Arbois.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1964</div>
+          <p>Inauguration du <strong>Golf du Mont d'Arbois</strong>, conçu par Henry Cotton.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1968</div>
+          <p>Megève accueille certaines épreuves olympiques en marge de Grenoble 1968.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2017</div>
+          <p>Inauguration du <strong>Four Seasons Hotel Megève</strong> sur le domaine, après une restauration complète.</p>
+        </div>
+      </div>
+
+      <p>
+        Cette histoire continue d'irriguer le quartier. Plusieurs chalets historiques ont été préservés, l'<strong>architecture néo-savoyarde</strong> initiée par Henri-Jacques Le Même reste la règle, et la famille Rothschild reste discrètement liée au domaine.
+      </p>
+
+      <h2>Un domaine skiable <span class="ital">d'exception.</span></h2>
+      <p>
+        Côté ski, le <strong>massif du Mont d'Arbois</strong> est l'un des trois piliers du domaine Évasion Mont-Blanc. Il monte à 1 833 m au sommet du Mont d'Arbois, mais culmine plus haut encore via la liaison avec Saint-Gervais (Mont Joux à 1 955 m, puis l'Épaule à 2 100 m).
+      </p>
+      <p>
+        Ses caractéristiques en font le <strong>massif préféré des familles et des skieurs intermédiaires</strong> : pistes larges, ensoleillées, particulièrement bien préparées, et surtout cette <strong>vue directe sur la chaîne du Mont-Blanc</strong> qui en fait l'un des plus photographiés de France.
+      </p>
+
+      <div class="stat-row">
+        <div><div class="stat-num">1 833</div><div class="stat-lbl">m · Sommet</div></div>
+        <div><div class="stat-num">2 350</div><div class="stat-lbl">m · Aig. Croches</div></div>
+        <div><div class="stat-num">3</div><div class="stat-lbl">télécabines</div></div>
+        <div><div class="stat-num">~140</div><div class="stat-lbl">km de pistes</div></div>
+      </div>
+
+      <p>
+        L'accès se fait depuis trois portes principales : la <strong>télécabine du Mont d'Arbois</strong> (côté village), la <strong>télécabine de la Princesse</strong> (côté plaine, depuis Demi-Quartier) et la <strong>télécabine du Chamois</strong> (depuis le centre de Megève). Le studio Mamie Megève est à 1 minute à pied de la station du Mont d'Arbois.
+      </p>
+
+      <blockquote>
+        Du Mont d'Arbois, on n'a pas le Mont Blanc en toile de fond — on a le Mont Blanc en face, à portée de main.
+      </blockquote>
+
+      <h2>Le quartier <span class="ital">des Princes.</span></h2>
+      <p>
+        Au-dessus du village, à mi-chemin entre la place de l'Église et la station du Mont d'Arbois, s'étend le <strong>quartier des Princes</strong>. Son nom évoque les invités illustres qui y logeaient dans les années 30, dans des chalets que les Rothschild faisaient construire pour leur cercle. Aujourd'hui, c'est l'un des secteurs résidentiels les plus discrets et les plus prisés de Megève.
+      </p>
+      <p>
+        On y trouve un mélange harmonieux de <strong>chalets privés</strong>, de <strong>résidences hôtelières haut de gamme</strong> et de petits hôtels de charme — dont l'<strong>Hôtel Mamie Megève</strong>, où se trouve notre studio. Le quartier se distingue par son <strong>calme absolu</strong> : pas de circulation, peu de boutiques, une lumière préservée. Et pourtant, le centre du village comme les pistes sont accessibles à pied.
+      </p>
+
+      <h2>Adresses <span class="ital">& art de vivre.</span></h2>
+      <p>
+        Le Mont d'Arbois concentre plusieurs des <strong>institutions hôtelières et gastronomiques</strong> de Megève. Sans être exhaustif :
+      </p>
+      <ul>
+        <li>Le <strong>Four Seasons Hotel Megève</strong>, palace au cœur du domaine, ouvert hiver et été</li>
+        <li>L'<strong>Hôtel du Mont d'Arbois</strong>, l'historique chalet Rothschild, restauré dans son esprit d'origine</li>
+        <li>Le restaurant <strong>1920</strong> (★★ Michelin), table gastronomique du Four Seasons</li>
+        <li>Le <strong>Golf du Mont d'Arbois</strong>, parcours 18 trous d'altitude (ouvert en saison estivale)</li>
+        <li>L'<strong>Hôtel Mamie Megève</strong>, plus intimiste, dans le quartier des Princes</li>
+      </ul>
+
+      <p>
+        L'<strong>art de vivre du Mont d'Arbois</strong> se distingue de celui du village. Plus calme, plus contemplatif, davantage tourné vers la nature. C'est ici qu'on prend un bain de soleil sur la terrasse de son chalet, qu'on fait sa promenade quotidienne sur les <strong>chemins damés</strong>, qu'on lit un livre face aux Aravis. Le village reste à 13 minutes à pied — assez près pour s'y rendre quand on veut, assez loin pour qu'on ne l'entende pas.
+      </p>
+
+      <div class="callout">
+        <div class="callout-label">Pourquoi choisir ce quartier</div>
+        <p>Le quartier des Princes / Mont d'Arbois offre un <strong>compromis rare</strong> : la proximité immédiate des pistes (1 minute à pied), un calme absolu, et un accès facile au cœur du village. C'est précisément l'équilibre que le studio Mamie Megève vous propose.</p>
+      </div>
+
+      <h2>Pourquoi y <span class="ital">séjourner ?</span></h2>
+      <p>
+        Pour quatre raisons essentielles. <strong>L'accès aux pistes</strong> sans navette ni voiture, ce qui change réellement l'expérience d'une journée de ski. <strong>Le calme</strong>, qui rend les soirées particulièrement reposantes, surtout en haute saison. <strong>La vue</strong>, omniprésente dès qu'on s'élève un peu, sur la chaîne du Mont-Blanc et les Aravis. Et enfin <strong>la proximité du village</strong>, à pied ou en navette, sans contrainte.
+      </p>
+      <p>
+        Tout cela explique pourquoi le quartier est si recherché — et pourquoi, depuis près d'un siècle, on y revient. Ceux qui ont une fois séjourné au Mont d'Arbois ont du mal à choisir autre chose.
+      </p>
+
+      <h3>L'essentiel à retenir</h3>
+      <ul>
+        <li>Quartier historique fondé par les Rothschild dans les années 1920</li>
+        <li>Massif skiable culminant à 1 833 m, point d'accès au domaine Évasion Mont-Blanc</li>
+        <li>Concentre les hôtels et restaurants les plus emblématiques de Megève</li>
+        <li>Quartier des Princes : calme absolu, proximité directe des pistes, à 13 min à pied du village</li>
+        <li>Le studio Mamie Megève vous y accueille toute l'année, hiver comme été</li>
+      </ul>
+
+      <p class="text-graphite/70 italic mt-12">
+        Pour aller plus loin : explorez notre <a href="guide-megeve.html">guide complet du village</a> ou notre <a href="guide-ski-megeve.html">guide du domaine skiable</a>.
+      </p>
+
+    </div>
+  </article>
+
+
+  <!-- VOUS AIMEREZ AUSSI -->
+  <section class="py-20 sm:py-28 bg-neige">
+    <div class="container">
+      <div class="text-center mb-14 reveal">
+        <p class="kicker text-or mb-4">— Continuer la lecture —</p>
+        <h2 class="display text-3xl sm:text-4xl text-ardoise leading-tight">Autres guides</h2>
+      </div>
+      <div class="grid gap-8 md:grid-cols-3 reveal stagger">
+
+        <a href="guide-megeve.html" class="cross-link group block">
+          <div class="overflow-hidden mb-5"><img src="image/ville.jpg" alt="Le village" class="w-full aspect-[4/3] object-cover"></div>
+          <p class="kicker text-or text-[10px] mb-2">— Guide I —</p>
+          <h3 class="display text-2xl text-ardoise leading-tight">L'âme d'un village authentique</h3>
+        </a>
+
+        <a href="guide-ski-megeve.html" class="cross-link group block">
+          <div class="overflow-hidden mb-5"><img src="image/montagne.jpg" alt="Ski" class="w-full aspect-[4/3] object-cover"></div>
+          <p class="kicker text-or text-[10px] mb-2">— Guide II —</p>
+          <h3 class="display text-2xl text-ardoise leading-tight">Skier face au Mont Blanc</h3>
+        </a>
+
+        <a href="guide-restaurants-megeve.html" class="cross-link group block">
+          <div class="overflow-hidden mb-5"><img src="image/ville.jpg" alt="Restaurants" class="w-full aspect-[4/3] object-cover object-right"></div>
+          <p class="kicker text-or text-[10px] mb-2">— Guide V —</p>
+          <h3 class="display text-2xl text-ardoise leading-tight">Tables d'exception & adresses</h3>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+  <section class="py-20 sm:py-28 bg-ardoise text-ivoire text-center relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-[480px] w-[480px] bg-or/10 rounded-full blur-[140px]"></div>
+    <div class="absolute -bottom-40 -left-40 h-[420px] w-[420px] bg-sapin/40 rounded-full blur-[120px]"></div>
+    <div class="container relative reveal">
+      <p class="kicker text-champagne mb-5">— Le studio —</p>
+      <h2 class="display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mb-6">
+        Au cœur du<br><span class="display-italic text-champagne">Mont d'Arbois.</span>
+      </h2>
+      <p class="font-light max-w-xl mx-auto text-ivoire/70 leading-relaxed mb-10">
+        Notre studio se niche dans le quartier des Princes, à 1 minute des pistes du Mont d'Arbois, dans le calme absolu des hauteurs.
+      </p>
+      <a href="index.html#tarifs" class="btn btn-gold">Réserver — dès 115€</a>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="bg-sapinDark text-ivoire/80 relative overflow-hidden">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-or/40 to-transparent"></div>
+  <div class="container pt-20 pb-10">
+    <div class="text-center mb-16">
+      <div class="inline-flex flex-col items-center">
+        <div class="h-14 w-14 border border-champagne/60 flex items-center justify-center font-cinzel text-xl text-champagne">M</div>
+        <div class="mt-5 font-cinzel text-base tracking-[.32em] text-ivoire">Mamie Megève</div>
+        <div class="mt-1.5 kicker text-[10px] text-champagne/70">Studio · 4 Étoiles</div>
+      </div>
+    </div>
+    <div class="grid gap-12 md:grid-cols-3 text-center md:text-left max-w-5xl mx-auto">
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Légal</h3>
+        <ul class="space-y-3 font-light text-[14px] text-ivoire/65">
+          <li><a href="mentions-legales.html" class="hover:text-champagne transition-colors">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html" class="hover:text-champagne transition-colors">Politique de confidentialité</a></li>
+          <li><a href="cgv.html" class="hover:text-champagne transition-colors">CGV</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Crédits</h3>
+        <p class="font-light text-[14px] text-ivoire/65 leading-[1.9]">
+          Site développé par Julian Grégoire<br>
+          Design par Léana Zorzetto<br>
+          <span class="text-ivoire/40">© 2024 Mamie Megève</span>
+        </p>
+      </div>
+      <div>
+        <h3 class="kicker text-champagne text-[11px] mb-6">Contact</h3>
+        <p class="font-light text-[14px] text-ivoire/65 leading-[1.9]">
+          Hôtel Mamie Megève<br>
+          Route du Crêt, 74120 Megève<br>
+          <a href="mailto:didierriou29@gmail.com" class="hover:text-champagne transition-colors break-all">didierriou29@gmail.com</a>
+        </p>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] kicker text-ivoire/40">
+      <span>— Megève · Mont Blanc —</span>
+      <span>Tous droits réservés</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn?.addEventListener('click', () => {
+    const open = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.classList.toggle('active');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    menu.classList.add('hidden'); btn.classList.remove('active');
+  }));
+
+  const header = document.querySelector('header');
+  const progressBar = document.getElementById('scroll-progress');
+  function onScroll() {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar) progressBar.style.width = (docH > 0 ? (window.scrollY / docH) * 100 : 0) + '%';
+  }
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  const io = new IntersectionObserver((entries) => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('inview'); io.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
